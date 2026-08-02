@@ -29,3 +29,7 @@ export function getAllNews(): Promise<NewsItem[]> {
 export function getNewsList(): Promise<NewsItem[]> {
   return newsSource.getNewsList()
 }
+
+export function getNewsItemBySlug(slug: string): NewsItem | undefined {
+  return newsItems.find((item) => item.slug === slug)
+}

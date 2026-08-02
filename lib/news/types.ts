@@ -19,7 +19,11 @@ export type NewsItem = {
   /** True when href is an external URL. Defaults to false. */
   external?: boolean
   /** Slug for future internal detail pages. */
-  slug?: string
+  slug: string
+  /** Static body paragraphs migrated from the legacy News archive. */
+  body: string[]
+  /** Legacy article URL retained for migration reference only. */
+  originalUrl?: string
   /** Identifies the data origin for debugging / cache invalidation. */
   source?: "static"
 }
