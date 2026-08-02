@@ -21,14 +21,12 @@ export type NewsItem = {
   /** Slug for future internal detail pages. */
   slug?: string
   /** Identifies the data origin for debugging / cache invalidation. */
-  source?: "mock" | "wordpress"
+  source?: "static"
 }
 
 /**
  * Adapter interface for news sources.
- * The initial implementation uses static mock data;
- * a future WordPress REST API implementation can be swapped in
- * without changing any component code.
+ * TOP and the News index consume the same static source through this interface.
  */
 export interface NewsSource {
   getLatestNews(limit?: number): Promise<NewsItem[]>
