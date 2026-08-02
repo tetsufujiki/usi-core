@@ -46,7 +46,10 @@ export function OrbitalCore() {
         </div>
 
         {/* Center core */}
-        <div className="orbital-center" style={{ "--sel-color": selected.color, "--sel-soft": selected.colorSoft } as React.CSSProperties}>
+        <div
+          className="orbital-center"
+          style={{ "--sel-color": selected.color, "--sel-soft": selected.colorSoft } as React.CSSProperties}
+        >
           <p className="orbital-center-code">CREATIVE CORE</p>
           <p className="orbital-center-title">{selected.title}</p>
           <p className="orbital-center-dest">{selected.destination}</p>
@@ -75,13 +78,11 @@ export function OrbitalCore() {
                   type="button"
                   className="orbital-dot"
                   aria-pressed={isSelected}
+                  aria-label={isSelected ? `${g.title}へ進む` : `${g.title}を選択`}
                   onClick={() => handleDotTap(g)}
                 >
                   <span className="orbital-dot-core" aria-hidden="true" />
-                  <span className="orbital-dot-label">
-                    <span className="sr-only">{isSelected ? `${g.title}へ進む` : `${g.title}を選択`}</span>
-                    <span aria-hidden="true">{g.index}</span>
-                  </span>
+                  <span className="orbital-dot-label" aria-hidden="true">{g.index}</span>
                 </button>
               </div>
             </div>
@@ -90,33 +91,64 @@ export function OrbitalCore() {
       </div>
 
       {/* Gateway menu */}
-      <div className="gateway-menu" role="group" aria-label="入口メニュー">
+      <div className="gateway-menu" role="navigation" aria-label="入口メニュー">
         <ul className="gateway-grid">
           {gateways.map((g) => {
             const isSelected = g.id === selectedId
+            const sharedStyle = {
+              "--gw-color": g.color,
+              "--gw-soft": g.colorSoft,
+            } as React.CSSProperties
+            const sharedClass = `gateway-item${isSelected ? " is-selected" : ""}`
+
             return (
               <li key={g.id}>
-                <button
-                  type="button"
-                  className={`gateway-item${isSelected ? " is-selected" : ""}`}
-                  style={{ "--gw-color": g.color, "--gw-soft": g.colorSoft } as React.CSSProperties}
-                  aria-pressed={isSelected}
-                  onClick={() => setSelectedId(g.id)}
-                >
-                  <span className="gateway-index" aria-hidden="true">{g.index}</span>
-                  <span className="gateway-copy">
-                    <strong>{g.title}</strong>
-                    <small>{g.tagline}</small>
-                  </span>
-                  <span className="gateway-glow" aria-hidden="true" />
-                </button>
+                {g.external ? (
+                  <a
+                    href={g.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={sharedClass}
+                    style={sharedStyle}
+                    aria-current={isSelected ? "true" : undefined}
+                    onMouseEnter={() => setSelectedId(g.id)}
+                    onFocus={() => setSelectedId(g.id)}
+                  >
+                    <span className="gateway-index" aria-hidden="true">{g.index}</span>
+                    <span className="gateway-copy">
+                      <strong>{g.title}</strong>
+                      <small>{g.tagline}</small>
+                    </span>
+                    <span className="gateway-glow" aria-hidden="true" />
+                    <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
+                  </a>
+                ) : (
+                  <Link
+                    href={g.href}
+                    className={sharedClass}
+                    style={sharedStyle}
+                    aria-current={isSelected ? "page" : undefined}
+                    onMouseEnter={() => setSelectedId(g.id)}
+                    onFocus={() => setSelectedId(g.id)}
+                  >
+                    <span className="gateway-index" aria-hidden="true">{g.index}</span>
+                    <span className="gateway-copy">
+                      <strong>{g.title}</strong>
+                      <small>{g.tagline}</small>
+                    </span>
+                    <span className="gateway-glow" aria-hidden="true" />
+                  </Link>
+                )}
               </li>
             )
           })}
         </ul>
 
         {/* Selected destination + CTA */}
-        <div className="gateway-cta" style={{ "--gw-color": selected.color, "--gw-soft": selected.colorSoft } as React.CSSProperties}>
+        <div
+          className="gateway-cta"
+          style={{ "--gw-color": selected.color, "--gw-soft": selected.colorSoft } as React.CSSProperties}
+        >
           <div className="gateway-cta-copy">
             <p className="gateway-cta-title">{selected.title}</p>
             <p className="gateway-cta-dest">{selected.destination}</p>
@@ -124,6 +156,7 @@ export function OrbitalCore() {
           {selected.external ? (
             <a href={selected.href} target="_blank" rel="noopener noreferrer" className="gateway-cta-go">
               入口へ進む <span aria-hidden="true">↗</span>
+              <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
             </a>
           ) : (
             <Link href={selected.href} className="gateway-cta-go">
@@ -139,6 +172,7 @@ export function OrbitalCore() {
               <li key={l.href}>
                 <a href={l.href} target="_blank" rel="noopener noreferrer" className="gateway-aux-link">
                   {l.label} <span aria-hidden="true">↗</span>
+                  <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
                 </a>
               </li>
             ) : (
