@@ -343,6 +343,19 @@ export const archiveItems: ArchiveItem[] = [
     format: "Album",
     collectionTitle: "願い",
     genre: "Instrumental",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/ab/ad/54/abad5485-e306-8279-9fde-68485ae96900/4517331074922.jpg/600x600bf-60.jpg",
+    links: [
+      {
+        platform: "apple-music",
+        label: "Apple Music",
+        href: "https://music.apple.com/jp/album/%E9%A1%98%E3%81%84/1648415151",
+      },
+      {
+        platform: "spotify",
+        label: "Spotify",
+        href: "https://open.spotify.com/intl-ja/album/03u6QOTqwdkHj4r63oU7Lf?si=CL_d9jlET-OgaW8St4IV3w",
+      },
+    ],
   },
   {
     id: "hitoki-nakamura-inori",
