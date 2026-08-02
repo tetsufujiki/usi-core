@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { PageHeader } from "@/components/page-header"
 import { ExternalLink } from "@/components/external-link"
-import { companyProfile, relatedServices } from "@/lib/company"
+import { companyProfile, relatedServices, type CompanyField } from "@/lib/company"
 import { SITE_URL } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -16,6 +16,12 @@ export const metadata: Metadata = {
   },
 }
 
+function isCompanyHistory(
+  value: CompanyField["value"],
+): value is Extract<CompanyField["value"], Array<{ date: string; description: string }>> {
+  return Array.isArray(value) && value.length > 0 && typeof value[0] === "object"
+}
+
 export default function CompanyPage() {
   return (
     <div>
@@ -26,6 +32,30 @@ export default function CompanyPage() {
       />
 
       <div className="mx-auto flex max-w-4xl flex-col gap-14 px-4 py-12 md:px-6 md:py-16">
+        <section
+          aria-labelledby="identity-heading"
+          className="grid gap-6 md:grid-cols-[0.95fr_1.05fr] md:gap-10"
+        >
+          <div className="flex flex-col gap-2">
+            <p className="font-mono text-xs tracking-[0.25em] text-accent">CORE IDENTITY</p>
+            <h2
+              id="identity-heading"
+              className="text-2xl font-bold tracking-[-0.02em] text-foreground md:text-[28px] lg:whitespace-nowrap"
+            >
+              <span className="whitespace-nowrap">ユナイテッド</span>
+              <span className="whitespace-nowrap">スタジオ株式会社</span>
+            </h2>
+          </div>
+          <div className="flex max-w-2xl flex-col gap-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+            <p>
+              ユナイテッドスタジオは、音楽と表現に関わる複数の創作領域を、ひとつのシステムとして束ねる会社です。
+            </p>
+            <p>
+              レコーディング・楽曲制作、歌ってみた制作サポート、よさこい楽曲制作、アーティスト / クリエイター支援を通じて、作品が生まれ、残り、届いていくまでを支えています。
+            </p>
+          </div>
+        </section>
+
         {/* Profile */}
         <section aria-labelledby="profile-heading" className="flex flex-col gap-6">
           <h2
@@ -43,19 +73,27 @@ export default function CompanyPage() {
                 <dt className="w-28 shrink-0 text-sm font-medium text-muted-foreground">
                   {field.label}
                 </dt>
-                <dd
-                  className={`text-sm leading-relaxed ${
-                    field.todo ? "italic text-muted-foreground" : "text-foreground"
-                  }`}
-                >
-                  {field.todo ? "（準備中）" : field.value}
+                <dd className="text-sm leading-relaxed text-foreground">
+                  {isCompanyHistory(field.value) ? (
+                    <ol className="flex flex-col gap-3">
+                      {field.value.map((item) => (
+                        <li key={item.date} className="flex flex-col gap-0.5">
+                          <span className="font-mono text-xs tracking-[0.08em] text-muted-foreground">
+                            {item.date}
+                          </span>
+                          <span>{item.description}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  ) : Array.isArray(field.value)
+                    ? field.value.map((line) => (
+                        <span key={line} className="block">{line}</span>
+                      ))
+                    : field.value}
                 </dd>
               </div>
             ))}
           </dl>
-          <p className="text-xs text-muted-foreground">
-            一部の項目は確認中のため準備中と表示しています。
-          </p>
         </section>
 
         {/* Main site */}
@@ -66,14 +104,32 @@ export default function CompanyPage() {
           >
             MAIN SITE
           </h2>
-          <div className="rounded-xl border border-border bg-surface px-5 py-4">
-            <p className="text-sm text-foreground">
+          <ExternalLink
+            href={SITE_URL}
+            className="group flex min-h-11 flex-col gap-1 rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/60 [&>svg]:mt-1 [&>svg]:text-muted-foreground"
+            showIcon={false}
+          >
+            <span className="flex items-center gap-2 font-mono text-sm font-bold tracking-[0.1em] text-foreground group-hover:text-accent">
               United Studio Core / Hub
-              <span className="ml-3 font-mono text-xs text-muted-foreground">
-                {SITE_URL.replace("https://", "")}
-              </span>
-            </p>
-          </div>
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="size-3 text-muted-foreground"
+              >
+                <path d="M6.5 3.5H3.5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9.5" />
+                <path d="M9.5 2.5h4v4" />
+                <path d="M13.5 2.5 7 9" />
+              </svg>
+            </span>
+            <span className="font-mono text-xs text-muted-foreground">
+              {SITE_URL.replace("https://", "")}
+            </span>
+          </ExternalLink>
         </section>
 
         {/* Related services */}

@@ -73,7 +73,7 @@ export const gateways: Gateway[] = [
     id: "yosakoi",
     index: "03",
     title: "祭りをつくる",
-    tagline: "よさこい楽曲・演舞制作",
+    tagline: "よさこい楽曲制作",
     href: externalLinks.yosakoi,
     external: true,
     destination: "yosakoi.united-studio.com",
@@ -180,7 +180,7 @@ export const entryCards: EntryCard[] = [
   },
   {
     title: "祭りをつくる",
-    description: "よさこい楽曲・演舞制作",
+    description: "よさこい楽曲制作",
     href: externalLinks.yosakoi,
     external: true,
     code: "YOSAKOI",

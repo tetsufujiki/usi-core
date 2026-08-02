@@ -3,11 +3,11 @@ import { ExternalLink } from "@/components/external-link"
 import { externalLinks, SITE_TAGLINE } from "@/lib/site"
 
 const serviceLinks = [
-  { label: "Rec", href: externalLinks.rec },
   { label: "Utattemita", href: externalLinks.utattemita },
   { label: "Studio", href: externalLinks.studio },
-  { label: "Yosakoi", href: externalLinks.yosakoi },
+  { label: "Rec", href: externalLinks.rec },
   { label: "Reserve", href: externalLinks.reserve },
+  { label: "Yosakoi", href: externalLinks.yosakoi },
 ]
 
 export function SiteFooter() {
@@ -46,14 +46,6 @@ export function SiteFooter() {
                 className="inline-flex min-h-11 items-center rounded-md px-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
               >
                 Privacy
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/terms"
-                className="inline-flex min-h-11 items-center rounded-md px-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
-              >
-                Terms
               </Link>
             </li>
           </ul>

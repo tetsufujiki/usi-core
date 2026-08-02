@@ -1,25 +1,33 @@
 import { externalLinks } from "./site"
 
-/**
- * Company profile data.
- * TODO items are unconfirmed values — do not guess them.
- * Replace each TODO with the confirmed value before production launch.
- */
+/** Company profile data. */
+export type CompanyHistoryItem = {
+  date: string
+  description: string
+}
+
 export type CompanyField = {
   label: string
-  value: string
-  todo?: boolean
+  value: string | string[] | CompanyHistoryItem[]
 }
 
 export const companyProfile: CompanyField[] = [
   { label: "会社名", value: "ユナイテッドスタジオ株式会社（United Studio Inc.）" },
-  { label: "設立", value: "TODO: 設立年月日を確認して記載", todo: true },
-  { label: "所在地", value: "TODO: 所在地を確認して記載", todo: true },
-  { label: "代表", value: "TODO: 代表者名を確認して記載", todo: true },
+  {
+    label: "沿革",
+    value: [
+      { date: "2006年　2月", description: "世田谷区にてユナイテッドスタジオ株式会社を設立" },
+      { date: "2009年　6月", description: "本社を杉並区へ移転" },
+      { date: "2013年　12月", description: "本社を中野区へ移転" },
+      { date: "2020年　6月", description: "本社を板橋区へ移転" },
+    ],
+  },
+  { label: "所在地", value: ["東京都板橋区東坂下1-19-24", "志幸42シャンソン110号室"] },
+  { label: "役員", value: ["代表取締役　藤木 哲", "取締役　河井 剛二", "取締役　藤木 綾香"] },
   {
     label: "事業内容",
     value:
-      "レコーディング・楽曲制作、歌ってみた制作サポート、よさこい楽曲・演舞制作、アーティスト / クリエイター支援",
+      "レコーディングスタジオの運営、音楽制作、歌ってみた制作サポート、よさこい楽曲制作、アーティスト / クリエイター支援",
   },
 ]
 
@@ -41,9 +49,9 @@ export const relatedServices: RelatedService[] = [
     url: externalLinks.studio,
   },
   {
-    name: "Yosakoi",
-    description: "よさこい楽曲・演舞制作",
-    url: externalLinks.yosakoi,
+    name: "Rec",
+    description: "スタジオガイド・よくある質問",
+    url: externalLinks.rec,
   },
   {
     name: "Reserve",
@@ -51,8 +59,8 @@ export const relatedServices: RelatedService[] = [
     url: externalLinks.reserve,
   },
   {
-    name: "Rec",
-    description: "レコーディング料金・内容",
-    url: externalLinks.rec,
+    name: "Yosakoi",
+    description: "よさこい楽曲制作",
+    url: externalLinks.yosakoi,
   },
 ]
