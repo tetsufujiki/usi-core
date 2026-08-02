@@ -427,6 +427,19 @@ export const archiveItems: ArchiveItem[] = [
     format: "Album",
     collectionTitle: "Blue Moon",
     genre: "World",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music6/v4/6e/50/73/6e50731c-7f17-fa18-3096-16715e7587cf/849926035624.jpg/600x600bf-60.jpg",
+    links: [
+      {
+        platform: "apple-music",
+        label: "Apple Music",
+        href: "https://music.apple.com/jp/album/blue-moon/847598175",
+      },
+      {
+        platform: "spotify",
+        label: "Spotify",
+        href: "https://open.spotify.com/intl-ja/album/4FdpJhQFRvco0ZyCvTUGSb?si=R1TIt6bYSQiyY-sxcTh8mA",
+      },
+    ],
   },
   {
     id: "tetsu-fujiki-sound-soothe",
