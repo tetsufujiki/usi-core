@@ -399,6 +399,19 @@ export const archiveItems: ArchiveItem[] = [
     format: "CDbook",
     collectionTitle: "聞くだけで心も体も痛みが消えるソルフェジオ周波数CＤブック",
     genre: "Easy Listening",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/ca/6d/cd/ca6dcd3e-e502-590f-ee3f-1eb830fddd0a/PCSP_02388.jpg/600x600bf-60.jpg",
+    links: [
+      {
+        platform: "apple-music",
+        label: "Apple Music",
+        href: "https://music.apple.com/jp/album/%E8%81%9E%E3%81%8F%E3%81%A0%E3%81%91%E3%81%A7%E5%BF%83%E3%82%82%E4%BD%93%E3%82%82%E7%97%9B%E3%81%BF%E3%81%8C%E6%B6%88%E3%81%88%E3%82%8B%E3%82%BD%E3%83%AB%E3%83%95%E3%82%A7%E3%82%B8%E3%82%AA%E5%91%A8%E6%B3%A2%E6%95%B0cd%E3%83%96%E3%83%83%E3%82%AF-ep/1372652337",
+      },
+      {
+        platform: "spotify",
+        label: "Spotify",
+        href: "https://open.spotify.com/album/4YYOCNUJeIH4l1vbQG5eud?si=CvAmfUt1TWeoQXLx9xJSKA",
+      },
+    ],
   },
   {
     id: "tsukiyoi-blue-moon",
