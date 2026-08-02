@@ -21,7 +21,7 @@ export default async function HomePage() {
         <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-14 pt-10 md:px-6 lg:grid lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-12 lg:pb-20 lg:pt-16">
           <div className="flex flex-col items-start gap-5 lg:sticky lg:top-24 lg:pt-6">
             <p className="font-mono text-[10px] tracking-[0.28em] text-accent">{SITE_TAGLINE.toUpperCase()}</p>
-            <p className="text-xs tracking-[0.14em] text-muted-foreground">{SITE_NAME_JA}</p>
+            <p className="text-sm font-medium tracking-[0.12em] text-foreground/80 md:text-[15px]">{SITE_NAME_JA}</p>
             <h1
               id="core-heading"
               className="text-4xl font-bold leading-[1.14] tracking-[-0.03em] text-balance text-foreground md:text-5xl lg:text-6xl"

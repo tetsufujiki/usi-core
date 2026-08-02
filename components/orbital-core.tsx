@@ -5,11 +5,6 @@ import { useCallback, useState } from "react"
 import { useRouter } from "next/navigation"
 import { gateways, type Gateway } from "@/lib/site"
 
-const AUX_LINKS = [
-  { label: "Rec / 料金・内容を見る", href: "https://rec.united-studio.com", external: true },
-  { label: "News / Activity", href: "/news", external: false },
-]
-
 function navigateTo(gateway: Gateway, router: ReturnType<typeof useRouter>) {
   if (gateway.external) {
     window.open(gateway.href, "_blank", "noopener,noreferrer")
@@ -146,44 +141,28 @@ export function OrbitalCore() {
 
         {/* Selected destination + CTA */}
         <div
-          className="gateway-cta"
+          className="gateway-current"
+          aria-live="polite"
           style={{ "--gw-color": selected.color, "--gw-soft": selected.colorSoft } as React.CSSProperties}
         >
-          <div className="gateway-cta-copy">
-            <p className="gateway-cta-title">{selected.title}</p>
-            <p className="gateway-cta-dest">{selected.destination}</p>
-          </div>
-          {selected.external ? (
-            <a href={selected.href} target="_blank" rel="noopener noreferrer" className="gateway-cta-go">
-              入口へ進む <span aria-hidden="true">↗</span>
-              <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
-            </a>
-          ) : (
-            <Link href={selected.href} className="gateway-cta-go">
-              入口へ進む <span aria-hidden="true">→</span>
-            </Link>
-          )}
-        </div>
-
-        {/* Auxiliary links */}
-        <ul className="gateway-aux">
-          {AUX_LINKS.map((l) =>
-            l.external ? (
-              <li key={l.href}>
-                <a href={l.href} target="_blank" rel="noopener noreferrer" className="gateway-aux-link">
-                  {l.label} <span aria-hidden="true">↗</span>
-                  <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
-                </a>
-              </li>
+          <p className="gateway-current-label">CURRENT GATEWAY / 選択中の入口</p>
+          <div className="gateway-cta">
+            <div className="gateway-cta-copy">
+              <p className="gateway-cta-title">{selected.title}</p>
+              <p className="gateway-cta-dest">{selected.destination}</p>
+            </div>
+            {selected.external ? (
+              <a href={selected.href} target="_blank" rel="noopener noreferrer" className="gateway-cta-go">
+                入口へ進む <span aria-hidden="true">↗</span>
+                <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
+              </a>
             ) : (
-              <li key={l.href}>
-                <Link href={l.href} className="gateway-aux-link">
-                  {l.label} <span aria-hidden="true">→</span>
-                </Link>
-              </li>
-            ),
-          )}
-        </ul>
+              <Link href={selected.href} className="gateway-cta-go">
+                入口へ進む <span aria-hidden="true">→</span>
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )
