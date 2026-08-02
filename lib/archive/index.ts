@@ -320,6 +320,19 @@ export const archiveItems: ArchiveItem[] = [
     format: "Single",
     collectionTitle: "Life~上を向いて歩こう~",
     genre: "J-Pop",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ff/6d/f8/ff6df86c-80bf-a3e5-8422-75729ed66ad6/NOPA-5675.jpg/600x600bf-60.jpg",
+    links: [
+      {
+        platform: "apple-music",
+        label: "Apple Music",
+        href: "https://music.apple.com/jp/album/%E9%9D%92%E7%A9%BA%E3%81%AE%E3%83%91%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8/1735676868?i=1735676929",
+      },
+      {
+        platform: "spotify",
+        label: "Spotify",
+        href: "https://open.spotify.com/intl-ja/track/3EFS9RNay2kVlYJk6qkFBg?si=8b78b535d12b4677",
+      },
+    ],
   },
   {
     id: "kosai-hayashi-futaai",
