@@ -183,6 +183,19 @@ export const archiveItems: ArchiveItem[] = [
     format: "Album",
     collectionTitle: "生まれてから初めて見た夢",
     genre: "J-Pop",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/d1/31/03/d13103dc-f10e-bb88-cf0c-9b4dd21dfc8d/jacket_SRXX02309B00Z_550.jpg/600x600bf-60.jpg",
+    links: [
+      {
+        platform: "apple-music",
+        label: "Apple Music",
+        href: "https://music.apple.com/jp/album/rewind%E3%81%82%E3%81%AE%E6%97%A5/1537746569?i=1537746975",
+      },
+      {
+        platform: "spotify",
+        label: "Spotify",
+        href: "https://open.spotify.com/track/1sccUqPT76aB0jlN154MBE",
+      },
+    ],
     featured: true,
   },
   {
@@ -236,7 +249,6 @@ export const archiveItems: ArchiveItem[] = [
         href: "https://music.apple.com/jp/album/%E6%84%9B%E8%80%85-kanasha/1458080882",
       },
     ],
-    featured: true,
   },
   {
     id: "manami-komori-kyun-kyun-no-power",
