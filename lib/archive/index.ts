@@ -15,6 +15,7 @@ export type ArchiveCategory =
   | "arrangement-mix-mastering"
   | "mix-mastering"
   | "label"
+  | "licensing"
   | "sound-design"
 
 export const archiveCategoryLabels: Record<ArchiveCategory, string> = {
@@ -23,6 +24,7 @@ export const archiveCategoryLabels: Record<ArchiveCategory, string> = {
   "arrangement-mix-mastering": "編曲・ミックス・マスタリング",
   "mix-mastering": "ミックス・マスタリング",
   label: "自社レーベル",
+  licensing: "音楽ライセンス",
   "sound-design": "サウンド開発（企業案件）",
 }
 
@@ -569,6 +571,23 @@ export const archiveItems: ArchiveItem[] = [
         platform: "youtube",
         label: "YouTube",
         href: "https://www.youtube.com/watch?v=e4B2mhBFW9M",
+      },
+    ],
+  },
+  {
+    id: "marmoset-tetsu-artist-catalog",
+    title: "Marmoset Artist Catalog",
+    artist: "Tetsu",
+    label: "Marmoset",
+    workType: "licensing",
+    category: "licensing",
+    roles: ["作品提供"],
+    summary: "海外音楽ライブラリ Marmoset への作品提供・アーティスト掲載。",
+    links: [
+      {
+        platform: "official",
+        label: "Marmosetで見る",
+        href: "https://www.marmosetmusic.com/artists/tetsu",
       },
     ],
   },
