@@ -1,174 +1,81 @@
-import Link from "next/link"
-import { CreativeMap } from "@/components/creative-map"
-import { EntryCards } from "@/components/entry-cards"
-import { NewsList } from "@/components/news-list"
-import { ArchiveCard } from "@/components/archive-card"
-import { SectionHeading } from "@/components/section-heading"
-import { getLatestNews } from "@/lib/news"
-import { getFeaturedWorks } from "@/lib/archive"
-import { SITE_NAME_JA } from "@/lib/site"
+import Link from 'next/link'
+import { CreativeCore } from '@/components/creative-core'
+import { NewsList } from '@/components/news-list'
+import { ArchiveCard } from '@/components/archive-card'
+import { SectionHeading } from '@/components/section-heading'
+import { getLatestNews } from '@/lib/news'
+import { getFeaturedWorks } from '@/lib/archive'
+import { SITE_NAME_JA } from '@/lib/site'
 
 export default async function HomePage() {
   const latestNews = await getLatestNews(3)
   const featuredWorks = getFeaturedWorks(4)
 
   return (
-    <div className="flex flex-col">
-      {/* 1. HERO */}
-      <section
-        aria-label="ヒーロー"
-        className="relative overflow-hidden border-b border-border"
-      >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_-20%,rgba(103,226,245,0.12),transparent_60%),radial-gradient(ellipse_at_85%_110%,rgba(200,240,101,0.06),transparent_50%)]"
-        />
-        <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-24 text-center md:px-6 md:py-36">
-          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground">
-            {SITE_NAME_JA}
-          </p>
-          <p className="font-mono text-sm tracking-[0.15em] text-accent md:text-base">
-            United Studio is a creative system.
-          </p>
-          <h1 className="text-4xl font-bold leading-tight text-foreground text-balance md:text-6xl">
-            <span className="md:hidden">
-              創作の入口は、
-              <br />
-              ここから。
-            </span>
-            <span className="hidden md:inline">創作の入口は、ここから。</span>
-          </h1>
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground text-pretty md:text-base">
-            歌、音、祭り、作品、予約、相談。
-            <br />
-            それぞれの入口へ、ここからつながります。
-          </p>
-        </div>
-      </section>
-
-      {/* 2. Creative System Map */}
-      <section
-        id="map"
-        aria-labelledby="map-heading"
-        className="scroll-mt-20 border-b border-border"
-      >
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-16 md:px-6 md:py-24">
-          <div className="flex flex-col items-center gap-2 text-center">
-            <p className="font-mono text-[11px] tracking-[0.3em] text-accent">
-              CREATIVE SYSTEM MAP
+    <div className="home-shell flex flex-col">
+      <section id="map" aria-labelledby="core-heading" className="core-hero scroll-mt-20 border-b border-border">
+        <div className="core-grid" aria-hidden="true" />
+        <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col px-4 pb-10 pt-12 md:px-6 lg:grid lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-4 lg:py-12">
+          <div className="relative z-10 flex flex-col items-start gap-6 lg:pr-6">
+            <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.22em] text-muted-foreground">
+              <span>USI / CORE—01</span><span className="h-px w-10 bg-accent" /><span>SYSTEM ACTIVE</span>
+            </div>
+            <p className="font-mono text-xs tracking-[0.24em] text-accent">{SITE_NAME_JA}</p>
+            <h1 id="core-heading" className="max-w-xl text-5xl font-bold leading-[0.96] tracking-[-0.055em] text-balance text-foreground md:text-7xl lg:text-[5.5rem]">
+              創作の入口を、<br />ひとつの中枢へ。
+            </h1>
+            <p className="max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
+              歌、音、祭り、作品、予約、相談。United Studioは、異なる創作活動をつなぎ、動かし、記録するクリエイティブ・システムです。
             </p>
-            <h2
-              id="map-heading"
-              className="text-2xl font-bold text-foreground text-balance md:text-3xl"
-            >
-              創作の中枢と、それぞれの入口
-            </h2>
+            <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
+              <span className="status-dot" aria-hidden="true" /> SELECT A GATEWAY
+            </div>
           </div>
-          <CreativeMap />
+          <CreativeCore />
         </div>
       </section>
 
-      {/* 3. Entry Cards */}
-      <section
-        aria-labelledby="entry-heading"
-        className="border-b border-border"
-      >
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-16 md:px-6 md:py-24">
-          <SectionHeading id="entry-heading" code="ENTRY" title="入口を選ぶ" />
-          <EntryCards />
-        </div>
-      </section>
-
-      {/* 4. Latest News */}
-      <section
-        aria-labelledby="news-heading"
-        className="border-b border-border"
-      >
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-16 md:px-6 md:py-24">
-          <div className="flex items-end justify-between gap-4">
-            <SectionHeading
-              id="news-heading"
-              code="ACTIVITY"
-              title="Latest News"
-            />
-            <Link
-              href="/news"
-              className="flex min-h-11 items-center gap-1 whitespace-nowrap font-mono text-xs tracking-[0.15em] text-accent transition-colors hover:text-foreground"
-            >
-              ALL NEWS →
-            </Link>
+      <section aria-labelledby="news-heading" className="home-panel border-b border-border">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-16 md:px-6 lg:grid-cols-[0.35fr_1fr] lg:py-24">
+          <div className="flex flex-col gap-4">
+            <SectionHeading id="news-heading" code="ACTIVITY SIGNAL" title="いま、動いていること" />
+            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">創作システムから届く、小さな活動信号。</p>
+            <Link href="/news" className="system-link">ALL SIGNALS <span aria-hidden="true">↗</span></Link>
           </div>
           <NewsList items={latestNews} />
         </div>
       </section>
 
-      {/* 5. Selected Archive */}
-      <section
-        aria-labelledby="archive-heading"
-        className="border-b border-border"
-      >
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-16 md:px-6 md:py-24">
-          <div className="flex items-end justify-between gap-4">
-            <SectionHeading
-              id="archive-heading"
-              code="WORKS"
-              title="Selected Archive"
-            />
-            <Link
-              href="/archive"
-              className="flex min-h-11 items-center gap-1 whitespace-nowrap font-mono text-xs tracking-[0.15em] text-accent transition-colors hover:text-foreground"
-            >
-              ALL WORKS →
-            </Link>
+      <section aria-labelledby="archive-heading" className="home-panel border-b border-border">
+        <div className="mx-auto flex max-w-7xl flex-col gap-10 px-4 py-16 md:px-6 lg:py-24">
+          <div className="flex flex-col items-start justify-between gap-5 md:flex-row md:items-end">
+            <SectionHeading id="archive-heading" code="WORKS MEMORY" title="記憶された創作" />
+            <Link href="/archive" className="system-link">OPEN ARCHIVE <span aria-hidden="true">↗</span></Link>
           </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredWorks.map((work) => (
-              <ArchiveCard key={work.id} work={work} />
-            ))}
+          <div className="grid grid-cols-1 gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {featuredWorks.map((work) => <ArchiveCard key={work.id} work={work} />)}
           </div>
         </div>
       </section>
 
-      {/* 6. Company summary */}
-      <section
-        aria-labelledby="company-heading"
-        className="border-b border-border"
-      >
-        <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-16 md:flex-row md:items-center md:justify-between md:px-6 md:py-24">
-          <div className="flex max-w-xl flex-col gap-4">
-            <SectionHeading
-              id="company-heading"
-              code="COMPANY"
-              title="ユナイテッドスタジオ株式会社"
-            />
-            <p className="text-sm leading-relaxed text-muted-foreground text-pretty">
-              レコーディング・楽曲制作、歌ってみた制作サポート、よさこい楽曲・演舞制作、アーティスト /
-              クリエイター支援。複数の創作の入口をひとつのシステムとして束ねています。
-            </p>
+      <section aria-labelledby="identity-heading" className="home-panel border-b border-border">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 md:px-6 lg:grid-cols-2 lg:py-24">
+          <SectionHeading id="identity-heading" code="CORE IDENTITY" title="ユナイテッドスタジオ株式会社" />
+          <div className="flex max-w-xl flex-col items-start gap-6">
+            <p className="text-lg leading-relaxed text-foreground">ひとつの専門領域に閉じず、複数の創作の入口をひとつのシステムとして束ねる会社です。</p>
+            <p className="text-sm leading-relaxed text-muted-foreground">レコーディング・楽曲制作、歌ってみた制作サポート、よさこい楽曲・演舞制作、アーティスト / クリエイター支援。</p>
+            <Link href="/company" className="system-link">VIEW COMPANY <span aria-hidden="true">↗</span></Link>
           </div>
-          <Link
-            href="/company"
-            className="flex min-h-11 items-center rounded-lg border border-border bg-surface px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent/60"
-          >
-            会社概要を見る
-          </Link>
         </div>
       </section>
 
-      {/* 7. Contact */}
-      <section aria-labelledby="contact-heading">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-16 text-center md:px-6 md:py-24">
-          <SectionHeading id="contact-heading" code="CONTACT" title="相談する" />
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground text-pretty">
-            歌ってみた、よさこい制作、会社・業務のご相談。
-            用途に合わせた窓口へご案内します。
-          </p>
-          <Link
-            href="/contact"
-            className="flex min-h-11 items-center rounded-lg bg-accent px-8 py-3 text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90"
-          >
-            お問い合わせへ
-          </Link>
+      <section aria-labelledby="contact-heading" className="next-action">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 py-16 md:flex-row md:items-end md:px-6 lg:py-24">
+          <div className="flex max-w-2xl flex-col gap-5">
+            <p className="font-mono text-[10px] tracking-[0.26em] text-accent">NEXT ACTION / CONTACT</p>
+            <h2 id="contact-heading" className="text-4xl font-bold tracking-[-0.04em] text-balance md:text-6xl">次の創作を、ここから。</h2>
+          </div>
+          <Link href="/contact" className="action-button">相談をはじめる <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
     </div>
