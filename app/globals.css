@@ -285,6 +285,75 @@ body { background: var(--background); color: var(--foreground); font-family: var
 .archive-card { transition-property: box-shadow, transform; transition-duration: 200ms; }
 .archive-card:hover { box-shadow: 0 6px 28px rgba(35, 44, 59, 0.09), 0 1px 4px rgba(35, 44, 59, 0.06); transform: translateY(-2px); }
 .archive-card-home { border-radius: 0; border: 0; box-shadow: none; }
+.archive-youtube-preview {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-soft);
+  background: linear-gradient(135deg, #f5f0e8, #eaf1f6 58%, #f7eceb);
+}
+.archive-youtube-preview iframe,
+.archive-youtube-play {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.archive-youtube-play {
+  display: block;
+  cursor: pointer;
+  overflow: hidden;
+  background: transparent;
+  padding: 0;
+}
+.archive-youtube-play img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 220ms ease, transform 300ms ease;
+}
+.archive-youtube-wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(35,44,59,.24), transparent 48%), radial-gradient(circle at center, rgba(250,247,241,.12), transparent 52%);
+}
+.archive-youtube-play-icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border: 1px solid rgba(60,111,183,.38);
+  border-radius: 999px;
+  background: rgba(250,247,241,.9);
+  box-shadow: 0 8px 26px rgba(35,44,59,.14), 0 0 28px rgba(60,111,183,.12);
+  color: var(--accent);
+  font-size: 17px;
+  padding-left: 3px;
+  transform: translate(-50%, -50%);
+  transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+.archive-youtube-caption {
+  position: absolute;
+  right: 14px;
+  bottom: 11px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: .16em;
+  color: rgba(255,255,255,.9);
+  text-shadow: 0 1px 8px rgba(35,44,59,.4);
+}
+.archive-youtube-play:hover img { filter: brightness(1.06); transform: scale(1.015); }
+.archive-youtube-play:hover .archive-youtube-play-icon,
+.archive-youtube-play:focus-visible .archive-youtube-play-icon {
+  background: var(--surface);
+  box-shadow: 0 10px 30px rgba(35,44,59,.16), 0 0 34px rgba(60,111,183,.2);
+  transform: translate(-50%, -50%) scale(1.06);
+}
 .archive-artwork {
   position: relative;
   aspect-ratio: 16 / 10;

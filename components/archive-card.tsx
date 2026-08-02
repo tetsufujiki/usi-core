@@ -1,5 +1,6 @@
 import type { ArchiveItem } from "@/lib/archive"
 import { archiveCategoryLabels, archiveWorkTypeLabels } from "@/lib/archive"
+import { ArchiveYouTubePreview } from "@/components/archive-youtube-preview"
 
 type ArchiveCardProps = {
   work: ArchiveItem
@@ -11,13 +12,16 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
   const workTypeLabel = archiveWorkTypeLabels[work.workType]
   const subject = work.artist ?? work.client ?? work.label ?? "United Studio"
   const isFeatured = variant === "featured"
+  const youtubeLink = work.links?.find((link) => link.platform === "youtube")
 
   return (
     <article
       className={`archive-card archive-card-${variant} flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-sm`}
       aria-labelledby={`archive-${variant}-${work.id}`}
     >
-      {variant !== "index" && (
+      {youtubeLink ? (
+        <ArchiveYouTubePreview title={`${subject}「${work.title}」`} url={youtubeLink.href} />
+      ) : variant !== "index" && (
         <div className="archive-artwork" aria-hidden={!work.artwork}>
           {work.artwork ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -68,7 +72,7 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
                   </span>
                 ) : (
                   <a href={link.href} target="_blank" rel="noopener noreferrer" className="archive-platform-link">
-                    {link.label}<span aria-hidden="true">↗</span>
+                    {link.platform === "youtube" ? "YouTubeで開く" : link.label}<span aria-hidden="true">↗</span>
                     <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
                   </a>
                 )}
