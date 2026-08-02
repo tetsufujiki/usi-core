@@ -429,6 +429,18 @@ export const archiveItems: ArchiveItem[] = [
     format: "Playlist",
     collectionTitle: "Sound Soothe",
     genre: "New Age",
+    links: [
+      {
+        platform: "spotify",
+        label: "Spotify",
+        href: "https://open.spotify.com/playlist/2jfQEa71XybHw3wlVSGkh3",
+      },
+      {
+        platform: "youtube",
+        label: "YouTube",
+        href: "https://www.youtube.com/watch?v=lPseW5XCtVg",
+      },
+    ],
   },
   {
     id: "mayumi-nagayoshi-noto-no-uta",
