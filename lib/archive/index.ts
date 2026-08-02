@@ -292,6 +292,19 @@ export const archiveItems: ArchiveItem[] = [
     format: "Album",
     collectionTitle: "ユ・メ・ノ・チ・カ・ラ",
     genre: "J-Pop",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ff/6d/f8/ff6df86c-80bf-a3e5-8422-75729ed66ad6/NOPA-5675.jpg/600x600bf-60.jpg",
+    links: [
+      {
+        platform: "apple-music",
+        label: "Apple Music",
+        href: "https://music.apple.com/jp/album/%E3%81%9D%E3%82%8C%E3%81%AF-%E3%81%84%E3%81%A4%E3%81%8B-%E5%92%B2%E3%81%8F%E6%97%A5%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AB/1735676868?i=1735676928",
+      },
+      {
+        platform: "spotify",
+        label: "Spotify",
+        href: "https://open.spotify.com/intl-ja/track/3vx1dpmX9pLjERkrLsvQf0?si=3d034779e0f5467a",
+      },
+    ],
   },
   {
     id: "manami-komori-aozora-no-passage",
