@@ -1,44 +1,65 @@
 import type { NewsItem } from "./types"
 
 /**
- * Mock news data.
- * Replace with the WordPress REST API adapter when the CMS integration begins.
+ * Mock news data — Phase 1 placeholder.
+ * Replace / supplement with the WordPress REST API adapter when CMS integration begins.
+ *
+ * Future WP REST API endpoint:
+ *   https://cms.united-studio.com/wp-json/wp/v2/posts
+ * (pre-migration validation):
+ *   https://united-studio.com/wp-json/wp/v2/posts
  */
 export const mockNews: NewsItem[] = [
   {
-    id: "2026-07-1",
+    id: "core-launch",
     title: "united-studio.com Core / Hubサイトを公開しました",
-    date: "2026-07-28",
-    category: "info",
+    date: "2026-08-02",
+    category: "company",
+    href: "/news",
+    source: "mock",
   },
   {
-    id: "2026-07-2",
+    id: "utattemita-launch",
+    title: "歌ってみた制作サイトを公開しました",
+    date: "2026-08-01",
+    category: "utattemita",
+    href: "https://utattemita.united-studio.com",
+    external: true,
+    source: "mock",
+  },
+  {
+    id: "reserve-renewal",
+    title: "スタジオ予約システムをリニューアルしました",
+    date: "2026-08-01",
+    category: "reserve",
+    href: "https://reserve.united-studio.com",
+    external: true,
+    source: "mock",
+  },
+  {
+    id: "yosakoi-2026",
     title: "よさこい2026シーズンの楽曲制作受付を開始しました",
     date: "2026-07-15",
-    category: "release",
+    category: "yosakoi",
+    href: "https://yosakoi.united-studio.com",
+    external: true,
+    source: "mock",
   },
   {
-    id: "2026-06-1",
-    title: "スタジオ予約システムをリニューアルしました",
-    date: "2026-06-30",
-    category: "info",
-  },
-  {
-    id: "2026-06-2",
-    title: "歌ってみたミックスプランを更新しました",
-    date: "2026-06-12",
-    category: "release",
-  },
-  {
-    id: "2026-05-1",
+    id: "studio-equipment",
     title: "レコーディングスタジオの機材を増強しました",
     date: "2026-05-20",
-    category: "info",
+    category: "studio",
+    href: "https://studio.united-studio.com",
+    external: true,
+    source: "mock",
   },
   {
-    id: "2026-04-1",
+    id: "partner-2026",
     title: "2026年度の制作パートナー募集を開始しました",
     date: "2026-04-08",
-    category: "event",
+    category: "company",
+    href: "/contact",
+    source: "mock",
   },
 ]
