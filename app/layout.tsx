@@ -61,6 +61,8 @@ export default function RootLayout({
       className={`${zenKaku.variable} ${geistMono.variable} h-full bg-background antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
+        <OrganizationJsonLd />
+        <WebSiteJsonLd />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-primary-foreground"
