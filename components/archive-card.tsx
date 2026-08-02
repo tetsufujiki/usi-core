@@ -21,7 +21,11 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
       aria-labelledby={`archive-${variant}-${work.id}`}
     >
       {youtubeLink ? (
-        <ArchiveYouTubePreview title={`${subject}「${work.title}」`} url={youtubeLink.href} />
+        <ArchiveYouTubePreview
+          title={`${subject}「${work.title}」`}
+          url={youtubeLink.href}
+          thumbnailUrl={work.artwork}
+        />
       ) : hasArtworks ? (
         <div className="archive-card-media archive-artworks">
           {work.artworks?.map((artwork) => (

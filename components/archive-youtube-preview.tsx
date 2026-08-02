@@ -6,11 +6,13 @@ import { getYouTubeVideoId } from "@/lib/archive/youtube"
 type ArchiveYouTubePreviewProps = {
   title: string
   url: string
+  thumbnailUrl?: string
 }
 
 export function ArchiveYouTubePreview({
   title,
   url,
+  thumbnailUrl,
 }: ArchiveYouTubePreviewProps) {
   const [isPlaying, setIsPlaying] = useState(false)
   const videoId = getYouTubeVideoId(url)
@@ -37,7 +39,7 @@ export function ArchiveYouTubePreview({
           {/* The button label already describes this decorative thumbnail. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+            src={thumbnailUrl ?? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
             alt=""
             loading="lazy"
             decoding="async"

@@ -429,6 +429,7 @@ export const archiveItems: ArchiveItem[] = [
     format: "Playlist",
     collectionTitle: "Sound Soothe",
     genre: "New Age",
+    artwork: "https://mosaic.scdn.co/300/ab67616d00001e0239881e42aff504a9b170240bab67616d00001e023f400bcc6f99f6cf31aedbd8ab67616d00001e027ce6c2c31c669dedffaae164ab67616d00001e029ed858cf527bca5a14cdec91",
     links: [
       {
         platform: "spotify",
