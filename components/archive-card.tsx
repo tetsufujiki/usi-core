@@ -14,6 +14,7 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
   const isFeatured = variant === "featured"
   const youtubeLink = work.links?.find((link) => link.platform === "youtube")
   const hasArtworks = work.artworks && work.artworks.length > 0
+  const containsArtwork = work.artworks?.some((artwork) => artwork.fit === "contain")
 
   return (
     <article
@@ -27,7 +28,9 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
           thumbnailUrl={work.artwork}
         />
       ) : hasArtworks ? (
-        <div className="archive-card-media archive-artworks">
+        <div
+          className={`archive-card-media archive-artworks${containsArtwork ? " archive-artworks-contain" : ""}`}
+        >
           {work.artworks?.map((artwork) => (
             <figure key={artwork.src} className="archive-artwork-tile">
               {artwork.href ? (
@@ -39,12 +42,20 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
                   aria-label={`${artwork.label ?? artwork.alt} の販売ページを開く`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={artwork.src} alt={artwork.alt} />
+                  <img
+                    className={artwork.fit === "contain" ? "archive-artwork-image-contain" : undefined}
+                    src={artwork.src}
+                    alt={artwork.alt}
+                  />
                   <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
                 </a>
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={artwork.src} alt={artwork.alt} />
+                <img
+                  className={artwork.fit === "contain" ? "archive-artwork-image-contain" : undefined}
+                  src={artwork.src}
+                  alt={artwork.alt}
+                />
               )}
               {artwork.label && <figcaption>{artwork.label}</figcaption>}
             </figure>

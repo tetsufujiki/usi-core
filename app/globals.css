@@ -379,6 +379,9 @@ body { background: var(--background); color: var(--foreground); font-family: var
 }
 .archive-artwork-link { display: block; width: 100%; height: 100%; }
 .archive-artwork-tile img { width: 100%; height: 100%; object-fit: cover; }
+.archive-artworks-contain { gap: 12px; padding-inline: 16px; }
+.archive-artwork-tile:has(.archive-artwork-image-contain) { background: #fff; }
+.archive-artwork-tile img.archive-artwork-image-contain { object-fit: contain; }
 .archive-artwork-link:hover img { filter: brightness(1.05); transform: scale(1.018); }
 .archive-artwork-link:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
 .archive-artwork-tile figcaption {

@@ -69,6 +69,8 @@ export type ArchiveArtwork = {
   alt: string
   label?: string
   href?: string
+  /** Preserve the entire source image inside the card media frame. */
+  fit?: "cover" | "contain"
 }
 
 export type ArchiveItem = {
@@ -540,6 +542,20 @@ export const archiveItems: ArchiveItem[] = [
     roles: ["サウンド開発", "音楽制作", "効果音制作"],
     summary: "パチスロ向けの音楽・効果音制作。",
     format: "Corporate",
+    artworks: [
+      {
+        src: "/archive/pachislot-lupin-machine.jpg",
+        alt: "株式会社オリンピア様 / サミー株式会社様 パチスロ音楽・効果音：俺の名はルパン三世 筐体",
+        label: "俺の名はルパン三世",
+        fit: "contain",
+      },
+      {
+        src: "/archive/pachislot-inoki-machine.jpg",
+        alt: "株式会社オリンピア様 / サミー株式会社様 パチスロ音楽・効果音：アントニオ猪木も燃えるパチスロ機 筐体",
+        label: "アントニオ猪木も燃えるパチスロ機",
+        fit: "contain",
+      },
+    ],
   },
   {
     id: "tbs-audio-production",
