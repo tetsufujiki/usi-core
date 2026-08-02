@@ -64,6 +64,12 @@ export type ArchivePlatformLink = {
   href: string
 }
 
+export type ArchiveArtwork = {
+  src: string
+  alt: string
+  label?: string
+}
+
 export type ArchiveItem = {
   id: string
   title: string
@@ -81,6 +87,7 @@ export type ArchiveItem = {
   genre?: string
   links?: ArchivePlatformLink[]
   artwork?: string
+  artworks?: ArchiveArtwork[]
   /** @deprecated Use links for one or more destinations. */
   externalUrl?: string
   featured?: boolean
@@ -268,6 +275,18 @@ export const archiveItems: ArchiveItem[] = [
     format: "Album",
     collectionTitle: "二藍",
     genre: "Traditional",
+    artworks: [
+      {
+        src: "https://items-images-production.s3.us-west-2.amazonaws.com/files/d5046eb4eac91cb35ad4272b4481d901a1303590/original.jpeg",
+        alt: "林煌彩『二藍』DISC1 Indigo ジャケット",
+        label: "DISC1 Indigo",
+      },
+      {
+        src: "https://items-images-production.s3.us-west-2.amazonaws.com/files/fab66f7e3847a3042b2501f98ee6c03f1ae7f6b2/original.jpeg",
+        alt: "林煌彩『二藍』DISC2 Crimson ジャケット",
+        label: "DISC2 Crimson",
+      },
+    ],
     links: [
       { platform: "official", label: "DISC1を購入", href: "https://square.link/u/ON2t6pwA?src=embed" },
       { platform: "official", label: "DISC2を購入", href: "https://square.link/u/uDbUqeKF?src=embed" },

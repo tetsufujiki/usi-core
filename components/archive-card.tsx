@@ -13,6 +13,7 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
   const subject = work.artist ?? work.client ?? work.label ?? "United Studio"
   const isFeatured = variant === "featured"
   const youtubeLink = work.links?.find((link) => link.platform === "youtube")
+  const hasArtworks = work.artworks && work.artworks.length > 0
 
   return (
     <article
@@ -21,8 +22,18 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
     >
       {youtubeLink ? (
         <ArchiveYouTubePreview title={`${subject}「${work.title}」`} url={youtubeLink.href} />
+      ) : hasArtworks ? (
+        <div className="archive-card-media archive-artworks">
+          {work.artworks?.map((artwork) => (
+            <figure key={artwork.src} className="archive-artwork-tile">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={artwork.src} alt={artwork.alt} />
+              {artwork.label && <figcaption>{artwork.label}</figcaption>}
+            </figure>
+          ))}
+        </div>
       ) : variant !== "index" && (
-        <div className="archive-artwork" aria-hidden={!work.artwork}>
+        <div className="archive-card-media archive-artwork" aria-hidden={!work.artwork}>
           {work.artwork ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={work.artwork} alt={`${subject}「${work.title}」のアートワーク`} />

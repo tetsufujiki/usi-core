@@ -18,7 +18,7 @@ export function ArchiveYouTubePreview({
   if (!videoId) return null
 
   return (
-    <div className="archive-youtube-preview">
+    <div className="archive-card-media archive-youtube-preview">
       {isPlaying ? (
         <iframe
           src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
