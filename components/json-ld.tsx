@@ -1,43 +1,62 @@
-import { SITE_NAME, SITE_NAME_JA, SITE_URL, externalLinks } from "@/lib/site"
+import { SITE_DESCRIPTION, SITE_NAME, SITE_NAME_JA, SITE_TITLE, SITE_URL, externalLinks } from "@/lib/site"
 
-const organizationSchema = {
+const siteSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: SITE_NAME_JA,
-  alternateName: SITE_NAME,
-  url: SITE_URL,
-  logo: `${SITE_URL}/og.png`,
-  sameAs: [
-    externalLinks.utattemita,
-    externalLinks.studio,
-    externalLinks.yosakoi,
-    externalLinks.reserve,
-    externalLinks.rec,
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME_JA,
+      alternateName: SITE_NAME,
+      url: SITE_URL,
+      logo: `${SITE_URL}/icon.png`,
+      image: `${SITE_URL}/og-image.jpg`,
+      description: SITE_DESCRIPTION,
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "JP",
+        addressRegion: "東京都",
+        addressLocality: "板橋区",
+        streetAddress: "東坂下1-19-24 志幸42シャンソン110号室",
+      },
+      foundingDate: "2006-02",
+      founder: { "@type": "Person", name: "藤木 哲" },
+      sameAs: [
+        externalLinks.utattemita,
+        externalLinks.studio,
+        externalLinks.rec,
+        externalLinks.reserve,
+        externalLinks.yosakoi,
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: SITE_NAME,
+      alternateName: SITE_NAME_JA,
+      url: SITE_URL,
+      inLanguage: "ja",
+      description: SITE_DESCRIPTION,
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/#webpage`,
+      url: SITE_URL,
+      name: SITE_TITLE,
+      description: SITE_DESCRIPTION,
+      inLanguage: "ja",
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      about: { "@id": `${SITE_URL}/#organization` },
+    },
   ],
 }
 
-const webSiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: SITE_NAME_JA,
-  alternateName: "United Studio Core / Hub",
-  url: SITE_URL,
-}
-
-export function OrganizationJsonLd() {
+export function SiteJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-    />
-  )
-}
-
-export function WebSiteJsonLd() {
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }}
     />
   )
 }

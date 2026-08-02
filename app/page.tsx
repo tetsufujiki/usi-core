@@ -3,6 +3,7 @@ import { OrbitalCore } from '@/components/orbital-core'
 import { NewsList } from '@/components/news-list'
 import { ArchiveCard } from '@/components/archive-card'
 import { SectionHeading } from '@/components/section-heading'
+import { SiteJsonLd } from '@/components/json-ld'
 import { getLatestNews } from '@/lib/news'
 import { getFeaturedWorks } from '@/lib/archive'
 import { SITE_NAME_JA, SITE_TAGLINE } from '@/lib/site'
@@ -13,6 +14,7 @@ export default async function HomePage() {
 
   return (
     <div className="home-shell flex flex-col">
+      <SiteJsonLd />
       <section id="map" aria-labelledby="core-heading" className="core-hero scroll-mt-20 border-b border-border">
         <div className="core-lines" aria-hidden="true" />
         <div className="core-dust" aria-hidden="true">

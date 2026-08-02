@@ -3,6 +3,8 @@ export const SITE_URL = "https://united-studio.com"
 export const SITE_NAME = "United Studio Inc."
 export const SITE_NAME_JA = "ユナイテッドスタジオ株式会社"
 export const SITE_TAGLINE = "United Studio is a creative system."
+export const SITE_TITLE = "ユナイテッドスタジオ株式会社｜音楽制作とレコーディングのクリエイティブカンパニー"
+export const SITE_DESCRIPTION = "ユナイテッドスタジオ株式会社は、東京・板橋を拠点に、レコーディングスタジオ運営、歌ってみた制作、よさこい演舞曲、オリジナル楽曲制作などを手がける音楽制作会社です。各サービスのご案内、作品、予約・相談窓口をご覧いただけます。"
 
 export const externalLinks = {
   utattemita: "https://utattemita.united-studio.com",
