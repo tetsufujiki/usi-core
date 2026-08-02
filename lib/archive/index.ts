@@ -320,7 +320,7 @@ export const archiveItems: ArchiveItem[] = [
     format: "Single",
     collectionTitle: "Life~上を向いて歩こう~",
     genre: "J-Pop",
-    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ff/6d/f8/ff6df86c-80bf-a3e5-8422-75729ed66ad6/NOPA-5675.jpg/600x600bf-60.jpg",
+    artwork: "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02095425d78cdde1c97d06502b",
     links: [
       {
         platform: "apple-music",
