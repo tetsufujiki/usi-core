@@ -60,7 +60,7 @@ export default async function HomePage() {
             <Link href="/archive" className="system-link">OPEN ARCHIVE <span aria-hidden="true">↗</span></Link>
           </div>
           <div className="grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-            {featuredWorks.map((work) => <ArchiveCard key={work.id} work={work} />)}
+            {featuredWorks.map((work) => <ArchiveCard key={work.id} work={work} variant="home" />)}
           </div>
         </div>
       </section>

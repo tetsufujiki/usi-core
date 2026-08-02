@@ -1,90 +1,92 @@
 import type { ArchiveItem } from "@/lib/archive"
 import { archiveCategoryLabels } from "@/lib/archive"
 
-function ExternalLinkIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      width="11"
-      height="11"
-      viewBox="0 0 12 12"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <path d="M2 10 10 2M10 2H5M10 2v5" />
-    </svg>
-  )
+type ArchiveCardProps = {
+  work: ArchiveItem
+  variant?: "featured" | "index" | "home"
 }
 
-export function ArchiveCard({ work }: { work: ArchiveItem }) {
+export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
   const categoryLabel = archiveCategoryLabels[work.category]
+  const subject = work.artist ?? work.client ?? work.label ?? "United Studio"
+  const isFeatured = variant === "featured"
 
-  const card = (
+  return (
     <article
-      className="archive-card flex h-full flex-col gap-4 rounded-xl border border-border bg-surface p-5 shadow-sm transition-shadow"
-      aria-label={work.title}
+      className={`archive-card archive-card-${variant} flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-sm`}
+      aria-labelledby={`archive-${variant}-${work.id}`}
     >
-      {/* Header row */}
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-        {work.year && (
-          <span className="font-mono text-xs font-semibold text-accent">
-            {work.year}
-          </span>
+      {variant !== "index" && (
+        <div className="archive-artwork" aria-hidden={!work.artwork}>
+          {work.artwork ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={work.artwork} alt={`${subject}「${work.title}」のアートワーク`} />
+          ) : (
+            <div className="archive-artwork-placeholder" aria-hidden="true">
+              <span className="archive-artwork-orbit" />
+              <span className="archive-artwork-wave">UNITED STUDIO · WORKS MEMORY</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className={`flex grow flex-col ${isFeatured ? "gap-5 p-6 md:p-7" : "gap-3 p-5"}`}>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          {work.year && <span className="font-mono text-[11px] tracking-[0.16em] text-accent">{work.year}</span>}
+          <span className="archive-category-chip">{categoryLabel}</span>
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <p className={`font-mono tracking-[0.14em] text-muted-foreground ${isFeatured ? "text-xs" : "text-[10px]"}`}>
+            {subject}
+          </p>
+          <h3
+            id={`archive-${variant}-${work.id}`}
+            className={`font-bold leading-snug text-foreground text-pretty ${isFeatured ? "text-2xl md:text-3xl" : "text-lg"}`}
+          >
+            {work.title}
+          </h3>
+        </div>
+
+        {work.summary && variant !== "home" && (
+          <p className="text-sm leading-relaxed text-muted-foreground">{work.summary}</p>
         )}
-        <span className="archive-category-chip">
-          {categoryLabel}
-        </span>
+
+        {work.links && work.links.length > 0 && variant !== "home" && (
+          <ul aria-label={`${subject}「${work.title}」の配信・関連リンク`} className="flex flex-wrap gap-2">
+            {work.links.map((link) => (
+              <li key={`${link.platform}-${link.label}`}>
+                {link.href === "#" ? (
+                  <span className="archive-platform-link is-sample" aria-disabled="true" title="リンク準備中">
+                    {link.label}<span className="font-sans text-[9px] tracking-normal">準備中</span>
+                  </span>
+                ) : (
+                  <a href={link.href} target="_blank" rel="noopener noreferrer" className="archive-platform-link">
+                    {link.label}<span aria-hidden="true">↗</span>
+                    <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {work.roles.length > 0 && (
+          <div className="flex flex-col gap-2">
+            {isFeatured && <p className="font-mono text-[9px] tracking-[0.2em] text-muted-foreground">ROLE</p>}
+            <ul aria-label="United Studioの担当範囲" className="flex flex-wrap gap-1.5">
+              {work.roles.map((role) => <li key={role} className="archive-role-pill">{role}</li>)}
+            </ul>
+          </div>
+        )}
+
+        {work.externalUrl && !work.links?.length && variant !== "home" && (
+          <a href={work.externalUrl} target="_blank" rel="noopener noreferrer" className="archive-ext-link">
+            詳細を見る <span aria-hidden="true">↗</span>
+            <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
+          </a>
+        )}
       </div>
-
-      {/* Title */}
-      <h3 className="text-base font-bold leading-snug text-foreground text-pretty">
-        {work.title}
-      </h3>
-
-      {/* Summary */}
-      <p className="grow text-sm leading-relaxed text-muted-foreground">
-        {work.summary}
-      </p>
-
-      {/* Roles */}
-      {work.roles.length > 0 && (
-        <ul
-          aria-label="担当ロール"
-          className="flex flex-wrap gap-1.5"
-        >
-          {work.roles.map((role) => (
-            <li key={role} className="archive-role-pill">
-              {role}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {/* Contextual meta */}
-      {(work.artist ?? work.client ?? work.label) && (
-        <p className="font-mono text-[10.5px] text-muted-foreground">
-          {work.artist && <span>Artist: {work.artist}</span>}
-          {work.client && <span>Client: {work.client}</span>}
-          {work.label && <span>Label: {work.label}</span>}
-        </p>
-      )}
-
-      {/* External link */}
-      {work.externalUrl && (
-        <a
-          href={work.externalUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="archive-ext-link"
-        >
-          詳細を見る
-          <ExternalLinkIcon />
-          <span className="sr-only">（外部サイトが開きます）</span>
-        </a>
-      )}
     </article>
   )
-
-  return card
 }

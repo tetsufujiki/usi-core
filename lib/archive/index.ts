@@ -34,19 +34,34 @@ export const archiveCategories = Object.keys(
 // Type
 // -------------------------------------------------------------------------
 
+export type ArchivePlatform =
+  | "spotify"
+  | "apple-music"
+  | "youtube"
+  | "official"
+  | "other"
+
+export type ArchivePlatformLink = {
+  platform: ArchivePlatform
+  label: string
+  href: string
+}
+
 export type ArchiveItem = {
   id: string
   title: string
   year?: number
   date?: string
   category: ArchiveCategory
-  summary: string
+  summary?: string
   roles: string[]
   client?: string
   artist?: string
   label?: string
+  links?: ArchivePlatformLink[]
+  artwork?: string
+  /** @deprecated Use links for one or more destinations. */
   externalUrl?: string
-  image?: string
   featured?: boolean
 }
 
@@ -63,17 +78,24 @@ export type ArchiveWork = ArchiveItem
 export const archiveItems: ArchiveItem[] = [
   {
     id: "songwriting-sample",
-    title: "楽曲提供アーカイブ",
+    title: "作品タイトル 01",
+    artist: "アーティスト名",
     year: 2026,
     category: "songwriting",
     summary:
       "アーティスト、チーム、企画の目的に合わせた楽曲提供。コンセプト設計から納品まで一貫して担当。",
     roles: ["作曲", "作詞", "制作ディレクション"],
+    links: [
+      { platform: "spotify", label: "Spotify", href: "#" },
+      { platform: "apple-music", label: "Apple Music", href: "#" },
+      { platform: "youtube", label: "YouTube", href: "#" },
+    ],
     featured: true,
   },
   {
     id: "composition-arrangement-sample",
-    title: "作編曲アーカイブ",
+    title: "作品タイトル 02",
+    artist: "アーティスト名",
     year: 2026,
     category: "composition-arrangement",
     summary:
@@ -83,7 +105,8 @@ export const archiveItems: ArchiveItem[] = [
   },
   {
     id: "arrangement-mix-mastering-sample",
-    title: "編曲・ミックス・マスタリング アーカイブ",
+    title: "作品タイトル 03",
+    artist: "アーティスト名",
     year: 2026,
     category: "arrangement-mix-mastering",
     summary:
@@ -93,7 +116,8 @@ export const archiveItems: ArchiveItem[] = [
   },
   {
     id: "mix-mastering-sample",
-    title: "ミックス・マスタリング アーカイブ",
+    title: "作品タイトル 04",
+    artist: "アーティスト名",
     year: 2025,
     category: "mix-mastering",
     summary:
@@ -102,23 +126,25 @@ export const archiveItems: ArchiveItem[] = [
   },
   {
     id: "label-sample",
-    title: "自社レーベル アーカイブ",
+    title: "レーベル作品タイトル",
+    artist: "アーティスト名",
     year: 2025,
     category: "label",
     summary:
       "United Studioが企画・制作・発信に関わる自社レーベル作品。",
     roles: ["企画", "制作", "リリース"],
-    label: "United Studio Label",
+    label: "レーベル名",
     featured: true,
   },
   {
     id: "sound-design-sample",
-    title: "サウンド開発アーカイブ",
+    title: "サウンドプロジェクト",
     year: 2025,
     category: "sound-design",
     summary:
       "企業・ブランド・プロダクト向けの音楽、効果音、サウンドアイデンティティ設計。",
     roles: ["サウンドデザイン", "音源制作", "企業案件"],
+    client: "クライアント名",
   },
 ]
 
