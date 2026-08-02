@@ -7,11 +7,45 @@ const inputClass =
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState("")
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    // NOTE: 送信バックエンドは未決定のため、実際の送信は行いません。
-    setSubmitted(true)
+    const form = e.currentTarget
+    const formData = new FormData(form)
+
+    setIsSubmitting(true)
+    setError("")
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          organization: formData.get("organization"),
+          message: formData.get("message"),
+        }),
+      })
+      const result = await response.json().catch(() => null)
+
+      if (!response.ok) {
+        throw new Error(result?.error ?? "メール送信に失敗しました。")
+      }
+
+      form.reset()
+      setSubmitted(true)
+    } catch (submissionError) {
+      setError(
+        submissionError instanceof Error
+          ? submissionError.message
+          : "メール送信に失敗しました。時間をおいて再度お試しください。",
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (submitted) {
@@ -21,11 +55,10 @@ export function ContactForm() {
         className="flex flex-col items-center gap-3 rounded-xl border border-border bg-surface p-8 text-center"
       >
         <p className="text-base font-bold text-foreground">
-          フォームは現在準備中です
+          送信が完了しました
         </p>
         <p className="text-sm leading-relaxed text-muted-foreground text-pretty">
-          送信機能は準備中のため、内容はまだ送信されていません。
-          お急ぎの場合は各サービスサイトの窓口をご利用ください。
+          お問い合わせありがとうございます。内容を確認のうえ、ご連絡いたします。
         </p>
         <button
           type="button"
@@ -39,7 +72,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div className="flex flex-col gap-2">
         <label htmlFor="contact-name" className="text-sm font-medium">
           お名前 <span className="text-accent">*</span>
@@ -98,15 +131,18 @@ export function ContactForm() {
         />
       </div>
 
-      <p className="text-xs leading-relaxed text-muted-foreground">
-        送信機能は現在準備中です。フォームの内容はまだ送信されません。
-      </p>
+      {error && (
+        <p role="alert" className="rounded-lg border border-border bg-rose-soft px-4 py-3 text-sm leading-relaxed text-foreground">
+          {error}
+        </p>
+      )}
 
       <button
         type="submit"
+        disabled={isSubmitting}
         className="flex min-h-11 items-center justify-center rounded-lg bg-accent px-8 py-3 text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90"
       >
-        送信する
+        {isSubmitting ? "送信中…" : "送信する"}
       </button>
     </form>
   )

@@ -16,7 +16,22 @@ export const metadata: Metadata = {
   },
 }
 
-const purposeCards = [
+type PurposeCard =
+  | {
+      title: string
+      description: string
+      href: string
+      cta: string
+      external: true
+    }
+  | {
+      title: string
+      description: string
+      notice: string
+      external: false
+    }
+
+const purposeCards: PurposeCard[] = [
   {
     title: "歌ってみた",
     description: "ミックス・制作サポートのご相談は、Utattemitaサイトへ。",
@@ -33,10 +48,9 @@ const purposeCards = [
   },
   {
     title: "会社・業務",
-    description: "取材、協業、その他業務に関するご相談は、下記フォームから。",
-    href: "#business-form",
+    description: "会社・業務に関するご相談は、このページのフォームで受け付けています。",
+    notice: "BUSINESS FORM BELOW",
     external: false,
-    cta: "フォームへ",
   },
 ]
 
@@ -76,12 +90,9 @@ export default function ContactPage() {
                       {card.cta}
                     </ExternalLink>
                   ) : (
-                    <a
-                      href={card.href}
-                      className="flex min-h-11 items-center justify-center rounded-lg bg-accent px-4 text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90"
-                    >
-                      {card.cta}
-                    </a>
+                    <p className="mt-auto border-t border-border pt-3 font-mono text-[10px] tracking-[0.14em] text-muted-foreground">
+                      {card.notice}
+                    </p>
                   )}
                 </div>
               </li>
