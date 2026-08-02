@@ -558,6 +558,21 @@ export const archiveItems: ArchiveItem[] = [
     ],
   },
   {
+    id: "tsunamayo-sanjuuritsu-oiran-dochu",
+    title: "三十而立花魁道中",
+    artist: "ツナマヨ",
+    workType: "artist-work",
+    category: "arrangement-mix-mastering",
+    roles: ["レコーディング（一部）", "ミックス", "マスタリング"],
+    links: [
+      {
+        platform: "youtube",
+        label: "YouTube",
+        href: "https://www.youtube.com/watch?v=e4B2mhBFW9M",
+      },
+    ],
+  },
+  {
     id: "tbs-audio-production",
     title: "音源制作",
     client: "株式会社TBSテレビ様",
