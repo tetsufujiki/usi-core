@@ -47,7 +47,7 @@ export default async function ArchivePage({
 }) {
   const { year, category } = await searchParams
   const years = getArchiveYears()
-  const featured = getFeaturedWorks(2)
+  const featured = getFeaturedWorks(4)
   const activeYear = year && years.includes(Number(year)) ? Number(year) : null
   const activeCategory = archiveCategories.includes(category as ArchiveCategory)
     ? (category as ArchiveCategory)

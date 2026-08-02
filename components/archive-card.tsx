@@ -46,6 +46,11 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
           >
             {work.title}
           </h3>
+          {(work.format || work.collectionTitle) && (
+            <p className="text-xs leading-relaxed text-muted-foreground">
+              {[work.format, work.collectionTitle].filter(Boolean).join(" · ")}
+            </p>
+          )}
         </div>
 
         {work.summary && variant !== "home" && (
@@ -78,6 +83,13 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
               {work.roles.map((role) => <li key={role} className="archive-role-pill">{role}</li>)}
             </ul>
           </div>
+        )}
+
+        {(work.genre || work.label) && variant !== "home" && (
+          <dl className="mt-auto grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 border-t border-border pt-3 font-mono text-[9px] leading-relaxed text-muted-foreground">
+            {work.genre && <><dt>GENRE</dt><dd>{work.genre}</dd></>}
+            {work.label && <><dt>PUBLISHER</dt><dd>{work.label}</dd></>}
+          </dl>
         )}
 
         {work.externalUrl && !work.links?.length && variant !== "home" && (
