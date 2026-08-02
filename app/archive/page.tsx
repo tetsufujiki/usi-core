@@ -5,20 +5,22 @@ import { ArchiveCard } from "@/components/archive-card"
 import { ExternalLink } from "@/components/external-link"
 import {
   archiveCategories,
-  archiveWorks,
+  archiveCategoryLabels,
+  getArchiveItems,
   getArchiveYears,
   type ArchiveCategory,
 } from "@/lib/archive"
 import { externalLinks } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Archive",
+  title: "Archive｜ユナイテッドスタジオ株式会社",
   description:
-    "ユナイテッドスタジオ株式会社の制作実績アーカイブ。レコーディング、プロダクション、アーティストサポートの作品を掲載しています。",
+    "ユナイテッドスタジオ株式会社が手がける楽曲提供、作編曲、ミックス・マスタリング、自社レーベル、企業向けサウンド開発などの制作アーカイブです。",
   alternates: { canonical: "/archive" },
   openGraph: {
     title: "Archive | United Studio Inc.",
-    description: "ユナイテッドスタジオ株式会社の制作実績アーカイブ。",
+    description:
+      "ユナイテッドスタジオ株式会社の制作アーカイブ。楽曲提供から企業向けサウンド開発まで。",
     url: "/archive",
   },
 }
@@ -31,10 +33,10 @@ function buildQuery(year?: string, category?: string): string {
   return qs ? `/archive?${qs}` : "/archive"
 }
 
-const filterLinkBase =
-  "flex min-h-11 items-center rounded-full border px-4 text-xs font-mono tracking-[0.1em] transition-colors"
-const filterActive = "border-accent bg-accent-soft text-accent"
-const filterInactive =
+const chipBase =
+  "flex min-h-10 items-center rounded-full border px-4 py-1 font-mono text-xs tracking-wide transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+const chipActive = "border-accent bg-accent-soft text-accent"
+const chipInactive =
   "border-border text-muted-foreground hover:border-accent/50 hover:text-foreground"
 
 export default async function ArchivePage({
@@ -45,101 +47,104 @@ export default async function ArchivePage({
   const { year, category } = await searchParams
   const years = getArchiveYears()
 
-  const activeYear = year && years.includes(Number(year)) ? Number(year) : null
-  const activeCategory = archiveCategories.includes(category as ArchiveCategory)
+  const activeYear =
+    year && years.includes(Number(year)) ? Number(year) : null
+  const activeCategory = archiveCategories.includes(
+    category as ArchiveCategory,
+  )
     ? (category as ArchiveCategory)
     : null
 
-  const filtered = archiveWorks
-    .filter((w) => (activeYear ? w.year === activeYear : true))
-    .filter((w) => (activeCategory ? w.category === activeCategory : true))
-    .sort((a, b) => b.year - a.year)
+  const filtered = getArchiveItems({
+    category: activeCategory ?? undefined,
+    year: activeYear ?? undefined,
+  })
 
   return (
     <div>
+      {/* ── Hero ── */}
       <PageHeader
-        code="WORKS"
+        code="WORKS MEMORY"
         title="Archive"
-        description="レコーディング、プロダクション、アーティストサポートの制作実績。"
+        description="United Studioが手がけてきた音楽制作、作品づくり、サウンド開発の記録。楽曲提供、作編曲、ミックス・マスタリング、自社レーベル、企業案件まで、制作のかたちごとに整理しています。"
       />
 
-      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-12 md:px-6 md:py-16">
-        {/* Filters */}
-        <div className="flex flex-col gap-4">
-          <nav aria-label="年で絞り込む">
-            <ul className="flex flex-wrap gap-2">
-              <li>
-                <Link
-                  href={buildQuery(undefined, activeCategory ?? undefined)}
-                  className={`${filterLinkBase} ${!activeYear ? filterActive : filterInactive}`}
-                  aria-current={!activeYear ? "true" : undefined}
-                >
-                  ALL YEARS
-                </Link>
-              </li>
-              {years.map((y) => (
-                <li key={y}>
-                  <Link
-                    href={buildQuery(String(y), activeCategory ?? undefined)}
-                    className={`${filterLinkBase} ${activeYear === y ? filterActive : filterInactive}`}
-                    aria-current={activeYear === y ? "true" : undefined}
-                  >
-                    {y}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+      <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 py-12 md:px-6 md:py-16">
 
-          <nav aria-label="カテゴリで絞り込む">
-            <ul className="flex flex-wrap gap-2">
-              <li>
+        {/* ── Category Overview ── */}
+        <section aria-labelledby="category-overview-heading">
+          <h2 id="category-overview-heading" className="mb-5 font-mono text-[11px] tracking-[0.3em] text-accent">
+            CATEGORY
+          </h2>
+          <ul className="flex flex-wrap gap-2.5" aria-label="制作カテゴリ一覧">
+            {archiveCategories.map((cat) => (
+              <li key={cat}>
                 <Link
                   href={buildQuery(
                     activeYear ? String(activeYear) : undefined,
-                    undefined,
+                    activeCategory === cat ? undefined : cat,
                   )}
-                  className={`${filterLinkBase} ${!activeCategory ? filterActive : filterInactive}`}
-                  aria-current={!activeCategory ? "true" : undefined}
+                  className={`${chipBase} ${activeCategory === cat ? chipActive : chipInactive}`}
+                  aria-current={activeCategory === cat ? "true" : undefined}
+                  aria-label={
+                    activeCategory === cat
+                      ? `${archiveCategoryLabels[cat]}（選択中）`
+                      : `${archiveCategoryLabels[cat]}で絞り込む`
+                  }
                 >
-                  ALL CATEGORIES
+                  {archiveCategoryLabels[cat]}
                 </Link>
               </li>
-              {archiveCategories.map((c) => (
-                <li key={c}>
-                  <Link
-                    href={buildQuery(
-                      activeYear ? String(activeYear) : undefined,
-                      c,
-                    )}
-                    className={`${filterLinkBase} ${activeCategory === c ? filterActive : filterInactive}`}
-                    aria-current={activeCategory === c ? "true" : undefined}
-                  >
-                    {c}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
+            ))}
+          </ul>
+        </section>
 
-        {/* Works */}
+        {/* ── Year filter ── */}
+        <nav aria-label="年で絞り込む">
+          <ul className="flex flex-wrap gap-2">
+            <li>
+              <Link
+                href={buildQuery(undefined, activeCategory ?? undefined)}
+                className={`${chipBase} text-[10px] ${!activeYear ? chipActive : chipInactive}`}
+                aria-current={!activeYear ? "true" : undefined}
+              >
+                ALL YEARS
+              </Link>
+            </li>
+            {years.map((y) => (
+              <li key={y}>
+                <Link
+                  href={buildQuery(String(y), activeCategory ?? undefined)}
+                  className={`${chipBase} text-[10px] ${activeYear === y ? chipActive : chipInactive}`}
+                  aria-current={activeYear === y ? "true" : undefined}
+                >
+                  {y}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* ── Archive list ── */}
         {filtered.length > 0 ? (
-          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((work) => (
-              <li key={work.id}>
-                <ArchiveCard work={work} />
+          <ul
+            className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            aria-label="制作アーカイブ一覧"
+          >
+            {filtered.map((item) => (
+              <li key={item.id}>
+                <ArchiveCard work={item} />
               </li>
             ))}
           </ul>
         ) : (
-          <p className="py-12 text-center text-sm text-muted-foreground">
+          <p className="py-16 text-center text-sm text-muted-foreground">
             条件に一致する作品はありません。
           </p>
         )}
 
-        {/* Yosakoi works pointer */}
-        <div className="flex flex-col items-start gap-3 rounded-xl border border-border bg-surface p-6 sm:flex-row sm:items-center sm:justify-between">
+        {/* ── Yosakoi works pointer ── */}
+        <div className="flex flex-col items-start gap-4 rounded-xl border border-border bg-surface p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-1">
             <h2 className="text-base font-bold text-foreground">
               Yosakoi Works
@@ -150,7 +155,7 @@ export default async function ArchivePage({
           </div>
           <ExternalLink
             href={externalLinks.yosakoi}
-            className="flex min-h-11 shrink-0 items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm text-foreground transition-colors hover:border-accent/60"
+            className="flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-border px-5 text-sm text-foreground transition-colors hover:border-accent/60 hover:text-accent"
           >
             Yosakoi Archiveへ
           </ExternalLink>
