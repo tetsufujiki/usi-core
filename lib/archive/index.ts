@@ -444,6 +444,14 @@ export const archiveItems: ArchiveItem[] = [
     format: "Single",
     collectionTitle: "能登の唄",
     genre: "歌謡曲",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/76/c3/70/76c3701d-07eb-8953-0329-61bf0ac70a56/859758641634_cover.jpg/600x600bf-60.jpg",
+    links: [
+      {
+        platform: "apple-music",
+        label: "Apple Music",
+        href: "https://music.apple.com/jp/album/%E8%83%BD%E7%99%BB%E3%81%AE%E5%94%84-single/1642716822",
+      },
+    ],
   },
   {
     id: "olympia-sammy-pachislot-sound",
