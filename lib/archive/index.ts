@@ -199,6 +199,14 @@ export const archiveItems: ArchiveItem[] = [
     format: "Album",
     collectionTitle: "VSキャラクターソングアルバム",
     genre: "J-Pop",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/20/ce/a6/20cea64f-085a-11a8-4e33-a9952ff9f96b/COCX-40604.jpg/600x600bf-60.jpg",
+    links: [
+      {
+        platform: "apple-music",
+        label: "Apple Music",
+        href: "https://music.apple.com/jp/album/%E5%BF%AB%E7%9B%97%E6%88%A6%E9%9A%8A%E3%83%AB%E3%83%91%E3%83%B3%E3%83%AC%E3%83%B3%E3%82%B8%E3%83%A3%E3%83%BCvs%E8%AD%A6%E5%AF%9F%E6%88%A6%E9%9A%8A%E3%83%91%E3%83%88%E3%83%AC%E3%83%B3%E3%82%B8%E3%83%A3%E3%83%BC-vs%E3%82%AD%E3%83%A3%E3%82%AF%E3%82%BF%E3%83%BC%E3%82%BD%E3%83%B3%E3%82%B0%E3%82%A2%E3%83%AB%E3%83%90%E3%83%A0/1447197188",
+      },
+    ],
     featured: true,
   },
   {
