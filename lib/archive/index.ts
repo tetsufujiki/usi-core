@@ -320,12 +320,12 @@ export const archiveItems: ArchiveItem[] = [
     format: "Single",
     collectionTitle: "Life~上を向いて歩こう~",
     genre: "J-Pop",
-    artwork: "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02095425d78cdde1c97d06502b",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c9/19/de/c919deca-54dc-4b27-943a-cee005600cf3/NOPA-5660.jpg/600x600bf-60.jpg",
     links: [
       {
         platform: "apple-music",
         label: "Apple Music",
-        href: "https://music.apple.com/jp/album/%E9%9D%92%E7%A9%BA%E3%81%AE%E3%83%91%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8/1735676868?i=1735676929",
+        href: "https://music.apple.com/jp/album/%E9%9D%92%E7%A9%BA%E3%81%AE%E3%83%91%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8/1735660386?i=1735660388",
       },
       {
         platform: "spotify",
