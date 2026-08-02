@@ -26,23 +26,37 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
         <div className="archive-card-media archive-artworks">
           {work.artworks?.map((artwork) => (
             <figure key={artwork.src} className="archive-artwork-tile">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={artwork.src} alt={artwork.alt} />
+              {artwork.href ? (
+                <a
+                  href={artwork.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="archive-artwork-link"
+                  aria-label={`${artwork.label ?? artwork.alt} の販売ページを開く`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={artwork.src} alt={artwork.alt} />
+                  <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
+                </a>
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={artwork.src} alt={artwork.alt} />
+              )}
               {artwork.label && <figcaption>{artwork.label}</figcaption>}
             </figure>
           ))}
         </div>
+      ) : work.artwork ? (
+        <div className="archive-card-media archive-artwork">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={work.artwork} alt={`${subject}「${work.title}」のアートワーク`} />
+        </div>
       ) : variant !== "index" && (
-        <div className="archive-card-media archive-artwork" aria-hidden={!work.artwork}>
-          {work.artwork ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={work.artwork} alt={`${subject}「${work.title}」のアートワーク`} />
-          ) : (
-            <div className="archive-artwork-placeholder" aria-hidden="true">
-              <span className="archive-artwork-orbit" />
-              <span className="archive-artwork-wave">UNITED STUDIO · WORKS MEMORY</span>
-            </div>
-          )}
+        <div className="archive-card-media archive-artwork" aria-hidden="true">
+          <div className="archive-artwork-placeholder">
+            <span className="archive-artwork-orbit" />
+            <span className="archive-artwork-wave">UNITED STUDIO · WORKS MEMORY</span>
+          </div>
         </div>
       )}
 
@@ -83,7 +97,13 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
                   </span>
                 ) : (
                   <a href={link.href} target="_blank" rel="noopener noreferrer" className="archive-platform-link">
-                    {link.platform === "youtube" ? "YouTubeで開く" : link.label}<span aria-hidden="true">↗</span>
+                    {link.platform === "youtube"
+                      ? "YouTubeで開く"
+                      : link.platform === "spotify"
+                        ? "Spotifyで聴く"
+                        : link.platform === "apple-music"
+                          ? "Apple Musicで聴く"
+                          : link.label}<span aria-hidden="true">↗</span>
                     <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
                   </a>
                 )}

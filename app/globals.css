@@ -376,7 +376,10 @@ body { background: var(--background); color: var(--foreground); font-family: var
   background: var(--surface);
   box-shadow: 0 3px 12px rgba(35,44,59,.1);
 }
+.archive-artwork-link { display: block; width: 100%; height: 100%; }
 .archive-artwork-tile img { width: 100%; height: 100%; object-fit: cover; }
+.archive-artwork-link:hover img { filter: brightness(1.05); transform: scale(1.018); }
+.archive-artwork-link:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
 .archive-artwork-tile figcaption {
   position: absolute;
   right: 7px;
@@ -391,6 +394,7 @@ body { background: var(--background); color: var(--foreground); font-family: var
   font-size: 8px;
   letter-spacing: .08em;
   text-align: center;
+  pointer-events: none;
 }
 .archive-artwork-placeholder {
   position: absolute;

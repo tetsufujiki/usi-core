@@ -68,6 +68,7 @@ export type ArchiveArtwork = {
   src: string
   alt: string
   label?: string
+  href?: string
 }
 
 export type ArchiveItem = {
@@ -214,6 +215,19 @@ export const archiveItems: ArchiveItem[] = [
     format: "Album",
     collectionTitle: "愛者～Kanasha～",
     genre: "J-Pop",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/83/f9/2e/83f92ea5-b3ff-dd25-40b6-b5173fba6574/4571487579724.jpg/600x600bf-60.jpg",
+    links: [
+      {
+        platform: "spotify",
+        label: "Spotify",
+        href: "https://open.spotify.com/intl-ja/track/152OJtpsHj4QS1RzlxPZnU",
+      },
+      {
+        platform: "apple-music",
+        label: "Apple Music",
+        href: "https://music.apple.com/jp/album/%E6%84%9B%E8%80%85-kanasha/1458080882",
+      },
+    ],
     featured: true,
   },
   {
@@ -280,11 +294,13 @@ export const archiveItems: ArchiveItem[] = [
         src: "https://items-images-production.s3.us-west-2.amazonaws.com/files/d5046eb4eac91cb35ad4272b4481d901a1303590/original.jpeg",
         alt: "林煌彩『二藍』DISC1 Indigo ジャケット",
         label: "DISC1 Indigo",
+        href: "https://square.link/u/ON2t6pwA?src=embed",
       },
       {
         src: "https://items-images-production.s3.us-west-2.amazonaws.com/files/fab66f7e3847a3042b2501f98ee6c03f1ae7f6b2/original.jpeg",
         alt: "林煌彩『二藍』DISC2 Crimson ジャケット",
         label: "DISC2 Crimson",
+        href: "https://square.link/u/uDbUqeKF?src=embed",
       },
     ],
     links: [
