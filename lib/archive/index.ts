@@ -121,6 +121,47 @@ ArchiveItem 追加テンプレート
 
 export const archiveItems: ArchiveItem[] = [
   {
+    id: "nishikawa-exercise",
+    title: "西川エクササイズ",
+    client: "山形県西川町",
+    year: 2024,
+    date: "2024-06-19",
+    workType: "regional-project",
+    category: "composition-arrangement",
+    roles: ["楽曲提供", "作曲", "編曲", "ミックス", "マスタリング"],
+    summary: "山形県西川町のエクササイズ企画向け楽曲制作。",
+    links: [
+      {
+        platform: "official",
+        label: "制作記事",
+        href: "https://united-studio.com/2024/06/19/120534",
+      },
+      {
+        platform: "youtube",
+        label: "YouTube",
+        href: "https://www.youtube.com/watch?v=hfHniDRqjl0",
+      },
+    ],
+    featured: true,
+  },
+  {
+    id: "mariko-terashita-pirates-of-the-caribbean",
+    title: "PIRATES OF THE CARIBBEAN",
+    artist: "寺下真理子",
+    workType: "artist-work",
+    category: "arrangement-mix-mastering",
+    roles: ["編曲（一部）", "ミックス", "マスタリング"],
+    summary: "寺下真理子による「PIRATES OF THE CARIBBEAN」関連作品。",
+    links: [
+      {
+        platform: "youtube",
+        label: "YouTube",
+        href: "https://www.youtube.com/watch?v=2PQPVLkNiww",
+      },
+    ],
+    featured: false,
+  },
+  {
     id: "nogizaka46-rewind-ano-hi",
     title: "Rewindあの日",
     artist: "乃木坂46",
