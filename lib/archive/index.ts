@@ -264,6 +264,19 @@ export const archiveItems: ArchiveItem[] = [
     format: "Album",
     collectionTitle: "ユ・メ・ノ・チ・カ・ラ",
     genre: "J-Pop",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ff/6d/f8/ff6df86c-80bf-a3e5-8422-75729ed66ad6/NOPA-5675.jpg/600x600bf-60.jpg",
+    links: [
+      {
+        platform: "apple-music",
+        label: "Apple Music",
+        href: "https://music.apple.com/jp/album/%E3%81%8D%E3%82%85%E3%82%93%E3%81%8D%E3%82%85%E3%82%93%E3%81%AE%E3%83%91%E3%83%AF%E3%83%BC/1735676868?i=1735676878",
+      },
+      {
+        platform: "spotify",
+        label: "Spotify",
+        href: "https://open.spotify.com/intl-ja/track/3EiRD9xywJo5BumY9Jkied?si=bb89fdc2a4de4c88",
+      },
+    ],
   },
   {
     id: "manami-komori-sore-wa-itsuka",
