@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-zen-kaku), "Hiragino Kaku Gothic ProN", "Yu Gothic",
+    sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border-soft);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-lime: var(--lime);
+
+  --radius: 0.75rem;
+}
+
+:root {
+  /* deep navy base, warm white text, cyan + lime light accents */
+  --background: #0a1120;
+  --foreground: #f2efe9;
+  --surface: #101a30;
+  --surface-raised: #16223c;
+  --border-soft: #24314e;
+  --muted: #1a2740;
+  --muted-foreground: #98a4bd;
+  --primary: #67e2f5;
+  --primary-foreground: #06131f;
+  --accent: #67e2f5;
+  --accent-soft: rgba(103, 226, 245, 0.12);
+  --lime: #c8f065;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--primary-foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---- Creative Map: slow breathing / faint line flow ---- */
+@keyframes core-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.035);
+    opacity: 0.92;
+  }
+}
+
+@keyframes node-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes line-flow {
+  from {
+    stroke-dashoffset: 48;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.map-core {
+  animation: core-breathe 7s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.map-node {
+  animation: node-breathe 6s ease-in-out infinite;
+}
+
+.map-node:nth-child(odd) {
+  animation-delay: -3s;
+}
+
+.map-line {
+  stroke-dasharray: 6 6;
+  animation: line-flow 4.5s linear infinite;
+}
+
+.map-glow {
+  animation: glow-pulse 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .map-core,
+  .map-node,
+  .map-line,
+  .map-glow {
+    animation: none;
+  }
+}
