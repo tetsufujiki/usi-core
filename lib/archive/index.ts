@@ -1,8 +1,8 @@
 /**
  * Archive data layer — Works Memory
  *
- * Data is static TypeScript. Replace `archiveItems` (or swap `getArchiveItems`
- * implementation) when connecting to a CMS or WordPress REST API.
+ * ArchiveはCMSへ接続せず、`archiveItems` に確認済みの実績を追加して運用する。
+ * 詳しい追加ルールと入力フォーマットは `lib/archive/README.md` を参照。
  */
 
 // -------------------------------------------------------------------------
@@ -30,6 +30,23 @@ export const archiveCategories = Object.keys(
   archiveCategoryLabels,
 ) as ArchiveCategory[]
 
+export type ArchiveWorkType =
+  | "artist-work"
+  | "regional-project"
+  | "corporate-project"
+  | "audiobook"
+  | "licensing"
+  | "label-work"
+
+export const archiveWorkTypeLabels: Record<ArchiveWorkType, string> = {
+  "artist-work": "Artist Work",
+  "regional-project": "Regional Project",
+  "corporate-project": "Corporate Project",
+  audiobook: "Audiobook",
+  licensing: "Licensing",
+  "label-work": "Label Work",
+}
+
 // -------------------------------------------------------------------------
 // Type
 // -------------------------------------------------------------------------
@@ -52,6 +69,7 @@ export type ArchiveItem = {
   title: string
   year?: number
   date?: string
+  workType: ArchiveWorkType
   category: ArchiveCategory
   summary?: string
   roles: string[]
@@ -74,9 +92,32 @@ export type ArchiveItem = {
 export type ArchiveWork = ArchiveItem
 
 // -------------------------------------------------------------------------
-// Mock data
-// Replace this array — or swap getArchiveItems() — when a CMS is connected.
+// Static archive data
 // -------------------------------------------------------------------------
+
+/*
+ArchiveItem 追加テンプレート
+
+{
+  id: "kebab-case-id",
+  title: "作品名 / 制作内容",
+  artist: "アーティスト名", // 企業・自治体案件では省略
+  client: "企業・自治体名", // アーティスト作品では省略
+  year: 2026,
+  date: "2026-01-01",
+  workType: "artist-work",
+  category: "composition-arrangement",
+  roles: ["作曲", "編曲", "ミックス"],
+  summary: "表示用の短い説明。",
+  links: [
+    { platform: "youtube", label: "YouTube", href: "https://..." },
+  ],
+  featured: false,
+}
+
+作品名・名義・URLは公開情報で確認できたものだけを記録する。
+新規リンクは `externalUrl` ではなく `links` を使う。
+*/
 
 export const archiveItems: ArchiveItem[] = [
   {
@@ -85,6 +126,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "乃木坂46",
     year: 2017,
     date: "2017-05-24",
+    workType: "artist-work",
     category: "songwriting",
     roles: ["作曲", "楽曲提供"],
     summary: "乃木坂46のAlbum「生まれてから初めて見た夢」収録曲。歌唱は桜井玲香、西野七瀬、若月佑美。",
@@ -100,6 +142,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "元木聖也",
     year: 2018,
     date: "2018-12-26",
+    workType: "artist-work",
     category: "songwriting",
     roles: ["作曲", "楽曲提供"],
     summary: "「快盗戦隊ルパンレンジャーVS警察戦隊パトレンジャー VSキャラクターソングアルバム」収録曲。",
@@ -115,6 +158,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "中孝介",
     year: 2019,
     date: "2019-04-10",
+    workType: "artist-work",
     category: "songwriting",
     roles: ["作曲", "楽曲提供"],
     summary: "中孝介のAlbum「愛者～Kanasha～」収録曲。",
@@ -130,6 +174,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "小森 まなみ",
     year: 2004,
     date: "2004-07-22",
+    workType: "artist-work",
     category: "composition-arrangement",
     roles: ["作曲", "編曲"],
     summary: "小森 まなみのAlbum「ユ・メ・ノ・チ・カ・ラ」収録曲。",
@@ -144,6 +189,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "小森 まなみ",
     year: 2004,
     date: "2004-07-22",
+    workType: "artist-work",
     category: "composition-arrangement",
     roles: ["作曲", "編曲"],
     summary: "小森 まなみのAlbum「ユ・メ・ノ・チ・カ・ラ」収録曲。",
@@ -158,6 +204,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "小森 まなみ",
     year: 2002,
     date: "2002-07-25",
+    workType: "artist-work",
     category: "composition-arrangement",
     roles: ["編曲"],
     summary: "小森 まなみのSingle「Life~上を向いて歩こう~」収録曲。",
@@ -172,6 +219,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "林煌彩",
     year: 2025,
     date: "2025-11-01",
+    workType: "artist-work",
     category: "arrangement-mix-mastering",
     roles: ["編曲", "ミックス", "マスタリング"],
     summary: "DISC1「Indigo」、DISC2「Crimson」からなるAlbum。全曲を担当。",
@@ -191,6 +239,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "中村仁樹",
     year: 2022,
     date: "2022-10-15",
+    workType: "artist-work",
     category: "arrangement-mix-mastering",
     roles: ["編曲", "ミックス", "マスタリング"],
     summary: "中村仁樹のAlbum「願い」。全曲を担当。",
@@ -205,6 +254,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "中村仁樹",
     year: 2016,
     date: "2016-12-21",
+    workType: "artist-work",
     category: "arrangement-mix-mastering",
     roles: ["編曲", "ミックス", "マスタリング"],
     summary: "中村仁樹のAlbum「祈り」。全曲を担当。",
@@ -219,6 +269,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "藤木テツ",
     year: 2018,
     date: "2018-04-20",
+    workType: "artist-work",
     category: "sound-design",
     roles: ["サウンドプロデュース"],
     summary: "真印のCDbook。全曲を担当。",
@@ -233,6 +284,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "月宵",
     year: 2014,
     date: "2014-04-11",
+    workType: "label-work",
     category: "label",
     roles: ["自社レーベル", "企画", "制作"],
     summary: "月宵のAlbum「Blue Moon」。全曲を担当。",
@@ -247,6 +299,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "藤木 テツ",
     year: 2020,
     date: "2020-06-30",
+    workType: "label-work",
     category: "label",
     roles: ["自社レーベル", "企画", "制作"],
     summary: "藤木 テツのPlaylist「Sound Soothe」。全曲を担当。",
@@ -261,6 +314,7 @@ export const archiveItems: ArchiveItem[] = [
     artist: "永吉繭美",
     year: 2022,
     date: "2022-09-07",
+    workType: "artist-work",
     category: "mix-mastering",
     roles: ["ミックス", "マスタリング"],
     summary: "永吉繭美のSingle「能登の唄」。全曲を担当。",
@@ -273,6 +327,7 @@ export const archiveItems: ArchiveItem[] = [
     id: "olympia-sammy-pachislot-sound",
     title: "パチスロ音楽・効果音",
     client: "株式会社オリンピア様 / サミー株式会社様",
+    workType: "corporate-project",
     category: "sound-design",
     roles: ["サウンド開発", "音楽制作", "効果音制作"],
     summary: "パチスロ向けの音楽・効果音制作。",
@@ -282,6 +337,7 @@ export const archiveItems: ArchiveItem[] = [
     id: "tbs-audio-production",
     title: "音源制作",
     client: "株式会社TBSテレビ様",
+    workType: "corporate-project",
     category: "sound-design",
     roles: ["サウンド開発", "音源制作"],
     summary: "企業向けの音源制作。",
@@ -291,6 +347,7 @@ export const archiveItems: ArchiveItem[] = [
     id: "casio-preset-data",
     title: "プリセットデータ制作",
     client: "カシオ計算機株式会社様",
+    workType: "corporate-project",
     category: "sound-design",
     roles: ["サウンド開発", "プリセット制作"],
     summary: "製品向けのプリセットデータ制作。",
@@ -300,6 +357,7 @@ export const archiveItems: ArchiveItem[] = [
     id: "jlc-opening-ending-music",
     title: "OP, ED曲制作",
     client: "株式会社日本レジャーチャンネル様",
+    workType: "corporate-project",
     category: "sound-design",
     roles: ["サウンド開発", "楽曲制作"],
     summary: "オープニング、エンディング曲の制作。",
@@ -309,6 +367,7 @@ export const archiveItems: ArchiveItem[] = [
     id: "otobank-audiobook-audio",
     title: "オーディオブック音源制作",
     client: "株式会社オトバンク様",
+    workType: "audiobook",
     category: "sound-design",
     roles: ["サウンド開発", "音源制作"],
     summary: "オーディオブック向けの音源制作。",
@@ -321,8 +380,7 @@ export const archiveItems: ArchiveItem[] = [
 // -------------------------------------------------------------------------
 
 /**
- * All items sorted newest-first.
- * Swap this function body to connect a CMS.
+ * All static items sorted newest-first.
  */
 export function getArchiveItems(opts?: {
   category?: ArchiveCategory

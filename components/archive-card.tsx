@@ -1,5 +1,5 @@
 import type { ArchiveItem } from "@/lib/archive"
-import { archiveCategoryLabels } from "@/lib/archive"
+import { archiveCategoryLabels, archiveWorkTypeLabels } from "@/lib/archive"
 
 type ArchiveCardProps = {
   work: ArchiveItem
@@ -8,6 +8,7 @@ type ArchiveCardProps = {
 
 export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
   const categoryLabel = archiveCategoryLabels[work.category]
+  const workTypeLabel = archiveWorkTypeLabels[work.workType]
   const subject = work.artist ?? work.client ?? work.label ?? "United Studio"
   const isFeatured = variant === "featured"
 
@@ -85,8 +86,9 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
           </div>
         )}
 
-        {(work.genre || work.label) && variant !== "home" && (
+        {variant !== "home" && (
           <dl className="mt-auto grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 border-t border-border pt-3 font-mono text-[9px] leading-relaxed text-muted-foreground">
+            <dt>TYPE</dt><dd>{workTypeLabel}</dd>
             {work.genre && <><dt>GENRE</dt><dd>{work.genre}</dd></>}
             {work.label && <><dt>PUBLISHER</dt><dd>{work.label}</dd></>}
           </dl>
