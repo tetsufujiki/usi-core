@@ -125,14 +125,32 @@ export default async function ArchivePage({
           )}
         </section>
 
-        <aside className="flex flex-col items-start gap-4 rounded-2xl border border-border bg-surface/80 p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-col gap-1">
-            <h2 className="text-base font-bold text-foreground">Yosakoi Works</h2>
-            <p className="text-sm leading-relaxed text-muted-foreground">よさこい関連の作品は、Yosakoiサイトのアーカイブからたどれます。</p>
+        <aside className="group overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition-shadow hover:shadow-md">
+          <div className="grid md:grid-cols-[minmax(260px,360px)_1fr]">
+            <div className="aspect-[4/3] overflow-hidden bg-[#edf3e9] md:aspect-auto">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/archive/kokushimusou-journey.webp"
+                alt="よさこい演舞の様子"
+                className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+              />
+            </div>
+            <div className="flex flex-col items-start justify-center gap-5 p-6 sm:p-8 md:p-10">
+              <div className="flex flex-col gap-2">
+                <p className="font-mono text-[10px] tracking-[0.24em] text-accent">YOSAKOI / SOUND WORKS</p>
+                <h2 className="text-2xl font-bold tracking-[-0.02em] text-foreground md:text-3xl">Yosakoi Works</h2>
+                <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
+                  よさこい関連の作品は、Yosakoiサイトの専用アーカイブにまとめています。
+                </p>
+              </div>
+              <ExternalLink
+                href={externalLinks.yosakoi}
+                className="flex min-h-11 items-center gap-2 rounded-full border border-accent/40 bg-accent-soft px-5 text-sm font-medium text-accent transition-colors hover:border-accent hover:bg-accent hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                Yosakoi Archiveを見る
+              </ExternalLink>
+            </div>
           </div>
-          <ExternalLink href={externalLinks.yosakoi} className="flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-border px-5 text-sm text-foreground transition-colors hover:border-accent/60 hover:text-accent">
-            Yosakoi Archiveへ
-          </ExternalLink>
         </aside>
       </div>
     </div>
