@@ -413,6 +413,13 @@ export const archiveItems: ArchiveItem[] = [
     roles: ["サウンド開発", "音源制作"],
     summary: "オーディオブック向けの音源制作。",
     format: "Corporate",
+    links: [
+      {
+        platform: "official",
+        label: "audiobook.jp ブックリスト",
+        href: "https://audiobook.jp/search?q=",
+      },
+    ],
   },
 ]
 

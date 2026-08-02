@@ -29,6 +29,12 @@ ArchiveはCMS化せず、`lib/archive/index.ts` の `archiveItems` を静的デ�
 - `date` は分かる場合に `YYYY-MM-DD` 形式で記録し、同じ年を `year` にも入れる。
 - `featured` はArchiveとHOMEの注目作品に限って使用する。
 
+## オーディオブック実績
+
+- オーディオブック実績は個別タイトルを大量に `ArchiveItem` 化せず、代表カードに集約する。
+- 関連するWordPressタグページやaudiobook.jpのブックリストなど、確認済みの外部リンクを代表カードの `links` に追加する。
+- 「販売中」など、状態が変わる可能性のある文言は避ける。
+
 ## workTypeの選び方
 
 - `artist-work`: アーティスト作品、楽曲提供、作編曲、ミックスなど
