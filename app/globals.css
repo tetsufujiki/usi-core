@@ -291,6 +291,7 @@ body { background: var(--background); color: var(--foreground); font-family: var
   width: 100%;
   overflow: hidden;
   border-bottom: 1px solid var(--border-soft);
+  background: #fff;
 }
 .archive-youtube-preview {
   background: linear-gradient(135deg, #f5f0e8, #eaf1f6 58%, #f7eceb);
@@ -357,9 +358,9 @@ body { background: var(--background); color: var(--foreground); font-family: var
   transform: translate(-50%, -50%) scale(1.06);
 }
 .archive-artwork {
-  background: var(--surface-raised);
+  background: #fff;
 }
-.archive-artwork > img { width: 100%; height: 100%; object-fit: cover; }
+.archive-artwork > img { display: block; width: 100%; height: 100%; object-fit: cover; background: #fff; }
 .archive-artworks {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
