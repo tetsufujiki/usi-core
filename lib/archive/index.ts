@@ -371,6 +371,19 @@ export const archiveItems: ArchiveItem[] = [
     format: "Album",
     collectionTitle: "祈り",
     genre: "Instrumental",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music71/v4/ac/0c/d7/ac0cd781-eba6-b313-343a-3de51cdcbfd9/4538182645116_cov.jpg/600x600bf-60.jpg",
+    links: [
+      {
+        platform: "apple-music",
+        label: "Apple Music",
+        href: "https://music.apple.com/jp/album/%E7%A5%88%E3%82%8A/1180449833",
+      },
+      {
+        platform: "spotify",
+        label: "Spotify",
+        href: "https://open.spotify.com/intl-ja/album/3YXGuzH3u49REbCYfkAGKd?si=i7Bhqx59RJWJXsyW1TcPnA",
+      },
+    ],
   },
   {
     id: "shin-in-solfeggio-frequency-cdbook",
