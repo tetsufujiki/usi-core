@@ -66,31 +66,42 @@ export default function CompanyPage() {
           </h2>
           <dl className="flex flex-col divide-y divide-border rounded-xl border border-border bg-surface">
             {companyProfile.map((field) => (
-              <div
-                key={field.label}
-                className="flex flex-col gap-1 px-5 py-4 sm:flex-row sm:gap-8"
-              >
-                <dt className="w-28 shrink-0 text-sm font-medium text-muted-foreground">
-                  {field.label}
-                </dt>
-                <dd className="text-sm leading-relaxed text-foreground">
-                  {isCompanyHistory(field.value) ? (
-                    <ol className="flex flex-col gap-3">
-                      {field.value.map((item) => (
-                        <li key={item.date} className="flex flex-col gap-0.5">
-                          <span className="font-mono text-xs tracking-[0.08em] text-muted-foreground">
-                            {item.date}
-                          </span>
-                          <span>{item.description}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  ) : Array.isArray(field.value)
-                    ? field.value.map((line) => (
-                        <span key={line} className="block">{line}</span>
-                      ))
-                    : field.value}
-                </dd>
+              <div key={field.label} className="flex flex-col px-5 py-4">
+                <div className="flex flex-col gap-1 sm:flex-row sm:gap-8">
+                  <dt className="w-28 shrink-0 text-sm font-medium text-muted-foreground">
+                    {field.label}
+                  </dt>
+                  <dd className="text-sm leading-relaxed text-foreground">
+                    {isCompanyHistory(field.value) ? (
+                      <ol className="flex flex-col gap-3">
+                        {field.value.map((item) => (
+                          <li key={item.date} className="flex flex-col gap-0.5">
+                            <span className="font-mono text-xs tracking-[0.08em] text-muted-foreground">
+                              {item.date}
+                            </span>
+                            <span>{item.description}</span>
+                          </li>
+                        ))}
+                      </ol>
+                    ) : Array.isArray(field.value)
+                      ? field.value.map((line) => (
+                          <span key={line} className="block">{line}</span>
+                        ))
+                      : field.value}
+                  </dd>
+                </div>
+                {field.label === "所在地" && (
+                  <div className="mt-4 overflow-hidden rounded-lg border border-border bg-muted sm:ml-36">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d103574.31488427622!2d139.6287528!3d35.7828103!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018f3a2b77fc8d1%3A0xb4b171924c684959!2z44Om44OK44Kk44OG44OD44OJ44K544K_44K444Kq44ix!5e0!3m2!1sja!2sjp!4v1783082476218!5m2!1sja!2sjp"
+                      title="ユナイテッドスタジオの地図"
+                      className="h-64 w-full grayscale md:h-72"
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      allowFullScreen
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </dl>

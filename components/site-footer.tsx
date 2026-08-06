@@ -49,9 +49,12 @@ export function SiteFooter() {
               </Link>
             </li>
           </ul>
-          <p className="text-xs text-muted-foreground">
+          <a
+            href="https://united-studio.com"
+            className="inline-flex min-h-11 items-center text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
             © {year} United Studio Inc.
-          </p>
+          </a>
         </div>
       </div>
     </footer>

@@ -20,10 +20,10 @@ export default async function HomePage() {
         <div className="core-dust" aria-hidden="true">
           <span /><span /><span /><span /><span />
         </div>
-        <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-14 pt-10 md:px-6 lg:grid lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-12 lg:pb-20 lg:pt-16">
-          <div className="flex flex-col items-start gap-5 lg:sticky lg:top-24 lg:pt-6">
+        <div className="relative mx-auto flex max-w-6xl flex-col gap-10 px-4 pb-14 pt-10 md:gap-14 md:px-6 md:pb-20 md:pt-14 lg:gap-16 lg:pb-24 lg:pt-16">
+          <div className="flex max-w-3xl flex-col items-start gap-5">
             <p className="font-mono text-[10px] tracking-[0.28em] text-accent">{SITE_TAGLINE.toUpperCase()}</p>
-            <p className="text-sm font-medium tracking-[0.12em] text-foreground/80 md:text-[15px]">{SITE_NAME_JA}</p>
+            <p className="text-2xl font-bold tracking-[0.06em] text-foreground/85 md:text-3xl">{SITE_NAME_JA}</p>
             <h1
               id="core-heading"
               className="text-4xl font-bold leading-[1.14] tracking-[-0.03em] text-balance text-foreground md:text-5xl lg:text-6xl"
@@ -32,7 +32,7 @@ export default async function HomePage() {
               <br />
               ここから。
             </h1>
-            <p className="max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
+            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
               歌、音、祭り、作品、予約、相談。United Studioは、異なる創作活動をひとつのシステムとしてつなぐ会社です。光の軌道から、あなたの入口を選んでください。
             </p>
             <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
@@ -61,7 +61,7 @@ export default async function HomePage() {
             <SectionHeading id="archive-heading" code="WORKS MEMORY" title="制作の記録" />
             <Link href="/archive" className="system-link">OPEN ARCHIVE <span aria-hidden="true">↗</span></Link>
           </div>
-          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-px sm:overflow-hidden sm:rounded-lg sm:border sm:border-border sm:bg-border lg:grid-cols-4">
             {featuredWorks.map((work) => <ArchiveCard key={work.id} work={work} variant="home" />)}
           </div>
         </div>
