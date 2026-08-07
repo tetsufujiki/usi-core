@@ -87,7 +87,7 @@ export type ArchiveItem = {
   client?: string
   artist?: string
   label?: string
-  format?: "Album" | "Single" | "Playlist" | "CDbook" | "Corporate"
+  format?: "Album" | "Single" | "Playlist" | "CDbook" | "Corporate" | "Game"
   collectionTitle?: string
   genre?: string
   links?: ArchivePlatformLink[]
@@ -557,6 +557,27 @@ export const archiveItems: ArchiveItem[] = [
         alt: "株式会社オリンピア様 / サミー株式会社様 パチスロ音楽・効果音：アントニオ猪木も燃えるパチスロ機 筐体",
         label: "アントニオ猪木も燃えるパチスロ機",
         fit: "contain",
+      },
+    ],
+  },
+  {
+    id: "tow-sumire-no-sora",
+    title: "すみれの空",
+    artist: "TOW",
+    workType: "artist-work",
+    category: "mix-mastering",
+    roles: ["ミックス", "マスタリング"],
+    format: "Game",
+    links: [
+      {
+        platform: "official",
+        label: "詳細を見る",
+        href: "https://www.gametomo.co.jp/sumire",
+      },
+      {
+        platform: "youtube",
+        label: "YouTube",
+        href: "https://www.youtube.com/watch?v=I8EHJso_f6I",
       },
     ],
   },
