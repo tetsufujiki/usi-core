@@ -564,6 +564,7 @@ export const archiveItems: ArchiveItem[] = [
     id: "tow-sumire-no-sora",
     title: "すみれの空",
     artist: "TOW",
+    year: 2021,
     workType: "artist-work",
     category: "mix-mastering",
     roles: ["ミックス", "マスタリング"],
