@@ -82,6 +82,8 @@ export type ArchiveItem = {
   date?: string
   workType: ArchiveWorkType
   category: ArchiveCategory
+  /** Additional filters for works that belong to more than one archive category. */
+  additionalCategories?: ArchiveCategory[]
   summary?: string
   roles: string[]
   client?: string
@@ -347,6 +349,7 @@ export const archiveItems: ArchiveItem[] = [
     date: "2025-11-01",
     workType: "artist-work",
     category: "arrangement-mix-mastering",
+    additionalCategories: ["label"],
     roles: ["編曲", "ミックス", "マスタリング"],
     summary: "DISC1「Indigo」、DISC2「Crimson」からなるAlbum。全曲を担当。",
     label: "United Studio Inc",
@@ -678,7 +681,11 @@ export function getArchiveItems(opts?: {
   year?: number
 }): ArchiveItem[] {
   let items = [...archiveItems]
-  if (opts?.category) items = items.filter((i) => i.category === opts.category)
+  if (opts?.category) {
+    items = items.filter(
+      (i) => i.category === opts.category || i.additionalCategories?.includes(opts.category!),
+    )
+  }
   if (opts?.year) items = items.filter((i) => i.year === opts.year)
   return items.sort((a, b) => (b.year ?? 0) - (a.year ?? 0))
 }
