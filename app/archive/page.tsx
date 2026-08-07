@@ -7,7 +7,6 @@ import {
   archiveCategories,
   archiveCategoryLabels,
   getArchiveItems,
-  getArchiveYears,
   getFeaturedWorks,
   type ArchiveCategory,
 } from "@/lib/archive"
@@ -27,9 +26,8 @@ export const metadata: Metadata = {
   },
 }
 
-function buildQuery(year?: string, category?: string): string {
+function buildQuery(category?: string): string {
   const params = new URLSearchParams()
-  if (year) params.set("year", year)
   if (category) params.set("category", category)
   const query = params.toString()
   return query ? `/archive?${query}` : "/archive"
@@ -44,18 +42,15 @@ const filterInactive =
 export default async function ArchivePage({
   searchParams,
 }: {
-  searchParams: Promise<{ year?: string; category?: string }>
+  searchParams: Promise<{ category?: string }>
 }) {
-  const { year, category } = await searchParams
-  const years = getArchiveYears()
+  const { category } = await searchParams
   const featured = getFeaturedWorks(4)
-  const activeYear = year && years.includes(Number(year)) ? Number(year) : null
   const activeCategory = archiveCategories.includes(category as ArchiveCategory)
     ? (category as ArchiveCategory)
     : null
   const filtered = getArchiveItems({
     category: activeCategory ?? undefined,
-    year: activeYear ?? undefined,
   })
 
   return (
@@ -121,24 +116,15 @@ export default async function ArchivePage({
             <h2 id="works-index-heading" className="text-2xl font-bold tracking-[-0.02em] md:text-3xl">Works Index</h2>
           </div>
 
-          <div className="flex flex-col gap-5 border-y border-border py-5">
-            <nav aria-label="年で作品を絞り込む" className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
-              <span className="w-20 shrink-0 font-mono text-[9px] tracking-[0.2em] text-muted-foreground">YEAR</span>
-              <ul className="flex flex-wrap gap-2">
-                <li><Link href={buildQuery(undefined, activeCategory ?? undefined)} className={`${filterBase} ${!activeYear ? filterActive : filterInactive}`} aria-current={!activeYear ? "page" : undefined}>ALL</Link></li>
-                {years.map((itemYear) => (
-                  <li key={itemYear}><Link href={buildQuery(String(itemYear), activeCategory ?? undefined)} className={`${filterBase} ${activeYear === itemYear ? filterActive : filterInactive}`} aria-current={activeYear === itemYear ? "page" : undefined}>{itemYear}</Link></li>
-                ))}
-              </ul>
-            </nav>
-
+          <div className="border-y border-border py-5">
             <nav aria-label="内部分類で作品を絞り込む" className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
               <span className="w-20 shrink-0 font-mono text-[9px] tracking-[0.2em] text-muted-foreground">CATEGORY</span>
               <ul className="flex flex-wrap gap-2">
                 {archiveCategories.map((itemCategory) => (
                   <li key={itemCategory}>
                     <Link
-                      href={buildQuery(activeYear ? String(activeYear) : undefined, activeCategory === itemCategory ? undefined : itemCategory)}
+                      href={buildQuery(activeCategory === itemCategory ? undefined : itemCategory)}
+                      scroll={false}
                       className={`${filterBase} px-3 text-[9px] ${activeCategory === itemCategory ? filterActive : filterInactive}`}
                       aria-current={activeCategory === itemCategory ? "page" : undefined}
                     >
