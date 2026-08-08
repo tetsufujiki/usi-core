@@ -296,11 +296,13 @@ body { background: var(--background); color: var(--foreground); font-family: var
 }
 .archive-card { transition-property: box-shadow, transform; transition-duration: 200ms; }
 .archive-card:hover { box-shadow: 0 6px 28px rgba(35, 44, 59, 0.09), 0 1px 4px rgba(35, 44, 59, 0.06); transform: translateY(-2px); }
+.archive-card-highlighted {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(205, 171, 96, 0.19), transparent 36%),
+    linear-gradient(145deg, #fffdf4, #f7e9c9);
+}
 .archive-card-featured {
   border-color: rgba(174, 137, 62, 0.28);
-  background:
-    radial-gradient(circle at 88% 8%, rgba(205, 171, 96, 0.13), transparent 34%),
-    linear-gradient(145deg, #fffdf7, #faf4e6);
   box-shadow:
     0 12px 34px rgba(108, 83, 35, 0.09),
     0 2px 8px rgba(35, 44, 59, 0.05),
@@ -456,18 +458,6 @@ body { background: var(--background); color: var(--foreground); font-family: var
 .archive-artwork-placeholder::after { width: 46%; border-color: rgba(201,138,138,.28); border-style: dashed; }
 .archive-artwork-orbit { width: 7px; height: 7px; margin-left: 46%; border-radius: 999px; background: var(--accent); box-shadow: 0 0 18px rgba(60,111,183,.6); }
 .archive-artwork-wave { position: absolute; bottom: 14px; left: 16px; font-family: var(--font-mono); font-size: 7px; letter-spacing: .22em; color: rgba(35,44,59,.48); }
-.archive-category-chip {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid var(--border-soft);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface-raised) 70%, transparent);
-  padding: 2px 8px;
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.04em;
-  color: var(--muted-foreground);
-}
 .archive-role-pill {
   display: inline-flex;
   align-items: center;
