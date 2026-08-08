@@ -48,7 +48,7 @@ const mergedGeneratedNews = generatedNewsItems.map((generatedItem) => {
     modifiedAt: generatedItem.modifiedAt,
     featuredImage: generatedItem.featuredImage,
     originalPath: generatedItem.originalPath,
-    contentHtml: undefined,
+    contentHtml: generatedItem.contentHtml,
   }
 })
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { NewsThumbnail } from "@/components/news-thumbnail"
 import { PageHeader } from "@/components/page-header"
 import { getNewsItemBySlug, getNewsList } from "@/lib/news"
 import { SITE_NAME_JA } from "@/lib/site"
@@ -63,6 +64,14 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
               {item.title}
             </h1>
           </header>
+          <NewsThumbnail
+            src={item.featuredImage?.src}
+            alt={item.featuredImage?.alt}
+            title={item.title}
+            width={item.featuredImage?.width}
+            height={item.featuredImage?.height}
+            variant="detail"
+          />
           {item.contentHtml ? (
             <div
               className="news-content text-sm leading-relaxed text-muted-foreground md:text-base"
