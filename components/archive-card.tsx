@@ -1,18 +1,20 @@
 import Link from "next/link"
-import type { ArchiveItem } from "@/lib/archive"
+import type { ArchiveCategory, ArchiveItem } from "@/lib/archive"
 import {
   archiveCardCategoryLabels,
   archiveCategoryLabels,
   archiveWorkTypeLabels,
+  buildArchiveCategoryHref,
 } from "@/lib/archive"
 import { ArchiveYouTubePreview } from "@/components/archive-youtube-preview"
 
 type ArchiveCardProps = {
   work: ArchiveItem
   variant?: "featured" | "index" | "home"
+  activeCategory?: ArchiveCategory | null
 }
 
-export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
+export function ArchiveCard({ work, variant = "index", activeCategory = null }: ArchiveCardProps) {
   const categoryLabel = work.categoryLabel ?? archiveCategoryLabels[work.categories[0]]
   const categoryLabels = work.categories.map((category) => archiveCardCategoryLabels[category])
   const workTypeLabel = archiveWorkTypeLabels[work.workType]
@@ -150,10 +152,13 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
               {work.categories.map((category, index) => (
                 <li key={category}>
                   <Link
-                    href={`/archive?category=${category}`}
+                    href={buildArchiveCategoryHref(activeCategory, category)}
                     scroll={false}
-                    className="archive-role-pill archive-role-filter"
-                    aria-label={`${categoryLabels[index]}カテゴリで作品を絞り込む`}
+                    className={`archive-role-pill archive-role-filter${activeCategory === category ? " is-active" : ""}`}
+                    aria-label={activeCategory === category
+                      ? `${categoryLabels[index]}カテゴリの絞り込みを解除する`
+                      : `${categoryLabels[index]}カテゴリで作品を絞り込む`}
+                    aria-current={activeCategory === category ? "page" : undefined}
                   >
                     {categoryLabels[index]}
                   </Link>

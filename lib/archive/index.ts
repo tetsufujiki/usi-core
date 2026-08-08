@@ -40,6 +40,14 @@ export const archiveCategories = Object.keys(
   archiveCategoryLabels,
 ) as ArchiveCategory[]
 
+export function buildArchiveCategoryHref(
+  activeCategory: ArchiveCategory | null,
+  nextCategory?: ArchiveCategory,
+): string {
+  if (!nextCategory || activeCategory === nextCategory) return "/archive"
+  return `/archive?category=${nextCategory}`
+}
+
 export type ArchiveWorkType =
   | "artist-work"
   | "regional-project"
