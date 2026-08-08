@@ -468,6 +468,11 @@ body { background: var(--background); color: var(--foreground); font-family: var
   font-size: 10px;
   color: var(--accent);
 }
+.archive-card-highlighted .archive-role-pill {
+  border: 1px solid rgba(60, 111, 183, 0.3);
+  background: rgba(60, 111, 183, 0.17);
+  color: #285994;
+}
 .archive-role-filter {
   border: 1px solid transparent;
   transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
