@@ -17,7 +17,6 @@ export type ArchiveCategory =
   | "mastering"
   | "label"
   | "licensing"
-  | "sound-design"
   | "corporate"
 
 export const archiveCategoryLabels: Record<ArchiveCategory, string> = {
@@ -28,7 +27,6 @@ export const archiveCategoryLabels: Record<ArchiveCategory, string> = {
   mastering: "マスタリング",
   label: "自社レーベル",
   licensing: "音楽ライセンス",
-  "sound-design": "サウンド開発（企業案件）",
   corporate: "企業案件",
 }
 
@@ -452,7 +450,7 @@ export const archiveItems: ArchiveItem[] = [
     year: 2018,
     date: "2018-04-20",
     workType: "artist-work",
-    categories: ["composition", "arrangement", "recording", "mixing", "mastering", "sound-design"],
+    categories: ["composition", "arrangement", "recording", "mixing", "mastering", "corporate"],
     roles: ["サウンドプロデュース", "作曲", "編曲", "レコーディング", "ミックス", "マスタリング"],
     summary: "真印のCDbook。全曲を担当。",
     label: "YellowJam",
@@ -558,7 +556,7 @@ export const archiveItems: ArchiveItem[] = [
     title: "パチスロ音楽・効果音",
     client: "株式会社オリンピア様 / サミー株式会社様",
     workType: "corporate-project",
-    categories: ["composition", "arrangement", "mixing", "mastering", "sound-design", "corporate"],
+    categories: ["composition", "arrangement", "mixing", "mastering", "corporate"],
     roles: ["サウンド開発", "音楽制作", "効果音制作", "作曲", "編曲", "ミックス", "マスタリング"],
     summary: "パチスロ向けの音楽・効果音制作。",
     format: "Corporate",
@@ -643,7 +641,7 @@ export const archiveItems: ArchiveItem[] = [
     title: "音源制作",
     client: "株式会社TBSテレビ様",
     workType: "corporate-project",
-    categories: ["arrangement", "mixing", "sound-design", "corporate"],
+    categories: ["arrangement", "mixing", "corporate"],
     roles: ["サウンド開発", "音源制作", "編曲", "ミックス"],
     summary: "企業向けの音源制作。",
     format: "Corporate",
@@ -653,7 +651,7 @@ export const archiveItems: ArchiveItem[] = [
     title: "プリセットデータ制作",
     client: "カシオ計算機株式会社様",
     workType: "corporate-project",
-    categories: ["sound-design"],
+    categories: ["corporate"],
     roles: ["サウンド開発", "プリセット制作"],
     summary: "製品向けのプリセットデータ制作。",
     format: "Corporate",
@@ -663,7 +661,7 @@ export const archiveItems: ArchiveItem[] = [
     title: "OP, ED曲制作",
     client: "株式会社日本レジャーチャンネル様",
     workType: "corporate-project",
-    categories: ["composition", "arrangement", "recording", "mixing", "mastering", "sound-design", "corporate"],
+    categories: ["composition", "arrangement", "recording", "mixing", "mastering", "corporate"],
     roles: ["サウンド開発", "楽曲制作", "作曲", "編曲", "レコーディング", "ミックス", "マスタリング"],
     summary: "オープニング、エンディング曲の制作。",
     format: "Corporate",
@@ -694,7 +692,7 @@ export const archiveItems: ArchiveItem[] = [
     title: "オーディオブック音源制作",
     client: "株式会社オトバンク様",
     workType: "audiobook",
-    categories: ["sound-design"],
+    categories: ["corporate"],
     roles: ["サウンド開発", "音源制作"],
     summary: "オーディオブック向けの音源制作。",
     format: "Corporate",
