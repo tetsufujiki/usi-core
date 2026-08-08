@@ -3,6 +3,7 @@ import newsRedirects from "./lib/news/generated/redirects.json";
 
 const nextConfig: NextConfig = {
   images: {
+    formats: ["image/avif", "image/webp"],
     qualities: [75],
     remotePatterns: [
       {
