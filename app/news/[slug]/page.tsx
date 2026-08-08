@@ -22,12 +22,24 @@ export async function generateMetadata({ params }: NewsDetailPageProps): Promise
 
   return {
     title: `${item.title}｜${SITE_NAME_JA}`,
-    description: `${item.date}｜${item.title}`,
+    description: item.excerpt || `${item.date}｜${item.title}`,
     alternates: { canonical: `/news/${item.slug}` },
     openGraph: {
       title: item.title,
-      description: `${item.date}｜${item.title}`,
+      description: item.excerpt || `${item.date}｜${item.title}`,
       url: `/news/${item.slug}`,
+      ...(item.featuredImage
+        ? {
+            images: [
+              {
+                url: item.featuredImage.src,
+                alt: item.featuredImage.alt,
+                ...(item.featuredImage.width ? { width: item.featuredImage.width } : {}),
+                ...(item.featuredImage.height ? { height: item.featuredImage.height } : {}),
+              },
+            ],
+          }
+        : {}),
     },
   }
 }
@@ -51,9 +63,16 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
               {item.title}
             </h1>
           </header>
-          <div className="flex flex-col gap-5 text-sm leading-relaxed text-muted-foreground md:text-base">
-            {item.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          </div>
+          {item.contentHtml ? (
+            <div
+              className="news-content text-sm leading-relaxed text-muted-foreground md:text-base"
+              dangerouslySetInnerHTML={{ __html: item.contentHtml }}
+            />
+          ) : (
+            <div className="flex flex-col gap-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+              {item.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
+          )}
           <footer className="border-t border-border pt-8">
             <Link href="/news" className="system-link">← NEWS一覧へ戻る</Link>
           </footer>

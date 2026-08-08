@@ -40,9 +40,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...news.map((item) => ({
       url: `${SITE_URL}/news/${item.slug}`,
-      lastModified: new Date(item.date),
+      lastModified: new Date(item.modifiedAt ?? item.date),
       changeFrequency: "monthly" as const,
       priority: 0.6,
+      ...(item.featuredImage?.src
+        ? {
+            images: [
+              item.featuredImage.src.startsWith("http")
+                ? item.featuredImage.src
+                : `${SITE_URL}${item.featuredImage.src}`,
+            ],
+          }
+        : {}),
     })),
   ]
 }

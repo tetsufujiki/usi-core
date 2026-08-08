@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import newsRedirects from "./lib/news/generated/redirects.json";
 
 const nextConfig: NextConfig = {
   async redirects() {
@@ -25,12 +26,32 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/category/yosakoi",
-        destination: "https://yosakoi.united-studio.com/",
+        destination: "https://yosakoi.united-studio.com/archive",
         permanent: true,
       },
       {
         source: "/category/yosakoi/:path*",
-        destination: "https://yosakoi.united-studio.com/",
+        destination: "https://yosakoi.united-studio.com/archive",
+        permanent: true,
+      },
+      {
+        source: "/category/usi",
+        destination: "/news",
+        permanent: true,
+      },
+      {
+        source: "/category/music",
+        destination: "/news",
+        permanent: true,
+      },
+      {
+        source: "/category/voice",
+        destination: "/news",
+        permanent: true,
+      },
+      {
+        source: "/portfolio_cat/himabito",
+        destination: "https://yosakoi.united-studio.com/archive",
         permanent: true,
       },
       {
@@ -43,6 +64,11 @@ const nextConfig: NextConfig = {
         destination: "https://utattemita.united-studio.com/",
         permanent: true,
       },
+      ...newsRedirects.map(({ source, destination }) => ({
+        source,
+        destination,
+        permanent: true,
+      })),
     ];
   },
 };
