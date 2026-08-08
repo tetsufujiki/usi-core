@@ -60,6 +60,21 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/Portfolio/:path*",
+        destination: "https://yosakoi.united-studio.com/archive",
+        permanent: true,
+      },
+      {
+        source: "/portfolio/:path*",
+        destination: "https://yosakoi.united-studio.com/archive",
+        permanent: true,
+      },
+      {
+        source: "/portfolio_cat/:path*",
+        destination: "https://yosakoi.united-studio.com/archive",
+        permanent: true,
+      },
+      {
         source: "/portfolio_cat/himabito",
         destination: "https://yosakoi.united-studio.com/archive",
         permanent: true,
