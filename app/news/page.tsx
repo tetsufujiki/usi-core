@@ -83,9 +83,9 @@ export default async function NewsPage({
       />
       <div
         id="news-list"
-        className="mx-auto max-w-4xl scroll-mt-6 px-4 py-12 md:px-6 md:py-16"
+        className="mx-auto max-w-5xl scroll-mt-6 px-4 py-12 md:px-6 md:py-16"
       >
-        <NewsList items={pageItems} />
+        <NewsList items={pageItems} variant="index" />
         {totalPages > 1 ? (
           <nav
             aria-label="Newsのページ送り"
