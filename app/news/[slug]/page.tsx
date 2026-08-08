@@ -50,6 +50,11 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
   if (!item) notFound()
 
+  const news = await getNewsList()
+  const currentIndex = news.findIndex((newsItem) => newsItem.id === item.id)
+  const newerItem = currentIndex > 0 ? news[currentIndex - 1] : undefined
+  const olderItem = currentIndex >= 0 ? news[currentIndex + 1] : undefined
+
   return (
     <div>
       <NewsDetailHero
@@ -71,7 +76,40 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
               {item.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
           )}
-          <footer className="border-t border-border pt-8">
+          {newerItem || olderItem ? (
+            <nav
+              aria-label="前後のNews記事"
+              className="grid gap-3 border-y border-border py-6 md:grid-cols-2 md:gap-6"
+            >
+              {newerItem ? (
+                <Link
+                  href={`/news/${newerItem.slug}`}
+                  className="group flex min-w-0 flex-col items-start gap-2 rounded-lg border border-border bg-surface px-5 py-4 transition-colors hover:border-accent/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >
+                  <span className="font-mono text-[10px] tracking-[0.18em] text-accent">
+                    ← 新しい記事
+                  </span>
+                  <span className="text-sm font-medium leading-relaxed text-foreground transition-colors group-hover:text-accent md:text-base">
+                    {newerItem.title}
+                  </span>
+                </Link>
+              ) : null}
+              {olderItem ? (
+                <Link
+                  href={`/news/${olderItem.slug}`}
+                  className="group flex min-w-0 flex-col items-end gap-2 rounded-lg border border-border bg-surface px-5 py-4 text-right transition-colors hover:border-accent/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:col-start-2"
+                >
+                  <span className="font-mono text-[10px] tracking-[0.18em] text-accent">
+                    古い記事 →
+                  </span>
+                  <span className="text-sm font-medium leading-relaxed text-foreground transition-colors group-hover:text-accent md:text-base">
+                    {olderItem.title}
+                  </span>
+                </Link>
+              ) : null}
+            </nav>
+          ) : null}
+          <footer>
             <Link href="/news" className="system-link">← NEWS一覧へ戻る</Link>
           </footer>
         </article>
