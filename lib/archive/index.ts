@@ -30,6 +30,12 @@ export const archiveCategoryLabels: Record<ArchiveCategory, string> = {
   corporate: "企業案件",
 }
 
+/** Concise labels used by category controls inside Archive cards. */
+export const archiveCardCategoryLabels: Record<ArchiveCategory, string> = {
+  ...archiveCategoryLabels,
+  composition: "作曲",
+}
+
 export const archiveCategories = Object.keys(
   archiveCategoryLabels,
 ) as ArchiveCategory[]

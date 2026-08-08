@@ -1,15 +1,15 @@
-import type { ArchiveCategory, ArchiveItem } from "@/lib/archive"
-import { archiveCategoryLabels, archiveWorkTypeLabels } from "@/lib/archive"
+import Link from "next/link"
+import type { ArchiveItem } from "@/lib/archive"
+import {
+  archiveCardCategoryLabels,
+  archiveCategoryLabels,
+  archiveWorkTypeLabels,
+} from "@/lib/archive"
 import { ArchiveYouTubePreview } from "@/components/archive-youtube-preview"
 
 type ArchiveCardProps = {
   work: ArchiveItem
   variant?: "featured" | "index" | "home"
-}
-
-const archiveCardCategoryLabels: Record<ArchiveCategory, string> = {
-  ...archiveCategoryLabels,
-  composition: "作曲",
 }
 
 export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
@@ -18,7 +18,6 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
   const workTypeLabel = archiveWorkTypeLabels[work.workType]
   const subject = work.artist ?? work.client ?? work.label ?? "United Studio"
   const isFeatured = variant === "featured"
-  const showsAllCategories = variant !== "home"
   const youtubeLink = work.links?.find((link) => link.platform === "youtube")
   const hasArtworks = work.artworks && work.artworks.length > 0
   const containsArtwork = work.artworks?.some((artwork) => artwork.fit === "contain")
@@ -85,13 +84,7 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
       <div className={`flex grow flex-col ${isFeatured ? "gap-5 p-6 md:p-7" : "gap-3 p-5"}`}>
         <div className="flex flex-wrap items-start justify-between gap-2">
           {work.year && <span className="font-mono text-[11px] tracking-[0.16em] text-accent">{work.year}</span>}
-          {showsAllCategories ? (
-            <ul aria-label="作品カテゴリ" className="flex max-w-full flex-wrap justify-end gap-1.5">
-              {categoryLabels.map((label) => (
-                <li key={label} className="archive-category-chip">{label}</li>
-              ))}
-            </ul>
-          ) : (
+          {variant === "home" && (
             <span className="archive-category-chip">{categoryLabel}</span>
           )}
         </div>
@@ -142,11 +135,30 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
           </ul>
         )}
 
-        {work.roles.length > 0 && (
+        {variant === "home" && work.roles.length > 0 && (
           <div className="flex flex-col gap-2">
-            {isFeatured && <p className="font-mono text-[9px] tracking-[0.2em] text-muted-foreground">ROLE</p>}
             <ul aria-label="United Studioの担当範囲" className="flex flex-wrap gap-1.5">
               {work.roles.map((role) => <li key={role} className="archive-role-pill">{role}</li>)}
+            </ul>
+          </div>
+        )}
+
+        {variant !== "home" && work.categories.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <p className="font-mono text-[9px] tracking-[0.2em] text-muted-foreground">ROLE</p>
+            <ul aria-label="カテゴリで作品を絞り込む" className="flex flex-wrap gap-1.5">
+              {work.categories.map((category, index) => (
+                <li key={category}>
+                  <Link
+                    href={`/archive?category=${category}`}
+                    scroll={false}
+                    className="archive-role-pill archive-role-filter"
+                    aria-label={`${categoryLabels[index]}カテゴリで作品を絞り込む`}
+                  >
+                    {categoryLabels[index]}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         )}
