@@ -61,11 +61,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="archive-heading" className="home-panel border-b border-border">
+      <section aria-labelledby="archive-heading" className="home-panel home-panel-hero-background border-b border-border">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-16 md:px-6 lg:py-24">
           <div className="flex flex-col items-start justify-between gap-5 md:flex-row md:items-end">
             <SectionHeading id="archive-heading" code="WORKS MEMORY" title="制作の記録" />
-            <Link href="/archive" className="system-link">OPEN ARCHIVE <span aria-hidden="true">↗</span></Link>
+            <Link href="/archive" className="system-link self-end md:self-auto">OPEN ARCHIVE <span aria-hidden="true">↗</span></Link>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-px sm:overflow-hidden sm:rounded-lg sm:border sm:border-border sm:bg-border lg:grid-cols-4">
             {featuredWorks.map((work) => <ArchiveCard key={work.id} work={work} variant="home" />)}
@@ -79,7 +79,7 @@ export default async function HomePage() {
           <div className="flex max-w-xl flex-col items-start gap-6">
             <p className="text-lg leading-relaxed text-foreground">ひとつの専門領域に閉じず、複数の創作の入口をひとつのシステムとして束ねる会社です。</p>
             <p className="text-sm leading-relaxed text-muted-foreground">レコーディング・楽曲制作、歌ってみた制作サポート、よさこい楽曲制作、アーティスト / クリエイター支援。</p>
-            <Link href="/company" className="system-link">VIEW COMPANY <span aria-hidden="true">↗</span></Link>
+            <Link href="/company" className="system-link self-end md:self-auto">VIEW COMPANY <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </section>
@@ -90,7 +90,7 @@ export default async function HomePage() {
             <p className="font-mono text-[10px] tracking-[0.26em] text-accent">NEXT ACTION / CONTACT</p>
             <h2 id="contact-heading" className="text-4xl font-bold tracking-[-0.04em] text-balance md:text-6xl">次の創作を、ここから。</h2>
           </div>
-          <Link href="/contact" className="action-button">相談をはじめる <span aria-hidden="true">→</span></Link>
+          <Link href="/contact" className="action-button shrink-0 self-end whitespace-nowrap md:self-auto">相談をはじめる <span aria-hidden="true">→</span></Link>
         </div>
       </section>
     </div>

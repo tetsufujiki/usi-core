@@ -32,6 +32,11 @@
   --accent-soft: rgba(60, 111, 183, 0.1);
   --rose: #c98a8a;
   --rose-soft: rgba(201, 138, 138, 0.1);
+  --core-hero-background:
+    radial-gradient(52% 42% at 18% 8%, rgba(60, 111, 183, 0.09), transparent 70%),
+    radial-gradient(48% 38% at 86% 16%, rgba(31, 182, 205, 0.07), transparent 70%),
+    radial-gradient(50% 44% at 74% 88%, rgba(201, 138, 138, 0.08), transparent 72%),
+    var(--background);
 }
 
 html { scroll-behavior: smooth; }
@@ -44,11 +49,7 @@ body { background: var(--background); color: var(--foreground); font-family: var
 .core-hero {
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(52% 42% at 18% 8%, rgba(60, 111, 183, 0.09), transparent 70%),
-    radial-gradient(48% 38% at 86% 16%, rgba(31, 182, 205, 0.07), transparent 70%),
-    radial-gradient(50% 44% at 74% 88%, rgba(201, 138, 138, 0.08), transparent 72%),
-    var(--background);
+  background: var(--core-hero-background);
 }
 .core-lines {
   position: absolute;
@@ -276,6 +277,7 @@ body { background: var(--background); color: var(--foreground); font-family: var
 /* ---------- Lower sections ---------- */
 .home-panel { background-color: var(--background); }
 .home-panel:nth-of-type(even) { background-color: color-mix(in srgb, var(--surface) 55%, var(--background)); }
+.home-panel-hero-background { background: var(--core-hero-background); }
 .system-link { display: inline-flex; min-height: 44px; width: fit-content; align-items: center; gap: 10px; border-bottom: 1px solid var(--accent); color: var(--foreground); font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; transition: color 180ms ease; }
 .system-link:hover { color: var(--accent); }
 .next-action {
@@ -289,18 +291,17 @@ body { background: var(--background); color: var(--foreground); font-family: var
 
 /* ---------- Archive ---------- */
 .archive-page {
-  background:
-    radial-gradient(42% 24% at 90% 15%, rgba(201, 138, 138, 0.08), transparent 75%),
-    radial-gradient(44% 28% at 8% 42%, rgba(60, 111, 183, 0.07), transparent 76%),
-    var(--background);
+  background: var(--core-hero-background);
 }
 .archive-card { transition-property: box-shadow, transform; transition-duration: 200ms; }
 .archive-card:hover { box-shadow: 0 6px 28px rgba(35, 44, 59, 0.09), 0 1px 4px rgba(35, 44, 59, 0.06); transform: translateY(-2px); }
+.archive-card-highlighted {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(205, 171, 96, 0.19), transparent 36%),
+    linear-gradient(145deg, #fffdf4, #f7e9c9);
+}
 .archive-card-featured {
   border-color: rgba(174, 137, 62, 0.28);
-  background:
-    radial-gradient(circle at 88% 8%, rgba(205, 171, 96, 0.13), transparent 34%),
-    linear-gradient(145deg, #fffdf7, #faf4e6);
   box-shadow:
     0 12px 34px rgba(108, 83, 35, 0.09),
     0 2px 8px rgba(35, 44, 59, 0.05),
@@ -456,18 +457,6 @@ body { background: var(--background); color: var(--foreground); font-family: var
 .archive-artwork-placeholder::after { width: 46%; border-color: rgba(201,138,138,.28); border-style: dashed; }
 .archive-artwork-orbit { width: 7px; height: 7px; margin-left: 46%; border-radius: 999px; background: var(--accent); box-shadow: 0 0 18px rgba(60,111,183,.6); }
 .archive-artwork-wave { position: absolute; bottom: 14px; left: 16px; font-family: var(--font-mono); font-size: 7px; letter-spacing: .22em; color: rgba(35,44,59,.48); }
-.archive-category-chip {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid var(--border-soft);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface-raised) 70%, transparent);
-  padding: 2px 8px;
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.04em;
-  color: var(--muted-foreground);
-}
 .archive-role-pill {
   display: inline-flex;
   align-items: center;
@@ -477,6 +466,11 @@ body { background: var(--background); color: var(--foreground); font-family: var
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--accent);
+}
+.archive-card-highlighted .archive-role-pill {
+  border: 1px solid rgba(60, 111, 183, 0.3);
+  background: rgba(60, 111, 183, 0.17);
+  color: #285994;
 }
 .archive-role-filter {
   border: 1px solid transparent;
