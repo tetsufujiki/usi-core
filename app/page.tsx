@@ -45,13 +45,19 @@ export default async function HomePage() {
       </section>
 
       <section aria-labelledby="news-heading" className="home-panel border-b border-border">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 md:px-6 lg:grid-cols-[0.35fr_1fr] lg:py-24">
+        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 md:px-6 lg:grid-cols-[minmax(300px,0.42fr)_minmax(0,1fr)] lg:gap-12 lg:py-24">
           <div className="flex flex-col gap-4">
-            <SectionHeading id="news-heading" code="ACTIVITY SIGNAL" title="いま、動いていること" />
+            <div className="lg:[&_h2]:whitespace-nowrap">
+              <SectionHeading id="news-heading" code="ACTIVITY SIGNAL" title="いま、動いていること" />
+            </div>
             <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">創作システムから届く、小さな活動信号。</p>
-            <Link href="/news" className="system-link">ALL SIGNALS <span aria-hidden="true">↗</span></Link>
           </div>
-          <NewsList items={latestNews} />
+          <div className="flex min-w-0 flex-col">
+            <NewsList items={latestNews} variant="home" />
+            <div className="flex justify-end pt-6">
+              <Link href="/news" className="system-link">ALL SIGNALS <span aria-hidden="true">↗</span></Link>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -21,12 +21,41 @@ function formatDate(iso: string): string {
   return `${y}.${m}.${d}`
 }
 
-export function NewsList({ items }: { items: NewsItem[] }) {
+type NewsListProps = {
+  items: NewsItem[]
+  variant?: "default" | "home" | "index"
+}
+
+const articleClasses = {
+  default: "min-h-20 gap-3 py-4 sm:gap-5",
+  home: "min-h-20 gap-3 py-4 sm:gap-5 lg:min-h-28 lg:gap-6 lg:py-5",
+  index: "min-h-20 gap-3 py-4 sm:gap-5 lg:min-h-28 lg:gap-6 lg:py-6",
+} as const
+
+const metaClasses = {
+  default: "",
+  home: "lg:text-sm",
+  index: "lg:text-sm",
+} as const
+
+const categoryClasses = {
+  default: "",
+  home: "lg:text-[10px]",
+  index: "lg:text-[10px]",
+} as const
+
+const titleClasses = {
+  default: "",
+  home: "lg:text-base lg:leading-7",
+  index: "lg:text-lg lg:leading-8",
+} as const
+
+export function NewsList({ items, variant = "default" }: NewsListProps) {
   return (
     <ul className="flex flex-col divide-y divide-border">
       {items.map((item) => (
         <li key={item.id}>
-          <article className="flex min-h-20 items-start gap-3 py-4 sm:gap-5">
+          <article className={`flex items-start ${articleClasses[variant]}`}>
             {item.external ? (
               <a
                 href={item.href}
@@ -38,6 +67,7 @@ export function NewsList({ items }: { items: NewsItem[] }) {
                   src={item.featuredImage?.src}
                   alt={item.featuredImage?.alt}
                   title={item.title}
+                  variant={variant}
                 />
               </a>
             ) : (
@@ -49,6 +79,7 @@ export function NewsList({ items }: { items: NewsItem[] }) {
                   src={item.featuredImage?.src}
                   alt={item.featuredImage?.alt}
                   title={item.title}
+                  variant={variant}
                 />
               </Link>
             )}
@@ -56,15 +87,15 @@ export function NewsList({ items }: { items: NewsItem[] }) {
               <div className="flex flex-wrap items-center gap-3">
                 <time
                   dateTime={item.date}
-                  className="font-mono text-xs text-muted-foreground"
+                  className={`font-mono text-xs text-muted-foreground ${metaClasses[variant]}`}
                 >
                   {formatDate(item.date)}
                 </time>
-                <span className="rounded-sm border border-border px-1.5 py-0.5 font-mono text-[9px] tracking-[0.15em] text-accent">
+                <span className={`rounded-sm border border-border px-1.5 py-0.5 font-mono text-[9px] tracking-[0.15em] text-accent ${categoryClasses[variant]}`}>
                   {categoryLabels[item.category] ?? item.category.toUpperCase()}
                 </span>
               </div>
-              <h3 className="text-sm font-medium leading-relaxed text-foreground text-pretty">
+              <h3 className={`text-sm font-medium leading-relaxed text-foreground text-pretty ${titleClasses[variant]}`}>
                 {item.external ? (
                   <a
                     href={item.href}
