@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "cms:update": "pnpm news:sync",
     "news:sync": "node scripts/news/sync-wordpress.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit"
