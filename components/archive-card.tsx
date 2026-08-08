@@ -1,4 +1,4 @@
-import type { ArchiveItem } from "@/lib/archive"
+import type { ArchiveCategory, ArchiveItem } from "@/lib/archive"
 import { archiveCategoryLabels, archiveWorkTypeLabels } from "@/lib/archive"
 import { ArchiveYouTubePreview } from "@/components/archive-youtube-preview"
 
@@ -7,11 +7,19 @@ type ArchiveCardProps = {
   variant?: "featured" | "index" | "home"
 }
 
+const archiveCardCategoryLabels: Record<ArchiveCategory, string> = {
+  ...archiveCategoryLabels,
+  composition: "作曲",
+  "sound-design": "サウンド開発",
+}
+
 export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
   const categoryLabel = work.categoryLabel ?? archiveCategoryLabels[work.categories[0]]
+  const categoryLabels = work.categories.map((category) => archiveCardCategoryLabels[category])
   const workTypeLabel = archiveWorkTypeLabels[work.workType]
   const subject = work.artist ?? work.client ?? work.label ?? "United Studio"
   const isFeatured = variant === "featured"
+  const isIndex = variant === "index"
   const youtubeLink = work.links?.find((link) => link.platform === "youtube")
   const hasArtworks = work.artworks && work.artworks.length > 0
   const containsArtwork = work.artworks?.some((artwork) => artwork.fit === "contain")
@@ -76,9 +84,17 @@ export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
       )}
 
       <div className={`flex grow flex-col ${isFeatured ? "gap-5 p-6 md:p-7" : "gap-3 p-5"}`}>
-        <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-wrap items-start justify-between gap-2">
           {work.year && <span className="font-mono text-[11px] tracking-[0.16em] text-accent">{work.year}</span>}
-          <span className="archive-category-chip">{categoryLabel}</span>
+          {isIndex ? (
+            <ul aria-label="作品カテゴリ" className="flex max-w-full flex-wrap justify-end gap-1.5">
+              {categoryLabels.map((label) => (
+                <li key={label} className="archive-category-chip">{label}</li>
+              ))}
+            </ul>
+          ) : (
+            <span className="archive-category-chip">{categoryLabel}</span>
+          )}
         </div>
 
         <div className="flex flex-col gap-1.5">
