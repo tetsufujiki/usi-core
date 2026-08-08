@@ -56,3 +56,71 @@ pnpm news:sync
 pnpm typecheck
 pnpm build
 ```
+
+## CMS News更新手順
+
+News記事は `cms.united-studio.com` のWordPressから取得し、`lib/news/generated/posts.json` と `lib/news/generated/redirects.json` に静的データとして保存しています。
+
+そのため、CMS側でNews記事を追加・修正しただけでは、`united-studio.com` へ即時反映されません。
+
+### 通常運用：GitHub Actionsで反映する
+
+CMSでNews記事を追加・修正した後は、GitHub Actionsから手動同期を実行します。
+
+1. GitHubでこのリポジトリを開く
+2. `Actions` を開く
+3. `CMS News Sync` を選択
+4. `Run workflow` を押す
+5. 対象ブランチが `main` であることを確認して実行する
+
+Workflowでは以下が実行されます。
+
+```bash
+pnpm cms:update
+pnpm build
+```
+
+CMS側に変更がある場合は、以下のgeneratedファイルが更新され、自動で `main` にcommit / pushされます。
+
+```text
+lib/news/generated/posts.json
+lib/news/generated/redirects.json
+```
+
+commitメッセージは以下です。
+
+```text
+chore: refresh wordpress news data
+```
+
+`main` にpushされると、Vercelが自動で本番デプロイします。
+
+CMS側に変更がない場合は、commitせずに正常終了します。
+
+```text
+No CMS news changes to commit.
+```
+
+### ローカルで手動同期する場合
+
+必要に応じて、ローカルでも以下で同期できます。
+
+```bash
+pnpm cms:update
+pnpm build
+```
+
+差分がある場合は内容を確認してcommitしてください。
+
+```bash
+git diff
+git add lib/news/generated/posts.json lib/news/generated/redirects.json
+git commit -m "chore: refresh wordpress news data"
+git push origin main
+```
+
+### 注意
+
+- 既存記事の修正も新記事追加も、どちらも同期対象です。
+- CMS側の変更をすぐに本番へ反映する場合は、GitHub Actionsで `CMS News Sync` を実行するか、ローカルで `pnpm cms:update` を実行してください。
+- `posts.json` と `redirects.json` は直接手編集しないでください。
