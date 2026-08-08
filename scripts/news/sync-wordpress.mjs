@@ -269,7 +269,22 @@ async function fetchPage(page) {
   })
 
   if (!response.ok) {
-    throw new Error(`WordPress request failed (${response.status}): ${url}`)
+    const responseBody = (await response.text())
+      .slice(0, 1000)
+      .replace(
+        /(authorization|cookie|api[_-]?key|secret|token|password)(\s*[=:]\s*)([^\s<>&"']+)/gi,
+        "$1$2[REDACTED]",
+      )
+    const diagnosticHeaders = ["server", "content-type", "x-powered-by", "cf-ray"]
+      .map((name) => `${name}: ${response.headers.get(name) ?? "unknown"}`)
+      .join("\n")
+
+    throw new Error(
+      `WordPress request failed (${response.status} ${response.statusText})\n` +
+        `URL: ${url}\n` +
+        `${diagnosticHeaders}\n` +
+        `Response body (first 1000 characters):\n${responseBody}`,
+    )
   }
 
   return { response, posts: await response.json() }
