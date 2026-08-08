@@ -4,6 +4,8 @@ import type { ImportedNewsItem, NewsItem, NewsSource } from "./types"
 
 export type { ImportedNewsItem, NewsItem, NewsCategory, NewsSource } from "./types"
 
+const EXCLUDED_NEWS_SLUGS = new Set(["studio-reservation-url-change"])
+
 function pathFromOriginalUrl(originalUrl?: string): string | undefined {
   if (!originalUrl) return undefined
   try {
@@ -56,7 +58,9 @@ const generatedPaths = new Set(generatedNewsItems.map((item) => item.originalPat
 const manualOnlyNews = newsItems.filter(
   (item) => !generatedPaths.has(pathFromOriginalUrl(item.originalUrl)),
 )
-const allNewsItems = [...mergedGeneratedNews, ...manualOnlyNews]
+const allNewsItems = [...mergedGeneratedNews, ...manualOnlyNews].filter(
+  (item) => !EXCLUDED_NEWS_SLUGS.has(item.slug),
+)
 
 /** Shared static source for TOP Activity Signal and the News index. */
 const staticNewsSource: NewsSource = {

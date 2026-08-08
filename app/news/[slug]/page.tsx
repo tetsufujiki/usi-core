@@ -1,8 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { NewsThumbnail } from "@/components/news-thumbnail"
-import { PageHeader } from "@/components/page-header"
+import { NewsDetailHero } from "@/components/news-detail-hero"
 import { getNewsItemBySlug, getNewsList } from "@/lib/news"
 import { SITE_NAME_JA } from "@/lib/site"
 
@@ -53,25 +52,15 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
   return (
     <div>
-      <PageHeader code="ACTIVITY SIGNAL" title="News" />
+      <NewsDetailHero
+        key={item.slug}
+        src={item.featuredImage?.src}
+        alt={item.featuredImage?.alt}
+        date={item.date}
+        title={item.title}
+      />
       <div className="mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-16">
         <article className="flex max-w-3xl flex-col gap-8">
-          <header className="flex flex-col gap-4 border-b border-border pb-8">
-            <time dateTime={item.date} className="font-mono text-xs text-muted-foreground">
-              {item.date.replaceAll("-", ".")}
-            </time>
-            <h1 className="text-3xl font-bold leading-tight tracking-[-0.025em] text-foreground md:text-4xl">
-              {item.title}
-            </h1>
-          </header>
-          <NewsThumbnail
-            src={item.featuredImage?.src}
-            alt={item.featuredImage?.alt}
-            title={item.title}
-            width={item.featuredImage?.width}
-            height={item.featuredImage?.height}
-            variant="detail"
-          />
           {item.contentHtml ? (
             <div
               className="news-content text-sm leading-relaxed text-muted-foreground md:text-base"
