@@ -61,7 +61,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="archive-heading" className="home-panel border-b border-border">
+      <section aria-labelledby="archive-heading" className="home-panel home-panel-hero-background border-b border-border">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-16 md:px-6 lg:py-24">
           <div className="flex flex-col items-start justify-between gap-5 md:flex-row md:items-end">
             <SectionHeading id="archive-heading" code="WORKS MEMORY" title="制作の記録" />
