@@ -8,7 +8,7 @@ type ArchiveCardProps = {
 }
 
 export function ArchiveCard({ work, variant = "index" }: ArchiveCardProps) {
-  const categoryLabel = archiveCategoryLabels[work.category]
+  const categoryLabel = work.categoryLabel ?? archiveCategoryLabels[work.categories[0]]
   const workTypeLabel = archiveWorkTypeLabels[work.workType]
   const subject = work.artist ?? work.client ?? work.label ?? "United Studio"
   const isFeatured = variant === "featured"

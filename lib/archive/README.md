@@ -24,7 +24,8 @@ ArchiveはCMS化せず、`lib/archive/index.ts` の `archiveItems` を静的デ�
 - 実在しない作品名、アーティスト名、クライアント名、URLを作らない。
 - Spotify、Apple Music、YouTubeなどのURLは、公開情報で確認できたものだけを `links` に入れる。
 - 新規データでは後方互換用の `externalUrl` を使わず、複数登録できる `links` を使う。
-- `workType` は案件の性質、`category` は業務分類、`roles` はUnited Studioの担当範囲を表す。
+- `workType` は案件の性質、`categories` は作業内容単位の業務分類、`roles` はUnited Studioの担当範囲を表す。
+- 複数の作業に該当する実績は、`categories` に各カテゴリを個別に追加する。カード上で従来の複合表記を維持する場合のみ `categoryLabel` を使う。
 - 表示の主語は `artist` / `client` と `title`。業務分類を作品より目立たせない。
 - `date` は分かる場合に `YYYY-MM-DD` 形式で記録し、同じ年を `year` にも入れる。
 - `featured` はArchiveとHOMEの注目作品に限って使用する。

@@ -10,19 +10,21 @@
 // -------------------------------------------------------------------------
 
 export type ArchiveCategory =
-  | "songwriting"
-  | "composition-arrangement"
-  | "arrangement-mix-mastering"
-  | "mix-mastering"
+  | "composition"
+  | "arrangement"
+  | "recording"
+  | "mixing"
+  | "mastering"
   | "label"
   | "licensing"
   | "sound-design"
 
 export const archiveCategoryLabels: Record<ArchiveCategory, string> = {
-  songwriting: "楽曲提供",
-  "composition-arrangement": "作編曲",
-  "arrangement-mix-mastering": "編曲・ミックス・マスタリング",
-  "mix-mastering": "ミックス・マスタリング",
+  composition: "楽曲提供（作曲）",
+  arrangement: "編曲",
+  recording: "レコーディング",
+  mixing: "ミックス",
+  mastering: "マスタリング",
   label: "自社レーベル",
   licensing: "音楽ライセンス",
   "sound-design": "サウンド開発（企業案件）",
@@ -81,9 +83,10 @@ export type ArchiveItem = {
   year?: number
   date?: string
   workType: ArchiveWorkType
-  category: ArchiveCategory
-  /** Additional filters for works that belong to more than one archive category. */
-  additionalCategories?: ArchiveCategory[]
+  /** Atomic work categories used by the Archive filter. */
+  categories: ArchiveCategory[]
+  /** Optional legacy-style label shown on cards to keep the established UI concise. */
+  categoryLabel?: string
   summary?: string
   roles: string[]
   client?: string
@@ -120,7 +123,8 @@ ArchiveItem 追加テンプレート
   year: 2026,
   date: "2026-01-01",
   workType: "artist-work",
-  category: "composition-arrangement",
+  categories: ["composition", "arrangement"],
+  categoryLabel: "作編曲",
   roles: ["作曲", "編曲", "ミックス"],
   summary: "表示用の短い説明。",
   links: [
@@ -141,7 +145,8 @@ export const archiveItems: ArchiveItem[] = [
     year: 2024,
     date: "2024-06-19",
     workType: "regional-project",
-    category: "composition-arrangement",
+    categories: ["composition", "arrangement"],
+    categoryLabel: "作編曲",
     roles: ["楽曲提供", "作曲", "編曲", "ミックス", "マスタリング"],
     summary: "山形県西川町のエクササイズ企画向け楽曲制作。",
     links: [
@@ -164,7 +169,8 @@ export const archiveItems: ArchiveItem[] = [
     artist: "寺下真理子",
     year: 2022,
     workType: "artist-work",
-    category: "arrangement-mix-mastering",
+    categories: ["arrangement", "mixing", "mastering"],
+    categoryLabel: "編曲・ミックス・マスタリング",
     roles: ["編曲（一部）", "ミックス", "マスタリング"],
     summary: "寺下真理子による「PIRATES OF THE CARIBBEAN」関連作品。",
     links: [
@@ -183,7 +189,7 @@ export const archiveItems: ArchiveItem[] = [
     year: 2017,
     date: "2017-05-24",
     workType: "artist-work",
-    category: "songwriting",
+    categories: ["composition"],
     roles: ["作曲", "楽曲提供"],
     summary: "乃木坂46のAlbum「生まれてから初めて見た夢」収録曲。歌唱は桜井玲香、西野七瀬、若月佑美。",
     label: "乃木坂46LLC",
@@ -212,7 +218,7 @@ export const archiveItems: ArchiveItem[] = [
     year: 2018,
     date: "2018-12-26",
     workType: "artist-work",
-    category: "songwriting",
+    categories: ["composition"],
     roles: ["作曲", "楽曲提供"],
     summary: "「快盗戦隊ルパンレンジャーVS警察戦隊パトレンジャー VSキャラクターソングアルバム」収録曲。",
     label: "TV ASAHI MUSIC CO.,LTD.",
@@ -236,7 +242,7 @@ export const archiveItems: ArchiveItem[] = [
     year: 2019,
     date: "2019-04-10",
     workType: "artist-work",
-    category: "songwriting",
+    categories: ["composition"],
     roles: ["作曲", "楽曲提供"],
     summary: "中孝介のAlbum「愛者～Kanasha～」収録曲。",
     label: "YOSHIMOTO MUSIC CO.,LTD.",
@@ -264,7 +270,8 @@ export const archiveItems: ArchiveItem[] = [
     year: 2004,
     date: "2004-07-22",
     workType: "artist-work",
-    category: "composition-arrangement",
+    categories: ["composition", "arrangement"],
+    categoryLabel: "作編曲",
     roles: ["作曲", "編曲"],
     summary: "小森 まなみのAlbum「ユ・メ・ノ・チ・カ・ラ」収録曲。",
     label: "キングレコード",
@@ -292,7 +299,8 @@ export const archiveItems: ArchiveItem[] = [
     year: 2004,
     date: "2004-07-22",
     workType: "artist-work",
-    category: "composition-arrangement",
+    categories: ["composition", "arrangement"],
+    categoryLabel: "作編曲",
     roles: ["作曲", "編曲"],
     summary: "小森 まなみのAlbum「ユ・メ・ノ・チ・カ・ラ」収録曲。",
     label: "キングレコード",
@@ -320,7 +328,8 @@ export const archiveItems: ArchiveItem[] = [
     year: 2002,
     date: "2002-07-25",
     workType: "artist-work",
-    category: "composition-arrangement",
+    categories: ["composition", "arrangement"],
+    categoryLabel: "作編曲",
     roles: ["編曲"],
     summary: "小森 まなみのSingle「Life~上を向いて歩こう~」収録曲。",
     label: "キングレコード",
@@ -348,8 +357,8 @@ export const archiveItems: ArchiveItem[] = [
     year: 2025,
     date: "2025-11-01",
     workType: "artist-work",
-    category: "arrangement-mix-mastering",
-    additionalCategories: ["label"],
+    categories: ["arrangement", "mixing", "mastering", "label"],
+    categoryLabel: "編曲・ミックス・マスタリング",
     roles: ["編曲", "ミックス", "マスタリング"],
     summary: "DISC1「Indigo」、DISC2「Crimson」からなるAlbum。全曲を担当。",
     label: "United Studio Inc",
@@ -383,7 +392,8 @@ export const archiveItems: ArchiveItem[] = [
     year: 2022,
     date: "2022-10-15",
     workType: "artist-work",
-    category: "arrangement-mix-mastering",
+    categories: ["arrangement", "mixing", "mastering"],
+    categoryLabel: "編曲・ミックス・マスタリング",
     roles: ["編曲", "ミックス", "マスタリング"],
     summary: "中村仁樹のAlbum「願い」。全曲を担当。",
     label: "Ancient Blue Records",
@@ -411,7 +421,8 @@ export const archiveItems: ArchiveItem[] = [
     year: 2016,
     date: "2016-12-21",
     workType: "artist-work",
-    category: "arrangement-mix-mastering",
+    categories: ["arrangement", "mixing", "mastering"],
+    categoryLabel: "編曲・ミックス・マスタリング",
     roles: ["編曲", "ミックス", "マスタリング"],
     summary: "中村仁樹のAlbum「祈り」。全曲を担当。",
     label: "Ancient Blue Records",
@@ -439,9 +450,9 @@ export const archiveItems: ArchiveItem[] = [
     year: 2018,
     date: "2018-04-20",
     workType: "artist-work",
-    category: "sound-design",
+    categories: ["sound-design"],
     roles: ["サウンドプロデュース"],
-    summary: "真印のCDbook。全曲を担当。",
+    summary: "真印のCDbook。全曲���担当。",
     label: "YellowJam",
     format: "CDbook",
     collectionTitle: "聞くだけで心も体も痛みが消えるソルフェジオ周波数CＤブック",
@@ -467,7 +478,7 @@ export const archiveItems: ArchiveItem[] = [
     year: 2014,
     date: "2014-04-11",
     workType: "label-work",
-    category: "label",
+    categories: ["label"],
     roles: ["自社レーベル", "企画", "制作"],
     summary: "月宵のAlbum「Blue Moon」。全曲を担当。",
     label: "United Studio Inc",
@@ -495,7 +506,7 @@ export const archiveItems: ArchiveItem[] = [
     year: 2020,
     date: "2020-06-30",
     workType: "label-work",
-    category: "label",
+    categories: ["label"],
     roles: ["自社レーベル", "企画", "制作"],
     summary: "藤木 テツのPlaylist「Sound Soothe」。全曲を担当。",
     label: "United Studio Inc",
@@ -523,7 +534,8 @@ export const archiveItems: ArchiveItem[] = [
     year: 2022,
     date: "2022-09-07",
     workType: "artist-work",
-    category: "mix-mastering",
+    categories: ["mixing", "mastering"],
+    categoryLabel: "ミックス・マスタリング",
     roles: ["ミックス", "マスタリング"],
     summary: "永吉繭美のSingle「能登の唄」。全曲を担当。",
     label: "yashin record",
@@ -544,7 +556,7 @@ export const archiveItems: ArchiveItem[] = [
     title: "パチスロ音楽・効果音",
     client: "株式会社オリンピア様 / サミー株式会社様",
     workType: "corporate-project",
-    category: "sound-design",
+    categories: ["sound-design"],
     roles: ["サウンド開発", "音楽制作", "効果音制作"],
     summary: "パチスロ向けの音楽・効果音制作。",
     format: "Corporate",
@@ -569,7 +581,8 @@ export const archiveItems: ArchiveItem[] = [
     artist: "TOW",
     year: 2021,
     workType: "artist-work",
-    category: "mix-mastering",
+    categories: ["mixing", "mastering"],
+    categoryLabel: "ミックス・マスタリング",
     roles: ["ミックス", "マスタリング"],
     format: "Game",
     links: [
@@ -591,7 +604,8 @@ export const archiveItems: ArchiveItem[] = [
     artist: "ツナマヨ",
     year: 2020,
     workType: "artist-work",
-    category: "arrangement-mix-mastering",
+    categories: ["arrangement", "recording", "mixing", "mastering"],
+    categoryLabel: "編曲・ミックス・マスタリング",
     roles: ["レコーディング（一部）", "ミックス", "マスタリング"],
     links: [
       {
@@ -608,7 +622,7 @@ export const archiveItems: ArchiveItem[] = [
     year: 2015,
     label: "Marmoset",
     workType: "licensing",
-    category: "licensing",
+    categories: ["licensing"],
     roles: ["作品提供"],
     summary: "海外音楽ライブラリ Marmoset への作品提供・アーティスト掲載。",
     artwork: "/archive/marmoset-tetsu-artist.jpg",
@@ -625,7 +639,7 @@ export const archiveItems: ArchiveItem[] = [
     title: "音源制作",
     client: "株式会社TBSテレビ様",
     workType: "corporate-project",
-    category: "sound-design",
+    categories: ["sound-design"],
     roles: ["サウンド開発", "音源制作"],
     summary: "企業向けの音源制作。",
     format: "Corporate",
@@ -635,7 +649,7 @@ export const archiveItems: ArchiveItem[] = [
     title: "プリセットデータ制作",
     client: "カシオ計算機株式会社様",
     workType: "corporate-project",
-    category: "sound-design",
+    categories: ["sound-design"],
     roles: ["サウンド開発", "プリセット制作"],
     summary: "製品向けのプリセットデータ制作。",
     format: "Corporate",
@@ -645,7 +659,7 @@ export const archiveItems: ArchiveItem[] = [
     title: "OP, ED曲制作",
     client: "株式会社日本レジャーチャンネル様",
     workType: "corporate-project",
-    category: "sound-design",
+    categories: ["sound-design"],
     roles: ["サウンド開発", "楽曲制作"],
     summary: "オープニング、エンディング曲の制作。",
     format: "Corporate",
@@ -655,7 +669,7 @@ export const archiveItems: ArchiveItem[] = [
     title: "オーディオブック音源制作",
     client: "株式会社オトバンク様",
     workType: "audiobook",
-    category: "sound-design",
+    categories: ["sound-design"],
     roles: ["サウンド開発", "音源制作"],
     summary: "オーディオブック向けの音源制作。",
     format: "Corporate",
@@ -682,9 +696,7 @@ export function getArchiveItems(opts?: {
 }): ArchiveItem[] {
   let items = [...archiveItems]
   if (opts?.category) {
-    items = items.filter(
-      (i) => i.category === opts.category || i.additionalCategories?.includes(opts.category!),
-    )
+    items = items.filter((item) => item.categories.includes(opts.category!))
   }
   if (opts?.year) items = items.filter((i) => i.year === opts.year)
   return items.sort((a, b) => (b.year ?? 0) - (a.year ?? 0))
