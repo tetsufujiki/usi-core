@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, type FormEvent } from "react"
+import { useCallback, useRef, useState, type FormEvent } from "react"
+import { TurnstileWidget } from "@/components/turnstile-widget"
 
 const inputClass =
   "w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus-visible:border-accent"
@@ -9,6 +10,13 @@ export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState("")
+  const [turnstileToken, setTurnstileToken] = useState("")
+  const [turnstileResetSignal, setTurnstileResetSignal] = useState(0)
+  const formStartedAt = useRef(Date.now())
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+  const handleTurnstileToken = useCallback((token: string) => {
+    setTurnstileToken(token)
+  }, [])
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -27,6 +35,9 @@ export function ContactForm() {
           email: formData.get("email"),
           organization: formData.get("organization"),
           message: formData.get("message"),
+          website: formData.get("website"),
+          formStartedAt: formStartedAt.current,
+          turnstileToken,
         }),
       })
       const result = await response.json().catch(() => null)
@@ -38,6 +49,7 @@ export function ContactForm() {
       form.reset()
       setSubmitted(true)
     } catch (submissionError) {
+      setTurnstileResetSignal((signal) => signal + 1)
       setError(
         submissionError instanceof Error
           ? submissionError.message
@@ -62,7 +74,11 @@ export function ContactForm() {
         </p>
         <button
           type="button"
-          onClick={() => setSubmitted(false)}
+          onClick={() => {
+            formStartedAt.current = Date.now()
+            setTurnstileToken("")
+            setSubmitted(false)
+          }}
           className="mt-2 flex min-h-11 items-center rounded-lg border border-border px-5 text-sm text-foreground transition-colors hover:border-accent/60"
         >
           フォームに戻る
@@ -72,7 +88,20 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit} className="relative flex flex-col gap-5">
+      <div
+        aria-hidden="true"
+        className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden"
+      >
+        <label htmlFor="contact-website">Webサイト</label>
+        <input
+          id="contact-website"
+          name="website"
+          type="text"
+          autoComplete="off"
+          tabIndex={-1}
+        />
+      </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="contact-name" className="text-sm font-medium">
           お名前 <span className="text-accent">*</span>
@@ -82,6 +111,7 @@ export function ContactForm() {
           name="name"
           type="text"
           required
+          maxLength={100}
           autoComplete="name"
           className={inputClass}
           placeholder="山田 太郎"
@@ -97,6 +127,7 @@ export function ContactForm() {
           name="email"
           type="email"
           required
+          maxLength={254}
           autoComplete="email"
           className={inputClass}
           placeholder="you@example.com"
@@ -111,6 +142,7 @@ export function ContactForm() {
           id="contact-org"
           name="organization"
           type="text"
+          maxLength={200}
           autoComplete="organization"
           className={inputClass}
           placeholder="株式会社〇〇"
@@ -125,6 +157,7 @@ export function ContactForm() {
           id="contact-message"
           name="message"
           required
+          maxLength={5000}
           rows={6}
           className={inputClass}
           placeholder="ご相談内容をご記入ください"
@@ -137,10 +170,15 @@ export function ContactForm() {
         </p>
       )}
 
+      <TurnstileWidget
+        onTokenChange={handleTurnstileToken}
+        resetSignal={turnstileResetSignal}
+      />
+
       <button
         type="submit"
-        disabled={isSubmitting}
-        className="flex min-h-11 items-center justify-center rounded-lg bg-accent px-8 py-3 text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90"
+        disabled={isSubmitting || !turnstileSiteKey || !turnstileToken}
+        className="flex min-h-11 items-center justify-center rounded-lg bg-accent px-8 py-3 text-sm font-bold text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isSubmitting ? "送信中…" : "送信する"}
       </button>
