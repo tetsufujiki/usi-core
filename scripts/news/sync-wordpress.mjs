@@ -9,6 +9,8 @@ const CATEGORY_IDS = [3, 1, 5, 272]
 const MINIMUM_EXPECTED_POST_COUNT = 191
 const PER_PAGE = 100
 const FALLBACK_IMAGE = "/og-image.jpg"
+const CONTENT_IMAGE_WIDTHS = [384, 640, 750, 828, 1080, 1200, 1920]
+const CONTENT_IMAGE_SIZES = "(max-width: 799px) calc(100vw - 2rem), 768px"
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url))
 const projectRoot = resolve(scriptDirectory, "../..")
@@ -63,7 +65,53 @@ function isYouTubeEmbed(value = "") {
   }
 }
 
-function sanitizeContent(value = "") {
+function nextImageUrl(src, width) {
+  const params = new URLSearchParams({ url: src, w: String(width), q: "75" })
+  return `/_next/image?${params}`
+}
+
+function responsiveContentImage(attribs, mediaById) {
+  const mediaIdMatch = attribs.class?.match(/(?:^|\s)wp-image-(\d+)(?:\s|$)/)
+  const media = mediaIdMatch ? mediaById.get(Number(mediaIdMatch[1])) : undefined
+  const src = rewriteMediaHost(media?.source_url || attribs.src)
+  const width = Number(media?.media_details?.width || attribs.width)
+  const height = Number(media?.media_details?.height || attribs.height)
+
+  if (
+    !src.startsWith(`${CMS_ORIGIN}/wp-content/`) ||
+    !Number.isFinite(width) ||
+    !Number.isFinite(height) ||
+    width <= 0 ||
+    height <= 0
+  ) {
+    return {
+      ...attribs,
+      src,
+      srcset: rewriteMediaHost(attribs.srcset),
+      loading: attribs.loading || "lazy",
+      decoding: attribs.decoding || "async",
+    }
+  }
+
+  const candidateWidths = CONTENT_IMAGE_WIDTHS.filter((candidate) => candidate <= width)
+  if (candidateWidths.length === 0) candidateWidths.push(CONTENT_IMAGE_WIDTHS[0])
+  const fallbackWidth = candidateWidths.find((candidate) => candidate >= 828) ?? candidateWidths.at(-1)
+
+  return {
+    ...attribs,
+    src: nextImageUrl(src, fallbackWidth),
+    srcset: candidateWidths
+      .map((candidate) => `${nextImageUrl(src, candidate)} ${candidate}w`)
+      .join(", "),
+    sizes: CONTENT_IMAGE_SIZES,
+    width: String(width),
+    height: String(height),
+    loading: "lazy",
+    decoding: "async",
+  }
+}
+
+function sanitizeContent(value = "", mediaById = new Map()) {
   const withoutShortcodes = stripKnownShortcodes(rewriteMediaHost(value))
 
   return sanitizeHtml(withoutShortcodes, {
@@ -86,6 +134,8 @@ function sanitizeContent(value = "") {
       "td",
       "figure",
       "figcaption",
+      "picture",
+      "source",
       "img",
       "a",
       "strong",
@@ -98,6 +148,7 @@ function sanitizeContent(value = "") {
       "*": ["class"],
       a: ["href", "target", "rel"],
       img: ["src", "srcset", "sizes", "alt", "width", "height", "loading", "decoding"],
+      source: ["srcset", "sizes", "type", "media", "width", "height"],
       iframe: [
         "src",
         "width",
@@ -131,13 +182,7 @@ function sanitizeContent(value = "") {
       img(tagName, attribs) {
         return {
           tagName,
-          attribs: {
-            ...attribs,
-            src: rewriteMediaHost(attribs.src),
-            srcset: rewriteMediaHost(attribs.srcset),
-            loading: attribs.loading || "lazy",
-            decoding: attribs.decoding || "async",
-          },
+          attribs: responsiveContentImage(attribs, mediaById),
         }
       },
       iframe(tagName, attribs) {
@@ -253,6 +298,45 @@ async function fetchAllPosts() {
   return { posts, totalPages }
 }
 
+function contentMediaIds(posts) {
+  const ids = new Set()
+
+  for (const post of posts) {
+    for (const match of post.content?.rendered?.matchAll(/\bwp-image-(\d+)\b/g) ?? []) {
+      ids.add(Number(match[1]))
+    }
+  }
+
+  return [...ids]
+}
+
+async function fetchContentMedia(posts) {
+  const ids = contentMediaIds(posts)
+  const chunks = Array.from(
+    { length: Math.ceil(ids.length / PER_PAGE) },
+    (_, index) => ids.slice(index * PER_PAGE, (index + 1) * PER_PAGE),
+  )
+
+  const mediaPages = await Promise.all(
+    chunks.map(async (idsChunk) => {
+      const url = new URL("/wp-json/wp/v2/media", CMS_ORIGIN)
+      url.searchParams.set("include", idsChunk.join(","))
+      url.searchParams.set("per_page", String(PER_PAGE))
+      url.searchParams.set("_fields", "id,source_url,alt_text,media_details")
+
+      const response = await fetch(url, {
+        headers: { "User-Agent": "United-Studio-News-Sync/1.0" },
+      })
+      if (!response.ok) {
+        throw new Error(`WordPress media request failed (${response.status}): ${url}`)
+      }
+      return response.json()
+    }),
+  )
+
+  return new Map(mediaPages.flat().map((media) => [media.id, media]))
+}
+
 function assertUnique(values, label) {
   const seen = new Set()
   const duplicates = new Set()
@@ -271,6 +355,7 @@ async function main() {
     manualOverrides.map(({ originalPath, slug }) => [originalPath, slug]),
   )
   const { posts: wordPressPosts, totalPages } = await fetchAllPosts()
+  const contentMediaById = await fetchContentMedia(wordPressPosts)
 
   assertUnique(wordPressPosts.map((post) => post.id), "WordPress IDs")
   assertUnique(wordPressPosts.map((post) => post.slug), "WordPress slugs")
@@ -289,7 +374,7 @@ async function main() {
       publishedAt: post.date,
       modifiedAt: post.modified,
       excerpt: plainText(post.excerpt?.rendered),
-      contentHtml: sanitizeContent(post.content?.rendered),
+      contentHtml: sanitizeContent(post.content?.rendered, contentMediaById),
       category: selectCategory(post.categories || []),
       wpCategoryIds: post.categories || [],
       newSlug,
