@@ -17,10 +17,10 @@ jobs:
     if: github.repository == 'tetsufujiki/usi-core'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main
+      - name: Checkout workflow ref
         uses: actions/checkout@v7
         with:
-          ref: main
+          ref: ${{ github.ref }}
 
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
