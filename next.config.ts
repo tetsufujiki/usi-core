@@ -2,6 +2,16 @@ import type { NextConfig } from "next";
 import newsRedirects from "./lib/news/generated/redirects.json";
 
 const nextConfig: NextConfig = {
+  images: {
+    qualities: [75],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cms.united-studio.com",
+        pathname: "/wp-content/**",
+      },
+    ],
+  },
   async redirects() {
     return [
       {
