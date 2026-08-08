@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/page-header"
 import {
   archiveCategories,
   archiveCategoryLabels,
+  buildArchiveCategoryHref,
   getArchiveItems,
   getFeaturedWorks,
   type ArchiveCategory,
@@ -24,13 +25,6 @@ export const metadata: Metadata = {
       "アーティスト、作品、配信リンク、担当範囲からたどるUnited Studioの制作アーカイブ。",
     url: "/archive",
   },
-}
-
-function buildQuery(category?: string): string {
-  const params = new URLSearchParams()
-  if (category) params.set("category", category)
-  const query = params.toString()
-  return query ? `/archive?${query}` : "/archive"
 }
 
 const filterBase =
@@ -72,7 +66,9 @@ export default async function ArchivePage({
           </div>
           <ul className="grid gap-6 md:grid-cols-2" aria-label="注目作品">
             {featured.map((work) => (
-              <li key={work.id}><ArchiveCard work={work} variant="featured" /></li>
+              <li key={work.id}>
+                <ArchiveCard work={work} variant="featured" activeCategory={activeCategory} />
+              </li>
             ))}
           </ul>
         </section>
@@ -118,12 +114,20 @@ export default async function ArchivePage({
 
           <div className="border-y border-border py-5">
             <nav aria-label="内部分類で作品を絞り込む" className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
-              <span className="w-20 shrink-0 font-mono text-[9px] tracking-[0.2em] text-muted-foreground">CATEGORY</span>
+              <Link
+                href={buildArchiveCategoryHref(activeCategory)}
+                scroll={false}
+                className={`${filterBase} w-fit shrink-0 px-3 text-[9px] ${activeCategory === null ? filterActive : filterInactive}`}
+                aria-label="カテゴリの絞り込みを解除してすべての作品を表示する"
+                aria-current={activeCategory === null ? "page" : undefined}
+              >
+                CATEGORY
+              </Link>
               <ul className="flex flex-wrap gap-2">
                 {archiveCategories.map((itemCategory) => (
                   <li key={itemCategory}>
                     <Link
-                      href={buildQuery(activeCategory === itemCategory ? undefined : itemCategory)}
+                      href={buildArchiveCategoryHref(activeCategory, itemCategory)}
                       scroll={false}
                       className={`${filterBase} px-3 text-[9px] ${activeCategory === itemCategory ? filterActive : filterInactive}`}
                       aria-current={activeCategory === itemCategory ? "page" : undefined}
@@ -138,7 +142,11 @@ export default async function ArchivePage({
 
           {filtered.length > 0 ? (
             <ul className="grid grid-cols-1 gap-4 md:grid-cols-2" aria-label="作品アーカイブ一覧">
-              {filtered.map((work) => <li key={work.id}><ArchiveCard work={work} variant="index" /></li>)}
+              {filtered.map((work) => (
+                <li key={work.id}>
+                  <ArchiveCard work={work} variant="index" activeCategory={activeCategory} />
+                </li>
+              ))}
             </ul>
           ) : (
             <p className="py-16 text-center text-sm text-muted-foreground">条件に一致する作品はありません。</p>
