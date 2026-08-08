@@ -291,10 +291,7 @@ body { background: var(--background); color: var(--foreground); font-family: var
 
 /* ---------- Archive ---------- */
 .archive-page {
-  background:
-    radial-gradient(42% 24% at 90% 15%, rgba(201, 138, 138, 0.08), transparent 75%),
-    radial-gradient(44% 28% at 8% 42%, rgba(60, 111, 183, 0.07), transparent 76%),
-    var(--background);
+  background: var(--core-hero-background);
 }
 .archive-card { transition-property: box-shadow, transform; transition-duration: 200ms; }
 .archive-card:hover { box-shadow: 0 6px 28px rgba(35, 44, 59, 0.09), 0 1px 4px rgba(35, 44, 59, 0.06); transform: translateY(-2px); }
