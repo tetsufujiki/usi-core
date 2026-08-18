@@ -32,7 +32,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/studio/:path*",
-        destination: "https://studio.united-studio.com/",
+        destination: "https://studio.united-studio.com/studio",
         permanent: true,
       },
       {
