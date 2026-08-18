@@ -26,6 +26,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/studio_info",
+        destination: "https://studio.united-studio.com/",
+        permanent: true,
+      },
+      {
         source: "/studio",
         destination: "https://studio.united-studio.com/",
         permanent: true,
