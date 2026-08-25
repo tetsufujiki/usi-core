@@ -15,7 +15,7 @@ export function SiteHeader() {
           className="flex min-h-11 items-center gap-2 font-mono text-sm font-bold tracking-[0.2em] text-foreground"
           onClick={() => setOpen(false)}
         >
-          <span aria-hidden="true" className="header-logo-dot size-2 rounded-full bg-accent" />
+          <span aria-hidden="true" className="header-logo-dot size-2 rounded-full" />
           UNITED STUDIO INC
         </Link>
 
