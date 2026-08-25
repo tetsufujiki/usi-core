@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useCallback, useState } from "react"
+import { useCallback, useState, type ReactNode } from "react"
 import { useRouter } from "next/navigation"
 import { gateways, type Gateway } from "@/lib/site"
 
@@ -13,10 +13,18 @@ function navigateTo(gateway: Gateway, router: ReturnType<typeof useRouter>) {
   }
 }
 
-export function OrbitalCore() {
+type OrbitalCoreProps = {
+  children: ReactNode
+}
+
+export function OrbitalCore({ children }: OrbitalCoreProps) {
   const router = useRouter()
   const [selectedId, setSelectedId] = useState<string>(gateways[0].id)
   const selected = gateways.find((g) => g.id === selectedId) ?? gateways[0]
+
+  const selectGateway = useCallback((gateway: Gateway) => {
+    setSelectedId(gateway.id)
+  }, [])
 
   const handleDotTap = useCallback(
     (gateway: Gateway) => {
@@ -30,7 +38,9 @@ export function OrbitalCore() {
   )
 
   return (
-    <div className="orbital-wrap">
+    <div className="orbital-wrap hero-layout">
+      {children}
+
       {/* Orbital stage */}
       <div className="orbital-stage" role="group" aria-label="クリエイティブ・コア 入口マップ">
         <div className="orbital-rings" aria-hidden="true">
@@ -106,8 +116,10 @@ export function OrbitalCore() {
                     className={sharedClass}
                     style={sharedStyle}
                     aria-current={isSelected ? "true" : undefined}
-                    onMouseEnter={() => setSelectedId(g.id)}
-                    onFocus={() => setSelectedId(g.id)}
+                    onPointerEnter={() => selectGateway(g)}
+                    onPointerDown={() => selectGateway(g)}
+                    onFocus={() => selectGateway(g)}
+                    onClick={() => selectGateway(g)}
                   >
                     <span className="gateway-index" aria-hidden="true">{g.index}</span>
                     <span className="gateway-copy">
@@ -123,8 +135,10 @@ export function OrbitalCore() {
                     className={sharedClass}
                     style={sharedStyle}
                     aria-current={isSelected ? "page" : undefined}
-                    onMouseEnter={() => setSelectedId(g.id)}
-                    onFocus={() => setSelectedId(g.id)}
+                    onPointerEnter={() => selectGateway(g)}
+                    onPointerDown={() => selectGateway(g)}
+                    onFocus={() => selectGateway(g)}
+                    onClick={() => selectGateway(g)}
                   >
                     <span className="gateway-index" aria-hidden="true">{g.index}</span>
                     <span className="gateway-copy">
