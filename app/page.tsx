@@ -85,7 +85,7 @@ export default async function HomePage() {
               </ul>
               <p className="identity-businesses-note">音楽が必要とされる様々な場面に応じて、作品が生まれ、残り、届いていくまでを支えています。</p>
             </div>
-            <Link href="/company" className="system-link self-end md:self-auto">VIEW COMPANY <span aria-hidden="true">↗</span></Link>
+            <Link href="/company" className="system-link self-end">VIEW COMPANY <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </section>
