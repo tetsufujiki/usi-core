@@ -86,7 +86,7 @@ export function OrbitalCore() {
       </div>
 
       {/* Gateway menu */}
-      <div className="gateway-menu" role="navigation" aria-label="入口メニュー">
+      <div className="gateway-menu gateway-panel" role="navigation" aria-label="入口メニュー">
         <ul className="gateway-grid">
           {gateways.map((g) => {
             const isSelected = g.id === selectedId

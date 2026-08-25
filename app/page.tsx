@@ -24,10 +24,9 @@ export default async function HomePage() {
           <div className="hero-copy flex flex-col items-start gap-5">
             <p className="font-mono text-[10px] tracking-[0.28em] text-accent">{SITE_TAGLINE.toUpperCase()}</p>
             <p className="hero-company font-bold tracking-[0.06em] text-foreground/85">{SITE_NAME_JA}</p>
-            <h1 id="core-heading" className="hero-title font-bold leading-[1.08] tracking-[-0.045em] text-balance text-foreground">
-              創作の入口は、
-              <br />
-              ここから。
+            <h1 id="core-heading" className="hero-title font-bold leading-[1.08] tracking-[-0.045em] text-foreground">
+              <span className="block whitespace-nowrap">創作の入口は、</span>
+              <span className="block whitespace-nowrap">ここから。</span>
             </h1>
             <p className="hero-description text-sm leading-relaxed text-muted-foreground md:text-base">
               歌、音、祭り、作品、予約、相談。United Studioは、異なる創作活動をひとつのシステムとしてつなぐ会社です。光の軌道から、あなたの入口を選んでください。
