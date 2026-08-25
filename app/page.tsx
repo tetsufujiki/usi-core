@@ -9,6 +9,28 @@ import { getLatestNews } from '@/lib/news'
 import { getFeaturedWorks } from '@/lib/archive'
 import { SITE_NAME_JA, SITE_TAGLINE } from '@/lib/site'
 
+type BusinessIconName = 'recording' | 'support' | 'yosakoi' | 'artist'
+
+function BusinessIcon({ name }: { name: BusinessIconName }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="identity-business-icon"
+    >
+      {name === 'recording' && <><rect x="7" y="2.5" width="6" height="10" rx="3" /><path d="M4.75 9.5a5.25 5.25 0 0 0 10.5 0M10 14.75v2.75M7 17.5h6" /></>}
+      {name === 'support' && <><path d="M3 10a7 7 0 0 1 14 0v4.5M3 10v3.5a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2M17 10v3.5a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2" /></>}
+      {name === 'yosakoi' && <><path d="M2.5 7.5c2.5 0 2.5-2.5 5-2.5s2.5 2.5 5 2.5 2.5-2.5 5-2.5M2.5 12.5c2.5 0 2.5-2.5 5-2.5s2.5 2.5 5 2.5 2.5-2.5 5-2.5M2.5 17.5c2.5 0 2.5-2.5 5-2.5s2.5 2.5 5 2.5" /></>}
+      {name === 'artist' && <><circle cx="10" cy="6" r="3" /><path d="M4 17.5c.5-4 2.5-6 6-6s5.5 2 6 6" /></>}
+    </svg>
+  )
+}
+
 export default async function HomePage() {
   const latestNews = await getLatestNews(3)
   const featuredWorks = getFeaturedWorks(4)
@@ -77,19 +99,19 @@ export default async function HomePage() {
             <p className="text-lg leading-relaxed text-foreground">ひとつの専門領域に閉じず、複数の創作の入口をひとつのシステムとして束ねる会社です。</p>
             <p className="text-sm leading-relaxed text-muted-foreground">
               <ExternalLink href="https://studio.united-studio.com" showIcon={false} className="identity-business-link">
-                レコーディング・楽曲制作 <span aria-hidden="true">↗</span>
+                <BusinessIcon name="recording" /> レコーディング・楽曲制作
               </ExternalLink>
               、
               <ExternalLink href="https://utattemita.united-studio.com" showIcon={false} className="identity-business-link">
-                歌ってみた制作サポート <span aria-hidden="true">↗</span>
+                <BusinessIcon name="support" /> 歌ってみた制作サポート
               </ExternalLink>
               、
               <ExternalLink href="https://yosakoi.united-studio.com" showIcon={false} className="identity-business-link">
-                よさこい楽曲制作 <span aria-hidden="true">↗</span>
+                <BusinessIcon name="yosakoi" /> よさこい楽曲制作
               </ExternalLink>
               、
               <ExternalLink href="https://rec.united-studio.com" showIcon={false} className="identity-business-link">
-                アーティスト / クリエイター支援 <span aria-hidden="true">↗</span>
+                <BusinessIcon name="artist" /> アーティスト / クリエイター支援
               </ExternalLink>
               を通じて、作品が生まれ、残り、届いていくまでを支えています。
             </p>

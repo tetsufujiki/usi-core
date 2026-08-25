@@ -380,6 +380,7 @@ body { background: var(--background); color: var(--foreground); font-family: var
 }
 .identity-business-link:hover { color: var(--accent); text-decoration: underline; text-underline-offset: .22em; }
 .identity-business-link:focus-visible { border-radius: 2px; outline: 2px solid var(--accent); outline-offset: 3px; }
+.identity-business-icon { width: 1rem; height: 1rem; flex: 0 0 auto; transform: translateY(.12em); }
 .contact-layout {
   position: relative;
   display: grid;
