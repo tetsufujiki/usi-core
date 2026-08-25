@@ -369,6 +369,38 @@ body { background: var(--background); color: var(--foreground); font-family: var
   gap: 1rem;
 }
 .identity-copy { max-width: 38rem; }
+.identity-businesses {
+  width: 100%;
+  border-left: 1px solid color-mix(in srgb, var(--accent) 42%, var(--border));
+  padding-left: clamp(1rem, 2.5vw, 1.5rem);
+}
+.identity-businesses-label {
+  margin-bottom: .75rem;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+}
+.identity-businesses-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-top: 1px solid var(--border-soft);
+}
+.identity-businesses-list li { min-width: 0; border-bottom: 1px solid var(--border-soft); }
+.identity-business-link {
+  display: flex;
+  min-height: 46px;
+  width: 100%;
+  align-items: center;
+  color: color-mix(in srgb, var(--foreground) 82%, var(--accent));
+  font-size: .875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease, padding-left 180ms ease;
+}
+.identity-business-link:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); color: var(--accent); padding-left: .5rem; }
+.identity-business-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.identity-businesses-note { margin-top: 1rem; color: var(--muted-foreground); font-size: .875rem; line-height: 1.8; }
 .contact-layout {
   position: relative;
   display: grid;
@@ -714,6 +746,7 @@ body { background: var(--background); color: var(--foreground); font-family: var
 
 /* ---------- Desktop ---------- */
 @media (min-width: 640px) {
+  .identity-businesses-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.5rem; }
   .home-container { padding-inline: 2rem; }
   .home-archive-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
