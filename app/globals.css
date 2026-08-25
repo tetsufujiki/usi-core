@@ -289,6 +289,47 @@ body { background: var(--background); color: var(--foreground); font-family: var
 .action-button { display: inline-flex; min-height: 52px; align-items: center; gap: 18px; border: 1px solid var(--accent); border-radius: 999px; background-color: var(--accent); padding: 0 26px; color: var(--primary-foreground); font-weight: 700; transition: background-color 180ms ease, color 180ms ease; }
 .action-button:hover { background-color: transparent; color: var(--accent); }
 
+/* ---------- Homepage composition ---------- */
+.home-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+.hero-layout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-block: 2.5rem 3.5rem;
+}
+.hero-copy { max-width: 46rem; }
+.hero-company { font-size: clamp(1.5rem, 2.5vw, 2.25rem); }
+.hero-title { font-size: clamp(2.5rem, 6vw, 5.75rem); }
+.hero-description { max-width: 42rem; }
+.home-section {
+  display: grid;
+  gap: 2.5rem;
+  padding-block: clamp(4rem, 8vw, 7.5rem);
+}
+.news-layout, .identity-layout { grid-template-columns: minmax(0, 1fr); }
+.archive-layout { display: flex; flex-direction: column; }
+.home-archive-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+.identity-copy { max-width: 38rem; }
+.contact-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-block: clamp(4rem, 8vw, 7.5rem);
+}
+.contact-title { font-size: clamp(2.25rem, 6vw, 5rem); }
+
 /* ---------- Archive ---------- */
 .archive-page {
   background: var(--core-hero-background);
@@ -568,19 +609,65 @@ body { background: var(--background); color: var(--foreground); font-family: var
 
 /* ---------- Desktop ---------- */
 @media (min-width: 640px) {
+  .home-container { padding-inline: 2rem; }
+  .home-archive-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    overflow: hidden;
+    border: 1px solid var(--border-soft);
+    border-radius: calc(var(--radius) + 4px);
+    background: var(--border-soft);
+  }
   .archive-card-home { border: 0; border-radius: 0; box-shadow: none; }
+  .contact-layout { flex-direction: row; align-items: flex-end; }
 }
 
 @media (min-width: 1024px) {
+  .home-container { padding-inline: 3rem; }
+  .hero-layout {
+    display: grid;
+    grid-template-columns: minmax(310px, 0.72fr) minmax(0, 1.65fr);
+    align-items: center;
+    gap: clamp(2rem, 4vw, 5rem);
+    min-height: calc(100svh - 72px);
+    padding-block: clamp(4rem, 7vw, 7rem);
+  }
+  .hero-copy { position: relative; z-index: 2; max-width: 31rem; }
+  .hero-title { font-size: clamp(3.75rem, 5.4vw, 5.75rem); }
+  .hero-description { max-width: 31rem; }
+  .hero-system { align-self: center; }
   .orbital-wrap {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
+    grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
     align-items: center;
-    gap: 48px;
+    gap: clamp(1.5rem, 3vw, 3rem);
   }
-  .orbital-stage { width: min(100%, 620px); }
-  .gateway-grid { grid-template-columns: repeat(2, 1fr); }
+  .orbital-stage { width: min(100%, 590px); }
+  .gateway-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .gateway-copy strong { font-size: 13px; }
+  .news-layout {
+    grid-template-columns: minmax(280px, 0.7fr) minmax(0, 1.55fr);
+    gap: clamp(4rem, 8vw, 9rem);
+  }
+  .archive-layout { gap: 3.5rem; }
+  .home-archive-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-archive-grid .archive-card-home:nth-child(3),
+  .home-archive-grid .archive-card-home:nth-child(4) { border-top: 0; }
+  .home-archive-grid .archive-card-media { aspect-ratio: 21 / 10; }
+  .home-archive-grid .archive-card-home > div:last-child { padding: 1.75rem; }
+  .identity-layout {
+    grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1fr);
+    gap: clamp(4rem, 10vw, 11rem);
+    align-items: start;
+  }
+  .identity-copy { justify-self: end; }
+  .contact-layout { gap: 4rem; }
+}
+
+@media (min-width: 1280px) {
+  .home-container { padding-inline: 4rem; }
+  .hero-layout { grid-template-columns: minmax(360px, 0.72fr) minmax(0, 1.72fr); }
+  .orbital-stage { width: min(100%, 640px); }
 }
 
 @media (max-width: 639px) {
