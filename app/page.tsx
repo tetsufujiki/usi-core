@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { OrbitalCore } from '@/components/orbital-core'
 import { NewsList } from '@/components/news-list'
 import { ArchiveCard } from '@/components/archive-card'
+import { ExternalLink } from '@/components/external-link'
 import { SectionHeading } from '@/components/section-heading'
 import { SiteJsonLd } from '@/components/json-ld'
 import { getLatestNews } from '@/lib/news'
@@ -74,7 +75,24 @@ export default async function HomePage() {
           <SectionHeading id="identity-heading" code="CORE IDENTITY" title="ユナイテッドスタジオ株式会社" />
           <div className="identity-copy flex flex-col items-start gap-6">
             <p className="text-lg leading-relaxed text-foreground">ひとつの専門領域に閉じず、複数の創作の入口をひとつのシステムとして束ねる会社です。</p>
-            <p className="text-sm leading-relaxed text-muted-foreground">レコーディング・楽曲制作、歌ってみた制作サポート、よさこい楽曲制作、アーティスト / クリエイター支援。</p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              <ExternalLink href="https://studio.united-studio.com" showIcon={false} className="identity-business-link">
+                レコーディング・楽曲制作 <span aria-hidden="true">↗</span>
+              </ExternalLink>
+              、
+              <ExternalLink href="https://utattemita.united-studio.com" showIcon={false} className="identity-business-link">
+                歌ってみた制作サポート <span aria-hidden="true">↗</span>
+              </ExternalLink>
+              、
+              <ExternalLink href="https://yosakoi.united-studio.com" showIcon={false} className="identity-business-link">
+                よさこい楽曲制作 <span aria-hidden="true">↗</span>
+              </ExternalLink>
+              、
+              <ExternalLink href="https://rec.united-studio.com" showIcon={false} className="identity-business-link">
+                アーティスト / クリエイター支援 <span aria-hidden="true">↗</span>
+              </ExternalLink>
+              を通じて、作品が生まれ、残り、届いていくまでを支えています。
+            </p>
             <Link href="/company" className="system-link self-end md:self-auto">VIEW COMPANY <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
