@@ -74,7 +74,9 @@ export default async function HomePage() {
         <div className="home-container home-section identity-layout">
           <div className="identity-intro">
             <SectionHeading id="identity-heading" code="CORE IDENTITY" title="ユナイテッドスタジオ株式会社" />
-            <p className="identity-description text-lg leading-relaxed text-foreground">ひとつの専門領域に閉じず、複数の創作の入口をひとつのシステムとして束ねる会社です。</p>
+            <p className="identity-description text-lg leading-relaxed text-foreground">
+              <span className="min-[1120px]:block">ひとつの専門領域に閉じず、複数の創作の入口を</span><span className="min-[1120px]:block">ひとつのシステムとして束ねる会社です。</span>
+            </p>
           </div>
           <div className="identity-copy flex flex-col items-start gap-6">
             <div className="identity-businesses">
