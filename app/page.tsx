@@ -72,9 +72,13 @@ export default async function HomePage() {
 
       <section aria-labelledby="identity-heading" className="home-panel border-b border-border">
         <div className="home-container home-section identity-layout">
-          <SectionHeading id="identity-heading" code="CORE IDENTITY" title="ユナイテッドスタジオ株式会社" />
+          <div className="identity-intro">
+            <SectionHeading id="identity-heading" code="CORE IDENTITY" title="ユナイテッドスタジオ株式会社" />
+            <p className="identity-description text-lg leading-relaxed text-foreground">
+              <span className="min-[1120px]:block">ひとつの専門領域に閉じず、複数の創作の入口を</span><span className="min-[1120px]:block">ひとつのシステムとして束ねる会社です。</span>
+            </p>
+          </div>
           <div className="identity-copy flex flex-col items-start gap-6">
-            <p className="text-lg leading-relaxed text-foreground">ひとつの専門領域に閉じず、複数の創作の入口をひとつのシステムとして束ねる会社です。</p>
             <div className="identity-businesses">
               <p className="identity-businesses-label">主な事業内容</p>
               <ul className="identity-businesses-list">
@@ -85,7 +89,7 @@ export default async function HomePage() {
               </ul>
               <p className="identity-businesses-note">音楽が必要とされる様々な場面に応じて、作品が生まれ、残り、届いていくまでを支えています。</p>
             </div>
-            <Link href="/company" className="system-link self-end md:self-auto">VIEW COMPANY <span aria-hidden="true">↗</span></Link>
+            <Link href="/company" className="system-link self-end">VIEW COMPANY <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
       </section>

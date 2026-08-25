@@ -368,6 +368,8 @@ body { background: var(--background); color: var(--foreground); font-family: var
   grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
 }
+.identity-intro { display: flex; flex-direction: column; gap: 1.75rem; }
+.identity-description { max-width: 31rem; }
 .identity-copy { max-width: 38rem; }
 .identity-businesses {
   width: 100%;
