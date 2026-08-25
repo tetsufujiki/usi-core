@@ -72,9 +72,11 @@ export default async function HomePage() {
 
       <section aria-labelledby="identity-heading" className="home-panel border-b border-border">
         <div className="home-container home-section identity-layout">
-          <SectionHeading id="identity-heading" code="CORE IDENTITY" title="ユナイテッドスタジオ株式会社" />
+          <div className="identity-intro">
+            <SectionHeading id="identity-heading" code="CORE IDENTITY" title="ユナイテッドスタジオ株式会社" />
+            <p className="identity-description text-lg leading-relaxed text-foreground">ひとつの専門領域に閉じず、複数の創作の入口をひとつのシステムとして束ねる会社です。</p>
+          </div>
           <div className="identity-copy flex flex-col items-start gap-6">
-            <p className="text-lg leading-relaxed text-foreground">ひとつの専門領域に閉じず、複数の創作の入口をひとつのシステムとして束ねる会社です。</p>
             <div className="identity-businesses">
               <p className="identity-businesses-label">主な事業内容</p>
               <ul className="identity-businesses-list">
