@@ -279,6 +279,7 @@ body { background: var(--background); color: var(--foreground); font-family: var
   transition: opacity 200ms ease, transform 200ms ease;
 }
 .gateway-cta-go:hover { opacity: 0.88; transform: translateY(-1px); }
+.gateway-cta.gateway-cta-detail { flex-direction: column; align-items: flex-start; }
 
 /* ---------- Lower sections ---------- */
 .home-panel { background-color: var(--background); }

@@ -160,19 +160,27 @@ export function OrbitalCore({ children }: OrbitalCoreProps) {
           style={{ "--gw-color": selected.color, "--gw-soft": selected.colorSoft } as React.CSSProperties}
         >
           <p className="gateway-current-label">CURRENT GATEWAY / 選択中の入口</p>
-          <div className="gateway-cta">
+          <div className={`gateway-cta${selected.description ? " gateway-cta-detail" : ""}`}>
             <div className="gateway-cta-copy">
               <p className="gateway-cta-title">{selected.title}</p>
               <p className="gateway-cta-dest">{selected.destination}</p>
+              {selected.description && (
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{selected.description}</p>
+              )}
             </div>
             {selected.external ? (
               <a href={selected.href} target="_blank" rel="noopener noreferrer" className="gateway-cta-go">
-                入口へ進む <span aria-hidden="true">↗</span>
+                {selected.ctaLabel ?? "入口へ進む"} <span aria-hidden="true">↗</span>
                 <span className="sr-only">（外部サイトが新しいタブで開きます）</span>
               </a>
             ) : (
               <Link href={selected.href} className="gateway-cta-go">
                 入口へ進む <span aria-hidden="true">→</span>
+              </Link>
+            )}
+            {selected.supportingLink && (
+              <Link href={selected.supportingLink.href} className="text-xs text-muted-foreground underline-offset-4 hover:text-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+                {selected.supportingLink.label} <span aria-hidden="true">→</span>
               </Link>
             )}
           </div>

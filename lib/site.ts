@@ -32,6 +32,9 @@ export type Gateway = {
   index: string
   title: string
   tagline: string
+  description?: string
+  ctaLabel?: string
+  supportingLink?: { label: string; href: string }
   href: string
   external: boolean
   destination: string
@@ -62,6 +65,9 @@ export const gateways: Gateway[] = [
     index: "02",
     title: "音を録る・曲をつくる",
     tagline: "レコーディング・楽曲制作",
+    description: "東京・板橋のUSI新河岸音楽工務所。録音からミックス・マスタリングまで、一人のエンジニアが一貫して担当し、その日の完成まで支えます。",
+    ctaLabel: "スタジオ・制作環境を見る",
+    supportingLink: { label: "制作実績を見る", href: "/archive" },
     href: externalLinks.studio,
     external: true,
     destination: "studio.united-studio.com",
@@ -118,6 +124,8 @@ export const gateways: Gateway[] = [
     index: "06",
     title: "予約する",
     tagline: "スタジオ・制作の予約",
+    description: "空き状況と料金を確認して、そのままオンライン予約。",
+    ctaLabel: "空き状況・料金を確認する",
     href: externalLinks.reserve,
     external: true,
     destination: "reserve.united-studio.com",

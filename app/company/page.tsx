@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import { PageHeader } from "@/components/page-header"
 import { ExternalLink } from "@/components/external-link"
 import { companyProfile, relatedServices, type CompanyField } from "@/lib/company"
@@ -52,6 +53,9 @@ export default function CompanyPage() {
             </p>
             <p>
               レコーディング・楽曲制作、歌ってみた制作サポート、よさこい楽曲制作、アーティスト / クリエイター支援を通じて、作品が生まれ、残り、届いていくまでを支えています。
+            </p>
+            <p>
+              2006年の設立以来、作曲・編曲、レコーディング、ミックス・マスタリングに携わってきました。その制作経験を、東京・板橋で運営するUSI新河岸音楽工務所のレコーディングにも活かしています。担当作品と制作工程は、<Link href="/archive" className="text-accent underline-offset-4 hover:underline">制作実績・アーカイブ</Link>でご覧いただけます。
             </p>
           </div>
         </section>
