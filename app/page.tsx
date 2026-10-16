@@ -82,7 +82,10 @@ export default async function HomePage() {
             <div className="identity-businesses">
               <p className="identity-businesses-label">主な事業内容</p>
               <ul className="identity-businesses-list">
-                <li><ExternalLink href="https://studio.united-studio.com" showIcon={false} className="identity-business-link">レコーディング・楽曲制作</ExternalLink></li>
+                <li>
+                  <ExternalLink href="https://studio.united-studio.com" showIcon={false} className="identity-business-link">レコーディング・楽曲制作</ExternalLink>
+                  <ExternalLink href="https://studio.united-studio.com/vocal-recording" showIcon={false} className="inline-flex min-h-11 items-center pb-2 text-xs leading-relaxed text-accent underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">ボーカルのみのレコーディングについて</ExternalLink>
+                </li>
                 <li><ExternalLink href="https://utattemita.united-studio.com" showIcon={false} className="identity-business-link">歌ってみた制作サポート</ExternalLink></li>
                 <li><ExternalLink href="https://yosakoi.united-studio.com" showIcon={false} className="identity-business-link">よさこい楽曲制作</ExternalLink></li>
                 <li><ExternalLink href="https://rec.united-studio.com" showIcon={false} className="identity-business-link">アーティスト / クリエイター支援</ExternalLink></li>
