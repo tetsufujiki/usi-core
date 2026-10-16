@@ -88,7 +88,10 @@ export default async function HomePage() {
                 </li>
                 <li><ExternalLink href="https://utattemita.united-studio.com" showIcon={false} className="identity-business-link">歌ってみた制作サポート</ExternalLink></li>
                 <li><ExternalLink href="https://yosakoi.united-studio.com" showIcon={false} className="identity-business-link">よさこい楽曲制作</ExternalLink></li>
-                <li><ExternalLink href="https://rec.united-studio.com" showIcon={false} className="identity-business-link">アーティスト / クリエイター支援</ExternalLink></li>
+                <li>
+                  <ExternalLink href="https://studio.united-studio.com/audition-recording" showIcon={false} className="identity-business-link">オーディション録音</ExternalLink>
+                  <ExternalLink href="https://studio.united-studio.com/audition-recording" showIcon={false} className="inline-flex min-h-11 items-center pb-2 text-xs leading-relaxed text-accent underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">オーディション用のレコーディングについて</ExternalLink>
+                </li>
               </ul>
               <p className="identity-businesses-note">音楽が必要とされる様々な場面に応じて、作品が生まれ、残り、届いていくまでを支えています。</p>
             </div>
