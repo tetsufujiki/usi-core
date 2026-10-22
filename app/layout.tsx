@@ -1,3 +1,4 @@
+import { AnalyticsJourney } from '@/components/analytics-journey'
 import type { Metadata, Viewport } from "next"
 import { Zen_Kaku_Gothic_New, Geist_Mono } from "next/font/google"
 import "./globals.css"
@@ -68,6 +69,7 @@ export default function RootLayout({
       className={`${zenKaku.variable} ${geistMono.variable} h-full bg-background antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
+        <AnalyticsJourney />
         <SiteAnalytics />
         <a
           href="#main-content"
