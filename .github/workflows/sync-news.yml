@@ -2,7 +2,8 @@ name: Sync WordPress News
 
 on:
   schedule:
-    - cron: "17 * * * *"
+    # 06:17 JST daily (21:17 UTC on the previous day).
+    - cron: "17 21 * * *"
   workflow_dispatch:
 
 permissions:
