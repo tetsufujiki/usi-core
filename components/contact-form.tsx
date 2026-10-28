@@ -2,12 +2,15 @@
 
 import { useCallback, useRef, useState, type FormEvent } from "react"
 import { TurnstileWidget } from "@/components/turnstile-widget"
+import { ContactSuccessDialog } from "@/components/contact-success-dialog"
 
 const inputClass =
   "w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus-visible:border-accent"
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [successDialogOpen, setSuccessDialogOpen] = useState(false)
+  const successMessageRef = useRef<HTMLDivElement>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState("")
   const [turnstileToken, setTurnstileToken] = useState("")
@@ -20,6 +23,7 @@ export function ContactForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (isSubmitting || submitted) return
     const form = e.currentTarget
     const formData = new FormData(form)
 
@@ -42,12 +46,13 @@ export function ContactForm() {
       })
       const result = await response.json().catch(() => null)
 
-      if (!response.ok) {
+      if (!response.ok || result?.ok !== true) {
         throw new Error(result?.error ?? "メール送信に失敗しました。")
       }
 
       form.reset()
       setSubmitted(true)
+      setSuccessDialogOpen(true)
     } catch (submissionError) {
       setTurnstileResetSignal((signal) => signal + 1)
       setError(
@@ -62,28 +67,40 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div
-        role="status"
-        className="flex flex-col items-center gap-3 rounded-xl border border-border bg-surface p-8 text-center"
-      >
-        <p className="text-base font-bold text-foreground">
-          送信が完了しました
-        </p>
-        <p className="text-sm leading-relaxed text-muted-foreground text-pretty">
-          お問い合わせありがとうございます。内容を確認のうえ、ご連絡いたします。
-        </p>
-        <button
-          type="button"
-          onClick={() => {
-            formStartedAt.current = Date.now()
-            setTurnstileToken("")
-            setSubmitted(false)
-          }}
-          className="mt-2 flex min-h-11 items-center rounded-lg border border-border px-5 text-sm text-foreground transition-colors hover:border-accent/60"
+      <>
+        <div
+          ref={successMessageRef}
+          tabIndex={-1}
+          role="status"
+          className="flex flex-col items-center gap-3 rounded-xl border border-border bg-surface p-8 text-center"
         >
-          フォームに戻る
-        </button>
-      </div>
+          <p className="text-base font-bold text-foreground">
+            お問い合わせを受け付けました。
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground text-pretty">
+            お問い合わせありがとうございます。内容を確認のうえ、ご連絡いたします。
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              formStartedAt.current = Date.now()
+              setTurnstileToken("")
+              setSubmitted(false)
+            }}
+            className="mt-2 flex min-h-11 items-center rounded-lg border border-border px-5 text-sm text-foreground transition-colors hover:border-accent/60"
+          >
+            フォームに戻る
+          </button>
+        </div>
+        <ContactSuccessDialog
+          open={successDialogOpen}
+          description="お問い合わせありがとうございます。内容を確認のうえ、ご連絡いたします。"
+          onClose={() => {
+            setSuccessDialogOpen(false)
+            successMessageRef.current?.focus({ preventScroll: true })
+          }}
+        />
+      </>
     )
   }
 

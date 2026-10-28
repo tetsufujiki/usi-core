@@ -1,0 +1,75 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  width: min(560px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent);
+  border-radius: 16px;
+  padding: clamp(24px, 5vw, 40px);
+  background: var(--surface);
+  color: var(--foreground);
+  box-shadow: 0 24px 80px rgb(14 24 42 / 18%);
+}
+
+.dialog::backdrop {
+  background: rgb(14 24 42 / 42%);
+  backdrop-filter: blur(3px);
+}
+
+.dialog .eyebrow {
+  margin: 0 0 16px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.18em;
+}
+
+.dialog .title {
+  margin: 0 0 24px;
+  font-size: clamp(24px, 4.5vw, 30px);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.dialog .title:focus { outline: none; }
+
+.dialog .description {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 15px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+
+.dialog .actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 32px;
+  border-top: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  padding-top: 24px;
+}
+
+.dialog .close {
+  min-height: 44px;
+  width: auto;
+  border: 1px solid color-mix(in srgb, var(--foreground) 30%, transparent);
+  border-radius: 8px;
+  padding: 10px 24px;
+  background: transparent;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.dialog .close:hover { background: var(--muted); }
+.dialog .close:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
