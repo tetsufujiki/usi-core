@@ -25,7 +25,7 @@ export const newsItems: NewsItem[] = [
         <li><strong>演舞予定時間：</strong>19:45〜</li>
         <li><strong>当日券：</strong>1,000円（自由席・当日、会場チケット売り場にて販売）</li>
       </ul>
-      <p><a href="https://kosai-official.com">林 煌彩</a></p>
+      <h2><a href="https://kosai-official.com">林 煌彩</a></h2>
       <figure>
         <img src="/news-media/ginken-shibu-plus-2026.jpg" alt="第56回 全国吟剣詩舞道大会 第2部「吟剣詩舞プラス」の告知チラシ" width="1420" height="1939" loading="lazy" decoding="async" />
       </figure>
