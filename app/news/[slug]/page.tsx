@@ -68,11 +68,11 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         <article className="flex max-w-3xl flex-col gap-8">
           {item.contentHtml ? (
             <div
-              className="news-content text-sm leading-relaxed text-muted-foreground md:text-base"
+              className="news-content text-sm leading-relaxed text-foreground md:text-base"
               dangerouslySetInnerHTML={{ __html: item.contentHtml }}
             />
           ) : (
-            <div className="flex flex-col gap-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+            <div className="flex flex-col gap-5 text-sm leading-relaxed text-foreground md:text-base">
               {item.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
           )}
