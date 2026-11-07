@@ -1,7 +1,36 @@
 import type { NewsItem } from "./types"
 
-/** News items migrated from the legacy united-studio.com News archive. */
+/** Site-managed announcements and articles migrated from the legacy News archive. */
 export const newsItems: NewsItem[] = [
+  {
+    id: "kokushimusou-akatsuki-budokan",
+    title: "よさこい國士舞双『暁』、日本武道館で吟詠家・林 煌彩と共演",
+    date: "2026-11-07",
+    category: "yosakoi",
+    slug: "kokushimusou-akatsuki-budokan",
+    href: "/news/kokushimusou-akatsuki-budokan",
+    body: [],
+    excerpt: "11月10日（火）、日本武道館で開催される第56回 全国吟剣詩舞道大会 第2部「吟剣詩舞プラス」にて、よさこい國士舞双の2025年度作品『暁』と吟詠家・林 煌彩の共演が実現します。",
+    featuredImage: {
+      src: "/news-media/kokushimusou-akatsuki.jpg",
+      alt: "よさこい國士舞双『暁』と吟詠家・林 煌彩の共演ビジュアル",
+      width: 1280,
+      height: 720,
+    },
+    contentHtml: `
+      <p>第56回 全国吟剣詩舞道大会 第2部「吟剣詩舞プラス」にて、よさこい國士舞双の2025年度作品『暁』と吟詠家・林 煌彩の共演が、日本武道館で実現します。</p>
+      <ul>
+        <li><strong>日時：</strong>2026年11月10日（火）18:00開演（20:00終了予定）</li>
+        <li><strong>会場：</strong>日本武道館</li>
+        <li><strong>演舞予定時間：</strong>19:45〜</li>
+        <li><strong>当日券：</strong>1,000円（自由席・当日、会場チケット売り場にて販売）</li>
+      </ul>
+      <figure>
+        <img src="/news-media/ginken-shibu-plus-2026.jpg" alt="第56回 全国吟剣詩舞道大会 第2部「吟剣詩舞プラス」の告知チラシ" width="1420" height="1939" loading="lazy" decoding="async" />
+      </figure>
+    `,
+    source: "static",
+  },
   {
     id: "korg-sv-2s-88",
     title: "KORG SV-2S 88導入",
