@@ -1,3 +1,5 @@
+import { authoredNews } from "./authored"
+import generatedRedirects from "./generated/redirects.json"
 import generatedPosts from "./generated/posts.json"
 import { newsItems } from "./mock-data"
 import type { ImportedNewsItem, NewsItem, NewsSource } from "./types"
@@ -141,9 +143,27 @@ const generatedPaths = new Set(generatedNewsItems.map((item) => item.originalPat
 const manualOnlyNews = newsItems.filter(
   (item) => !generatedPaths.has(pathFromOriginalUrl(item.originalUrl)),
 )
-const allNewsItems = [...mergedGeneratedNews, ...manualOnlyNews].filter(
+const legacyNewsItems = [...mergedGeneratedNews, ...manualOnlyNews].filter(
   (item) => !EXCLUDED_NEWS_SLUGS.has(item.slug),
 )
+const reservedSlugs = new Set([
+  ...legacyNewsItems.map((item) => item.slug),
+  ...EXCLUDED_NEWS_SLUGS,
+])
+const redirectedPaths = new Set(generatedRedirects.map((redirect) => redirect.source))
+const authoredNewsItems: NewsItem[] = authoredNews.map((article) => {
+  const { slug } = article
+  const href = `/news/${slug}`
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+    throw new Error(`Invalid Git-authored News slug: ${slug}`)
+  }
+  if (reservedSlugs.has(slug) || redirectedPaths.has(href)) {
+    throw new Error(`Git-authored News URL is already in use: ${href}`)
+  }
+  reservedSlugs.add(slug)
+  return { ...article, id: `authored:${slug}`, href, source: "static" }
+})
+const allNewsItems = [...legacyNewsItems, ...authoredNewsItems]
 
 /** Shared static source for TOP Activity Signal and the News index. */
 const staticNewsSource: NewsSource = {
